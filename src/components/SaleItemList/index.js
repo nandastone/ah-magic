@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import uuid from 'uuid/v4'
 
-import { calculateAHListingCost } from '../../utils/'
+import { calculateAHListingCost } from '../../utils'
 
 // Components
 

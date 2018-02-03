@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
+import classNames from 'classnames'
 
 // Components
 
@@ -59,9 +60,14 @@ class ItemRow extends PureComponent {
 
   render () {
     const lastHistory = _.last(this.props.history)
+    // const lastHistoryType = _.get(_.last(this.props.history), 'type')
 
     return (
-      <div>
+      <div className={classNames(
+        'alert',
+        'alert-secondary'
+        // @todo Display different color if the item isn't listed (sale ended).
+      )}>
         <h4 onClick={this.handleClickHistory}>
           {this.props.name}{' '}
           {this.state.isHistoryExpanded ? '^' : 'v'}
@@ -89,18 +95,20 @@ class ItemRow extends PureComponent {
             />
           : null
         }
-        <ul className='actions'>
-          <li>
-            <button onClick={this.handleClickList}>
-              List
-            </button>
-          </li>
-          <li>
-            <button onClick={this.handleClickSold}>
-              Sold
-            </button>
-          </li>
-        </ul>
+        <div className='btn-group btn-group-sm'>
+          <button
+            className='btn btn-primary'
+            onClick={this.handleClickList}
+          >
+            List
+          </button>
+          <button
+            className='btn btn-primary'
+            onClick={this.handleClickSold}
+          >
+            Sold
+          </button>
+        </div>
       </div>
     )
   }

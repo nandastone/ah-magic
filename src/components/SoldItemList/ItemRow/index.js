@@ -1,5 +1,8 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
+
+import { calculateSalesInfo, formatWowCurrency } from '../../../utils'
 
 // Components
 
@@ -21,17 +24,30 @@ class ItemRow extends PureComponent {
   // Rendering
 
   render () {
+    const { cost, price, profit } = calculateSalesInfo(this.props.history)
+
     return (
-      <div>
-        <h4>{this.props.name}</h4>
-        <button onClick={this.handleClickHistory}>
-          {this.state.isHistoryExpanded ? 'Hide' : 'Show'} History
-        </button>
+      <div className={classNames(
+        'alert',
+        {
+          'alert-success': profit > 0,
+          'alert-danger': profit < 0
+        }
+      )}>
+        <h4 onClick={this.handleClickHistory}>
+          {this.props.name}{' '}
+          {this.state.isHistoryExpanded ? '^' : 'v'}
+        </h4>
         {
           this.state.isHistoryExpanded
           ? <ItemHistory history={this.props.history} />
           : null
         }
+        <p className='mb-0'>
+          Cost: {formatWowCurrency(cost)}<br />
+          Sale: {formatWowCurrency(price)}<br />
+          Profit: {formatWowCurrency(profit)}
+        </p>
       </div>
     )
   }
