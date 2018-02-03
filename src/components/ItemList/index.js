@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import _ from 'lodash'
 import uuid from 'uuid/v4'
 
 import { calculateAHListingCost } from '../../utils/'
@@ -12,7 +11,7 @@ import ItemRow from './ItemRow'
 class ItemList extends PureComponent {
   // Event handling
 
-  handleListItem = (item, price) => {
+  handleListItem = (item, { price, isVendored }) => {
     const newItem = {
       ...item,
       history: [
@@ -21,6 +20,7 @@ class ItemList extends PureComponent {
           key: uuid(),
           type: 'listing',
           price,
+          isVendored,
           cost: calculateAHListingCost(item.vendorValue)
         }
       ]
@@ -44,7 +44,7 @@ class ItemList extends PureComponent {
               key={item.key}
               name={item.name}
               history={item.history}
-              onList={(value) => this.handleListItem(item, value)}
+              onList={(payload) => this.handleListItem(item, payload)}
               onSold={() => this.handleSoldItem(item)}
             />
           )

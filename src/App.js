@@ -3,6 +3,8 @@ import _ from 'lodash'
 
 import './App.css'
 
+// Todo
+
 // Components
 
 import ItemList from './components/ItemList'
