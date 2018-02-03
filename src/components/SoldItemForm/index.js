@@ -2,11 +2,12 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 
-class ListItemForm extends PureComponent {
+class SoldItemForm extends PureComponent {
   constructor (props) {
     super(props)
     this.state = {
-      price: props.defaultPrice || 0
+      price: props.defaultPrice || 0,
+      isVendored: false
     }
   }
 
@@ -31,7 +32,8 @@ class ListItemForm extends PureComponent {
     event.preventDefault()
 
     this.props.onComplete({
-      price: _.toNumber(this.state.price)
+      price: _.toNumber(this.state.price),
+      isVendored: this.state.isVendored
     })
   }
 
@@ -52,6 +54,15 @@ class ListItemForm extends PureComponent {
           placeholder='Price'
           onChange={this.handleInputChange}
         />
+        <label>
+          <input
+            type='checkbox'
+            name='isVendored'
+            checked={this.state.isVendored}
+            onChange={this.handleInputChange}
+          />
+          Was Vendored?
+        </label>
         <button type='submit'>Save</button>
         <button onClick={this.handleClickCancel}>Cancel</button>
       </form>
@@ -59,14 +70,14 @@ class ListItemForm extends PureComponent {
   }
 }
 
-ListItemForm.defaultProps = {
+SoldItemForm.defaultProps = {
   onComplete: () => {},
   onCancel: () => {}
 }
 
-ListItemForm.propTypes = {
+SoldItemForm.propTypes = {
   onComplete: PropTypes.func,
   onCancel: PropTypes.func
 }
 
-export default ListItemForm
+export default SoldItemForm

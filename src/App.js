@@ -7,7 +7,8 @@ import './App.css'
 
 // Components
 
-import ItemList from './components/ItemList'
+import SaleItemList from './components/SaleItemList'
+import SoldItemList from './components/SoldItemList'
 
 class App extends Component {
   state = {
@@ -77,17 +78,20 @@ class App extends Component {
       const lastHistory = _.last(item.history)
       return lastHistory.type !== 'sale'
     })
-    // const soldInventory = this.state.inventory.filter(item => {
-    //   return _.find(item.history, { type: 'sale' })
-    // })
+    const soldInventory = this.state.inventory.filter(item => {
+      const lastHistory = _.last(item.history)
+      return lastHistory.type === 'sale'
+    })
 
     return (
       <div className='App'>
         <h2>Sale</h2>
-        <ItemList items={saleInventory} onChangeItem={this.handleChangeItem} />
+        <hr />
+        <SaleItemList items={saleInventory} onChangeItem={this.handleChangeItem} />
 
-        {/* <h2>Sold</h2>
-        <ItemList items={soldInventory} /> */}
+        <h2>Sold</h2>
+        <hr />
+        <SoldItemList items={soldInventory} />
       </div>
     )
   }

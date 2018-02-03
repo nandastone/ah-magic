@@ -4,19 +4,31 @@ import _ from 'lodash'
 
 // Components
 
-import ItemHistory from '../ItemHistory'
+import ItemHistory from '../../ItemHistory'
 import ListItemForm from '../../ListItemForm'
+import SoldItemForm from '../../SoldItemForm'
 
 class ItemRow extends PureComponent {
   state = {
     isHistoryExpanded: false,
-    isListExpanded: false
+    isListExpanded: false,
+    isSoldExpanded: false
   }
 
   // Event handling
 
   handleClickList = () => {
-    this.setState({ isListExpanded: true })
+    this.setState({
+      isListExpanded: true,
+      isSoldExpanded: false
+    })
+  }
+
+  handleClickSold = () => {
+    this.setState({
+      isSoldExpanded: true,
+      isListExpanded: false
+    })
   }
 
   handleClickHistory = () => {
@@ -34,6 +46,15 @@ class ItemRow extends PureComponent {
     this.setState({ isListExpanded: false })
   }
 
+  handleCompleteSold = (payload) => {
+    this.props.onSold(payload)
+    this.setState({ isSoldExpanded: false })
+  }
+
+  handleCancelSold = () => {
+    this.setState({ isSoldExpanded: false })
+  }
+
   // Rendering
 
   render () {
@@ -41,10 +62,10 @@ class ItemRow extends PureComponent {
 
     return (
       <div>
-        <h3>{this.props.name}</h3>
-        <button onClick={this.handleClickHistory}>
-          {this.state.isHistoryExpanded ? 'Hide' : 'Show'} History
-        </button>
+        <h4 onClick={this.handleClickHistory}>
+          {this.props.name}{' '}
+          {this.state.isHistoryExpanded ? '^' : 'v'}
+        </h4>
         {
           this.state.isHistoryExpanded
           ? <ItemHistory history={this.props.history} />
@@ -59,6 +80,15 @@ class ItemRow extends PureComponent {
             />
           : null
         }
+        {
+          this.state.isSoldExpanded
+          ? <SoldItemForm
+              defaultPrice={_.get(lastHistory, 'price')}
+              onComplete={this.handleCompleteSold}
+              onCancel={this.handleCancelSold}
+            />
+          : null
+        }
         <ul className='actions'>
           <li>
             <button onClick={this.handleClickList}>
@@ -66,7 +96,7 @@ class ItemRow extends PureComponent {
             </button>
           </li>
           <li>
-            <button onClick={(event) => this.props.onSold()}>
+            <button onClick={this.handleClickSold}>
               Sold
             </button>
           </li>
