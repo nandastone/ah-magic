@@ -27,13 +27,7 @@ class ItemRow extends PureComponent {
     const { cost, price, profit } = calculateSalesInfo(this.props.history)
 
     return (
-      <div className={classNames(
-        'alert',
-        {
-          'alert-success': profit > 0,
-          'alert-danger': profit < 0
-        }
-      )}>
+      <div className='alert'>
         <h4 onClick={this.handleClickHistory}>
           {this.props.name}{' '}
           {this.state.isHistoryExpanded ? '^' : 'v'}
@@ -44,9 +38,21 @@ class ItemRow extends PureComponent {
           : null
         }
         <p className='mb-0'>
-          Cost: {formatWowCurrency(cost)}<br />
-          Sale: {formatWowCurrency(price)}<br />
-          Profit: {formatWowCurrency(profit)}
+          <span className='badge badge-secondary mr-1'>
+            Cost: {formatWowCurrency(cost)}
+          </span>
+          <span className='badge badge-secondary mr-1'>
+            Sale: {formatWowCurrency(price)}
+          </span>
+          <span className={classNames(
+            'badge',
+            {
+              'badge-success': profit > 0,
+              'badge-danger': profit < 0
+            }
+          )}>
+            Profit: {formatWowCurrency(profit)}
+          </span>
         </p>
       </div>
     )

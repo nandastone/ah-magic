@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import uuid from 'uuid/v4'
 
-import { calculateAHListingCost } from '../../utils'
+import { calculateAHListingCost, calculateAHTransactionCost } from '../../utils'
 
 // Components
 
@@ -42,7 +42,8 @@ class SaleItemList extends PureComponent {
           {
             ...lastHistory,
             type: 'sale',
-            cost: null
+            // Replace the AH listing fee with the AH transaction fee.
+            cost: calculateAHTransactionCost(price)
           }
         ]
       }
@@ -55,7 +56,9 @@ class SaleItemList extends PureComponent {
           {
             key: uuid(),
             type: 'sale',
-            price
+            price,
+            // If item was vendored, it doesn't have any fees.
+            cost: !isVendored ? calculateAHTransactionCost(price) : 0
           }
         ]
       }

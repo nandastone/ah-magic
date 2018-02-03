@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
 
+import { calculateSalesInfo, formatWowCurrency } from '../../../utils'
+
 // Components
 
 import ItemHistory from '../../ItemHistory'
@@ -61,13 +63,10 @@ class ItemRow extends PureComponent {
   render () {
     const lastHistory = _.last(this.props.history)
     // const lastHistoryType = _.get(_.last(this.props.history), 'type')
+    const { cost, price, profit } = calculateSalesInfo(this.props.history)
 
     return (
-      <div className={classNames(
-        'alert',
-        'alert-secondary'
-        // @todo Display different color if the item isn't listed (sale ended).
-      )}>
+      <div className='alert'>
         <h4 onClick={this.handleClickHistory}>
           {this.props.name}{' '}
           {this.state.isHistoryExpanded ? '^' : 'v'}
@@ -77,6 +76,31 @@ class ItemRow extends PureComponent {
           ? <ItemHistory history={this.props.history} />
           : null
         }
+        <p>
+          <span className='badge badge-secondary mr-1'>
+            Cost: {formatWowCurrency(cost)}
+          </span>
+          {
+            price
+            ? <span className='badge badge-secondary mr-1'>
+                Sale: {formatWowCurrency(price)}
+              </span>
+            : null
+          }
+          {
+            price
+            ? <span className={classNames(
+                'badge',
+                {
+                  'badge-success': profit > 0,
+                  'badge-danger': profit < 0
+                }
+              )}>
+                Profit: {formatWowCurrency(profit)}
+              </span>
+            : null
+          }
+        </p>
         {
           this.state.isListExpanded
           ? <ListItemForm

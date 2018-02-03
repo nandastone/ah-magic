@@ -1,4 +1,10 @@
+import _ from 'lodash'
+
 export const calculateAHListingCost = (value) => {
+  return value * 0.1
+}
+
+export const calculateAHTransactionCost = (value) => {
   return value * 0.1
 }
 
@@ -9,9 +15,8 @@ export const calculateCost = (history) => {
 }
 
 export const calculatePrice = (history) => {
-  return history.reduce((price, item) => {
-    return item.type === 'sale' ? price + (item.price || 0) : 0
-  }, 0)
+  const lastHistory = _.last(history)
+  return (_.get(lastHistory, 'type') !== 'purchase') ? lastHistory.price : 0
 }
 
 export const calculateSalesInfo = (history) => {
