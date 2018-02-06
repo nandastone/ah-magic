@@ -42,7 +42,9 @@ class ItemRow extends PureComponent {
           this.state.isDetailsExpanded
           ? <div>
               <ItemHistory history={this.props.item.history} />
-              <p>Vendor Price: <WowCurrency value={this.props.item.vendorValue} /></p>
+              <p>
+                Vendor Price: <WowCurrency value={this.props.item.vendorValue} />
+              </p>
             </div>
           : null
         }
