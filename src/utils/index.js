@@ -46,10 +46,10 @@ export const convertWowCurrency = (value = 0) => {
     amount = Math.abs(value)
   }
 
-  const copper = amount % 100
+  const copper = Math.floor(amount % 100)
   amount = (amount - copper) / 100
-  const silver = amount % 100
-  const gold = (amount - silver) / 100
+  const silver = Math.floor(amount % 100)
+  const gold = Math.floor((amount - silver) / 100)
 
   return { gold, silver, copper}
 }
