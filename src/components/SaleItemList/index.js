@@ -13,7 +13,7 @@ import ItemRow from './ItemRow'
 class SaleItemList extends PureComponent {
   // Event handling
 
-  handleListItem = (item, { price }) => {
+  handleListItem = (item, { price, duration }) => {
     const updatedItem = {
       ...item,
       history: [
@@ -21,8 +21,10 @@ class SaleItemList extends PureComponent {
         {
           key: uuid(),
           type: 'listing',
+          duration,
           price,
-          cost: calculateAHListingCost(item.vendorValue)
+          cost: calculateAHListingCost(item.vendorValue, duration),
+          createdAt: moment().format()
         }
       ]
     }
@@ -42,7 +44,8 @@ class SaleItemList extends PureComponent {
           ..._.dropRight(item.history),
           {
             ...lastHistory,
-            cost: 0
+            cost: 0,
+            endedAt: moment().format()
           }
         ]
       }
@@ -58,7 +61,8 @@ class SaleItemList extends PureComponent {
           type: 'sale',
           price,
           // If item was vendored, it doesn't have any fees.
-          cost: !isVendored ? calculateAHTransactionCost(price) : 0
+          cost: !isVendored ? calculateAHTransactionCost(price) : 0,
+          createdAt: moment().format()
         }
       ]
     }

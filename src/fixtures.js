@@ -31,7 +31,7 @@ export const inventory = [
         cost: 2500
       }
     ],
-    vendorValue: 50
+    vendorValue: 5000
   },
   {
     key: '2',
@@ -40,24 +40,30 @@ export const inventory = [
       {
         key: '1',
         type: 'purchase',
-        cost: 19550
+        cost: 19550,
+        createdAt: moment().format()
       },
       {
         key: '2',
         type: 'listing',
+        duration: 48,
         bid: 100000,
         price: 129500,
-        cost: 5000
+        cost: 3000,
+        createdAt: moment().format(),
+        endedAt: moment().add(1, 'day').format()
       },
       {
         key: '3',
         type: 'listing',
+        duration: 48,
         bid: 100000,
         price: 119500,
-        cost: 5000
+        cost: 3000,
+        createdAt: moment().format()
       }
     ],
-    vendorValue: 50
+    vendorValue: 5000
   },
   {
     key: '3',
@@ -87,7 +93,7 @@ export const inventory = [
         createdAt: moment().format()
       }
     ],
-    vendorValue: 25
+    vendorValue: 2500
   },
   {
     key: '4',
@@ -104,7 +110,7 @@ export const inventory = [
       { key: '1', type: 'purchase', cost: 145000 },
       { key: '2', type: 'listing', bid: 1600000, price: 200000, cost: 5000 }
     ],
-    vendorValue: 80
+    vendorValue: 8000
   },
   {
     key: '6',
@@ -121,7 +127,7 @@ export const inventory = [
         endedAt: moment().add(1, 'day').format()
       }
     ],
-    vendorValue: 80
+    vendorValue: 8000
   },
   {
     key: '7',
@@ -141,6 +147,6 @@ export const inventory = [
       { key: '1', type: 'purchase', cost: 145000 },
       { key: '2', type: 'sale', price: 50000, cost: 0, isVendored: true }
     ],
-    vendorValue: 75
+    vendorValue: 7500
   }
 ]

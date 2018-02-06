@@ -1,11 +1,25 @@
 import _ from 'lodash'
 
-export const calculateAHListingCost = (value) => {
-  return value * 0.1
+export const calculateAHListingCost = (value, duration = 48) => {
+  let percent = 0
+  switch (duration) {
+    case 12:
+      percent = 0.15
+      break;
+    case 24:
+      percent = 0.3
+      break;
+    case 48:
+      percent = 0.6
+      break;
+    default:
+      throw new Error(`Invalid Auction House duration: ${duration}`)
+  }
+  return value * percent
 }
 
 export const calculateAHTransactionCost = (value) => {
-  return value * 0.1
+  return value * 0.05
 }
 
 export const calculateCost = (history) => {
