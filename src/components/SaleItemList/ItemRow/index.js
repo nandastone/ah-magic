@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
 
-import { calculateSalesInfo } from '../../../utils'
+import { calculateItemFinances } from '../../../utils'
 
 // Components
 
@@ -11,10 +11,11 @@ import ItemHistory from '../../ItemHistory'
 import ItemSalesInfo from '../../ItemSalesInfo'
 import ListItemForm from '../../ListItemForm'
 import SoldItemForm from '../../SoldItemForm'
+import WowCurrency from '../../WowCurrency'
 
 class ItemRow extends PureComponent {
   state = {
-    isHistoryExpanded: false,
+    isDetailsExpanded: false,
     isListExpanded: false,
     isSoldExpanded: false
   }
@@ -41,7 +42,7 @@ class ItemRow extends PureComponent {
 
   handleClickHistory = () => {
     this.setState((prevState, props) => {
-      return { isHistoryExpanded: !prevState.isHistoryExpanded }
+      return { isDetailsExpanded: !prevState.isDetailsExpanded }
     })
   }
 
@@ -66,9 +67,9 @@ class ItemRow extends PureComponent {
   // Rendering
 
   render () {
-    const lastHistory = _.last(this.props.history)
+    const lastHistory = _.last(this.props.item.history)
     const isListed = lastHistory && lastHistory.type === 'listing' && !lastHistory.endedAt
-    const { cost, price, profit } = calculateSalesInfo(this.props.history)
+    const { cost, price, profit } = calculateItemFinances(this.props.item.history)
 
     return (
       <div className={classNames(
@@ -78,16 +79,19 @@ class ItemRow extends PureComponent {
         }
       )}>
         <h4 onClick={this.handleClickHistory}>
-          {this.props.name}{' '}
+          {this.props.item.name}{' '}
           {
-            this.state.isHistoryExpanded
+            this.state.isDetailsExpanded
             ? <i className='fas fa-caret-up'></i>
             : <i className='fas fa-caret-down'></i>
           }
         </h4>
         {
-          this.state.isHistoryExpanded
-          ? <ItemHistory history={this.props.history} />
+          this.state.isDetailsExpanded
+          ? <div>
+              <ItemHistory history={this.props.item.history} />
+              <p>Vendor Price: <WowCurrency value={this.props.item.vendorValue} /></p>
+            </div>
           : null
         }
         <ItemSalesInfo cost={cost} price={price} profit={profit} />
@@ -145,9 +149,7 @@ ItemRow.defaultProps = {
 }
 
 ItemRow.propTypes = {
-  name: PropTypes.string.isRequired,
-  // Refer to `<ItemHistory />` props for shape.
-  history: PropTypes.array.isRequired,
+  item: PropTypes.object.isRequired,
   onList: PropTypes.func,
   onSold: PropTypes.func,
   onEnd: PropTypes.func

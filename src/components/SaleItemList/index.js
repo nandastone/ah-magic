@@ -96,8 +96,7 @@ class SaleItemList extends PureComponent {
           return (
             <ItemRow
               key={item.key}
-              name={item.name}
-              history={item.history}
+              item={item}
               onList={(payload) => this.handleListItem(item, payload)}
               onSold={(payload) => this.handleSoldItem(item, payload)}
               onEnd={() => this.handleEndItem(item)}

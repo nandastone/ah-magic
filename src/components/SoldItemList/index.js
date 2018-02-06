@@ -13,8 +13,7 @@ class SoldItemList extends PureComponent {
           return (
             <ItemRow
               key={item.key}
-              name={item.name}
-              history={item.history}
+              item={item}
             />
           )
         })}
