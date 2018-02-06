@@ -33,37 +33,36 @@ class SaleItemList extends PureComponent {
     const lastHistory = _.last(item.history)
     let updatedItem = {}
 
-    // If the last history item was a listing, and we didn't sell to a vendor, update that last history item to a sale.
+    // If the last history item was a listing, and we didn't sell to a vendor, update that last history item cost to
+    // zero (no listing fee).
     if (lastHistory && lastHistory.type === 'listing' && !isVendored) {
       updatedItem = {
         ...item,
-        // Replace last history item with a "sale"
         history: [
           ..._.dropRight(item.history),
           {
             ...lastHistory,
-            type: 'sale',
-            // Replace the AH listing fee with the AH transaction fee.
-            cost: calculateAHTransactionCost(price)
-          }
-        ]
-      }
-    } else {
-      updatedItem = {
-        ...item,
-        // Add a new "sale" item
-        history: [
-          ...item.history,
-          {
-            key: uuid(),
-            type: 'sale',
-            price,
-            // If item was vendored, it doesn't have any fees.
-            cost: !isVendored ? calculateAHTransactionCost(price) : 0
+            cost: 0
           }
         ]
       }
     }
+
+    // Add a new "sale" item
+    updatedItem = {
+      ...updatedItem,
+      history: [
+        ...updatedItem.history,
+        {
+          key: uuid(),
+          type: 'sale',
+          price,
+          // If item was vendored, it doesn't have any fees.
+          cost: !isVendored ? calculateAHTransactionCost(price) : 0
+        }
+      ]
+    }
+
     this.props.onChangeItem(updatedItem)
   }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 
 // Components
 
@@ -20,9 +21,24 @@ const ItemHistory = ({ history }) => {
       <tbody>
         {history.map(item => (
           <tr key={item.key}>
-            <td>{item.type}</td>
-            <td><WowCurrency value={item.cost} /></td>
-            <td><WowCurrency value={item.price} /></td>
+            <td>
+              {_.capitalize(item.type)}
+              {item.isVendored ? ' (Vendored)' : ''}
+            </td>
+            <td>
+              <WowCurrency value={item.cost} />
+            </td>
+            <td>
+              {
+                item.bid
+                ? <div>
+                    Bid:{' '}
+                    <WowCurrency value={item.bid} />
+                  </div>
+                : null
+              }
+              Price: <WowCurrency value={item.price} />
+            </td>
           </tr>
         ))}
       </tbody>
