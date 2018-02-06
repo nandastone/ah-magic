@@ -23,7 +23,7 @@ class SaleItemList extends PureComponent {
           type: 'listing',
           duration,
           price,
-          cost: calculateAHListingCost(item.vendorValue, duration),
+          cost: calculateAHTransactionCost(price),
           createdAt: moment().format()
         }
       ]
@@ -79,6 +79,7 @@ class SaleItemList extends PureComponent {
         ..._.dropRight(item.history),
         {
           ...lastHistory,
+          cost: calculateAHListingCost(item.vendorValue, lastHistory.duration),
           endedAt: moment().format()
         }
       ]

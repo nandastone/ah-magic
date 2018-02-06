@@ -33,7 +33,7 @@ export const calculatePrice = (history) => {
   return (_.get(lastHistory, 'type') !== 'purchase') ? lastHistory.price : 0
 }
 
-export const calculateSalesInfo = (history) => {
+export const calculateItemFinances = (history) => {
   const cost = calculateCost(history)
   const price = calculatePrice(history)
   return { cost, price, profit: price - cost }
