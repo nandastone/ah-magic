@@ -5,7 +5,7 @@ import { convertWowCurrency } from '../../utils'
 
 // Assets
 
-import './style.css'
+import './WowCurrency.css'
 import goldIcon from './gold.png'
 import silverIcon from './silver.png'
 import copperIcon from './copper.png'

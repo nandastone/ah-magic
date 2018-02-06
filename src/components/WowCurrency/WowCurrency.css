@@ -1,12 +1,11 @@
-.c-WowCurrency { display: inline-flex; }
+.c-WowCurrency { display: inline-block; }
 
 /* Elements */
 
 .c-WowCurrency__coin {
 
   align-items: center;
-  display: flex;
-
+  display: inline-flex;
 }
   .c-WowCurrency__coin img {
 

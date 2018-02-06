@@ -6,16 +6,20 @@ import classNames from 'classnames'
 
 import WowCurrency from '../WowCurrency'
 
+// Assets
+
+import './ItemSalesInfo.css'
+
 const ItemSalesInfo = ({ cost, price, profit, isSold }) => {
   return (
-    <p>
-      <span className='badge badge-light mr-1'>
+    <div className='c-ItemSalesInfo'>
+      <span className='c-ItemSalesInfo__amount badge badge-light mr-1'>
         Cost:{' '}
         <WowCurrency value={cost} />
       </span>
       {
         price
-        ? <span className='badge badge-light mr-1'>
+        ? <span className='c-ItemSalesInfo__amount badge badge-light mr-1'>
             {isSold ? 'Sold' : 'Sale'}:{' '}
             <WowCurrency value={price} />
           </span>
@@ -24,6 +28,7 @@ const ItemSalesInfo = ({ cost, price, profit, isSold }) => {
       {
         price
         ? <span className={classNames(
+            'c-ItemSalesInfo__amount',
             'badge',
             {
               'badge-success': profit > 0,
@@ -35,7 +40,7 @@ const ItemSalesInfo = ({ cost, price, profit, isSold }) => {
           </span>
         : null
       }
-    </p>
+    </div>
   )
 }
 
