@@ -2,18 +2,22 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-import { formatWowCurrency } from '../../utils'
+// Components
+
+import WowCurrency from '../WowCurrency'
 
 const ItemSalesInfo = ({ cost, price, profit, isSold }) => {
   return (
     <p>
-      <span className='badge badge-secondary mr-1'>
-        Cost: {formatWowCurrency(cost)}
+      <span className='badge badge-light mr-1'>
+        Cost:{' '}
+        <WowCurrency value={cost} />
       </span>
       {
         price
-        ? <span className='badge badge-secondary mr-1'>
-            {isSold ? 'Sold' : 'Sale'}: {formatWowCurrency(price)}
+        ? <span className='badge badge-light mr-1'>
+            {isSold ? 'Sold' : 'Sale'}:{' '}
+            <WowCurrency value={price} />
           </span>
         : null
       }
@@ -26,7 +30,8 @@ const ItemSalesInfo = ({ cost, price, profit, isSold }) => {
               'badge-danger': profit < 0
             }
           )}>
-            {isSold ? (profit > 0 ? 'Profit' : 'Loss') : 'Forecast'}: {formatWowCurrency(profit)}
+            {isSold ? (profit > 0 ? 'Profit' : 'Loss') : 'Forecast'}:{' '}
+            <WowCurrency value={profit} />
           </span>
         : null
       }

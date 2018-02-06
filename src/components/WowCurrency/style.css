@@ -1,0 +1,17 @@
+.c-WowCurrency { display: inline-flex; }
+
+/* Elements */
+
+.c-WowCurrency__coin {
+
+  align-items: center;
+  display: flex;
+
+}
+  .c-WowCurrency__coin img {
+
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+
+/* Modifiers */

@@ -25,12 +25,10 @@ export const calculateSalesInfo = (history) => {
   return { cost, price, profit: price - cost }
 }
 
-export const formatWowCurrency = (value = 0) => {
-  let prefix = ''
+export const convertWowCurrency = (value = 0) => {
   let amount = value
 
   if (value < 0) {
-    prefix = '-'
     amount = Math.abs(value)
   }
 
@@ -39,5 +37,5 @@ export const formatWowCurrency = (value = 0) => {
   const silver = amount % 100
   const gold = (amount - silver) / 100
 
-  return `${prefix}${gold}g${silver}s${copper}c`
+  return { gold, silver, copper}
 }

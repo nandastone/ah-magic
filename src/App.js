@@ -3,16 +3,14 @@ import _ from 'lodash'
 
 import { inventory } from './fixtures'
 
-import './App.css'
-
-// Todo
-
-// @todo Calculate and add cost to listing and sale history items when creating them.
-
 // Components
 
 import SaleItemList from './components/SaleItemList'
 import SoldItemList from './components/SoldItemList'
+
+// Assets
+
+import './App.css'
 
 class App extends Component {
   state = {

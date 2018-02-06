@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { formatWowCurrency } from '../../utils'
+// Components
+
+import WowCurrency from '../WowCurrency'
 
 const ItemHistory = ({ history }) => {
   if (!history.length) return null
@@ -19,8 +21,8 @@ const ItemHistory = ({ history }) => {
         {history.map(item => (
           <tr key={item.key}>
             <td>{item.type}</td>
-            <td>{formatWowCurrency(item.cost)}</td>
-            <td>{formatWowCurrency(item.price)}</td>
+            <td><WowCurrency value={item.cost} /></td>
+            <td><WowCurrency value={item.price} /></td>
           </tr>
         ))}
       </tbody>
