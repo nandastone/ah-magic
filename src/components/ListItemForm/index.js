@@ -48,7 +48,7 @@ class ListItemForm extends PureComponent {
     return (
       <form onSubmit={this.handleSubmit}>
         <div className='form-group'>
-          <label for='price'>Listing Price</label>
+          <label htmlFor='price'>Listing Price</label>
           <input
             type='number'
             id='price'
@@ -62,7 +62,7 @@ class ListItemForm extends PureComponent {
           />
         </div>
         <div className='form-group'>
-          <label for='duration'>Listing Duration</label>
+          <label htmlFor='duration'>Listing Duration</label>
           <select
             id='duration'
             name='duration'
@@ -73,7 +73,7 @@ class ListItemForm extends PureComponent {
           >
             <option value='12'>12 Hours</option>
             <option value='24'>24 Hours</option>
-            <option selected value='48'>48 Hours</option>
+            <option value='48'>48 Hours</option>
           </select>
         </div>
 

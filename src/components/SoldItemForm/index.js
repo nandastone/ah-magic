@@ -52,7 +52,7 @@ class SoldItemForm extends PureComponent {
     return (
       <form onSubmit={this.handleSubmit}>
         <div className='form-group'>
-          <label for='price'>Sold Price</label>
+          <label htmlFor='price'>Sold Price</label>
           <input
             type='number'
             id='price'
@@ -74,7 +74,7 @@ class SoldItemForm extends PureComponent {
             className='form-check-input'
             onChange={this.handleInputChange}
           />
-          <label for='isVendored' className='form-check-label'>
+          <label htmlFor='isVendored' className='form-check-label'>
             Sold to vendor?
           </label>
         </div>

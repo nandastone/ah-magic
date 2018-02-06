@@ -39,7 +39,7 @@ class CreateItemForm extends PureComponent {
     return (
       <form onSubmit={this.handleSubmit}>
         <div className='form-group'>
-          <label for='name'>Name</label>
+          <label htmlFor='name'>Name</label>
           <input
             type='text'
             id='name'
@@ -53,7 +53,7 @@ class CreateItemForm extends PureComponent {
         </div>
         <div className='form-row'>
           <div className='form-group col'>
-            <label for='cost'>Cost</label>
+            <label htmlFor='cost'>Cost</label>
             <input
               type='number'
               id='cost'
@@ -67,7 +67,7 @@ class CreateItemForm extends PureComponent {
             />
           </div>
           <div className='form-group col'>
-            <label for='cost'>Vendor Price</label>
+            <label htmlFor='cost'>Vendor Price</label>
             <input
               type='number'
               id='vendorValue'
