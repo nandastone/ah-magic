@@ -121,6 +121,7 @@ class ItemRow extends PureComponent {
         {
           this.state.isListExpanded
           ? <ListItemForm
+              defaultBid={_.get(lastHistory, 'bid')}
               defaultPrice={_.get(lastHistory, 'price')}
               onComplete={this.handleCompleteList}
               onCancel={this.handleCancelList}
@@ -130,6 +131,7 @@ class ItemRow extends PureComponent {
         {
           this.state.isSoldExpanded
           ? <SoldItemForm
+              defaultBid={_.get(lastHistory, 'bid')}
               defaultPrice={_.get(lastHistory, 'price')}
               defaultVendored={!isListed}
               onComplete={this.handleCompleteSold}

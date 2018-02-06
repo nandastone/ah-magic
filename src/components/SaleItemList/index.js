@@ -13,7 +13,7 @@ import ItemRow from './ItemRow'
 class SaleItemList extends PureComponent {
   // Event handling
 
-  handleListItem = (item, { price, duration }) => {
+  handleListItem = (item, { bid, price, duration }) => {
     const updatedItem = {
       ...item,
       history: [
@@ -22,6 +22,7 @@ class SaleItemList extends PureComponent {
           key: uuid(),
           type: 'listing',
           duration,
+          bid,
           price,
           cost: calculateAHTransactionCost(price),
           createdAt: moment().format()

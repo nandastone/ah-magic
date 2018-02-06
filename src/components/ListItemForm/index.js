@@ -6,7 +6,8 @@ class ListItemForm extends PureComponent {
   constructor (props) {
     super(props)
     this.state = {
-      price: props.defaultPrice || 0,
+      bid: props.defaultBid || '',
+      price: props.defaultPrice || '',
       duration: 24
     }
   }
@@ -14,6 +15,10 @@ class ListItemForm extends PureComponent {
   // Lifecycle
 
   componentWillReceiveProps (nextProps) {
+    if (this.props.defaultBid !== nextProps.defaultBid) {
+      this.setState({ price: nextProps.defaultBid })
+    }
+
     if (this.props.defaultPrice !== nextProps.defaultPrice) {
       this.setState({ price: nextProps.defaultPrice })
     }
@@ -32,6 +37,7 @@ class ListItemForm extends PureComponent {
     event.preventDefault()
 
     this.props.onComplete({
+      bid: _.toNumber(this.state.bid),
       price: _.toNumber(this.state.price),
       duration: _.toNumber(this.state.duration)
     })
@@ -47,19 +53,35 @@ class ListItemForm extends PureComponent {
   render () {
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className='form-group'>
-          <label htmlFor='price'>Listing Price</label>
-          <input
-            type='number'
-            id='price'
-            name='price'
-            value={this.state.price}
-            placeholder='Listing Price'
-            min='0'
-            required
-            className='form-control'
-            onChange={this.handleInputChange}
-          />
+        <div className='form-row'>
+          <div className='form-group col'>
+            <label htmlFor='price'>Bid</label>
+            <input
+              type='number'
+              id='bid'
+              name='bid'
+              value={this.state.bid}
+              placeholder='Bid'
+              min='0'
+              required
+              className='form-control'
+              onChange={this.handleInputChange}
+            />
+          </div>
+          <div className='form-group col'>
+            <label htmlFor='price'>Buyout</label>
+            <input
+              type='number'
+              id='price'
+              name='price'
+              value={this.state.price}
+              placeholder='Buyout'
+              min='0'
+              required
+              className='form-control'
+              onChange={this.handleInputChange}
+            />
+          </div>
         </div>
         <div className='form-group'>
           <label htmlFor='duration'>Listing Duration</label>
@@ -90,6 +112,8 @@ ListItemForm.defaultProps = {
 }
 
 ListItemForm.propTypes = {
+  defaultBid: PropTypes.number,
+  defaultPrice: PropTypes.number,
   onComplete: PropTypes.func,
   onCancel: PropTypes.func
 }

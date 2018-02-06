@@ -6,7 +6,7 @@ class SoldItemForm extends PureComponent {
   constructor (props) {
     super(props)
     this.state = {
-      price: props.defaultPrice || 0,
+      price: props.defaultPrice || '',
       isVendored: props.defaultVendored || false
     }
   }
@@ -46,6 +46,16 @@ class SoldItemForm extends PureComponent {
     this.props.onCancel()
   }
 
+  handleClickBid = (event) => {
+    event.preventDefault()
+    this.setState({ price: this.props.defaultBid })
+  }
+
+  handleClickBuyout = (event) => {
+    event.preventDefault()
+    this.setState({ price: this.props.defaultPrice })
+  }
+
   // Rendering
 
   render () {
@@ -64,6 +74,10 @@ class SoldItemForm extends PureComponent {
             className='form-control'
             onChange={this.handleInputChange}
           />
+          <nav className='nav'>
+            <a className='nav-link' href='' onClick={this.handleClickBid}>Bid</a>
+            <a className='nav-link' href='' onClick={this.handleClickBuyout}>Buyout</a>
+          </nav>
         </div>
         <div className='form-group'>
           <input
@@ -92,6 +106,7 @@ SoldItemForm.defaultProps = {
 }
 
 SoldItemForm.propTypes = {
+  defaultBid: PropTypes.number,
   defaultPrice: PropTypes.number,
   defaultVendored: PropTypes.bool,
   onComplete: PropTypes.func,
