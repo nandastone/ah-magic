@@ -7,7 +7,7 @@ class SoldItemForm extends PureComponent {
     super(props)
     this.state = {
       price: props.defaultPrice || '',
-      isVendored: props.defaultVendored || false
+      saleType: props.defaultSaleType || 'ah'
     }
   }
 
@@ -18,8 +18,15 @@ class SoldItemForm extends PureComponent {
       this.setState({ price: nextProps.defaultPrice })
     }
 
-    if (this.props.defaultVendored !== nextProps.defaultVendored) {
-      this.setState({ isVendored: nextProps.defaultVendored })
+    if (this.props.defaultSaleType !== nextProps.defaultSaleType) {
+      this.setState({ saleType: nextProps.defaultSaleType })
+    }
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    // If the user selects the "vendor" sale type, update the price to the vendor value.
+    if (prevState.saleType !== this.state.saleType && this.state.saleType === 'vendor') {
+      this.setState({ price: this.props.defaultVendorValue })
     }
   }
 
@@ -37,7 +44,7 @@ class SoldItemForm extends PureComponent {
 
     this.props.onComplete({
       price: _.toNumber(this.state.price),
-      isVendored: this.state.isVendored
+      saleType: this.state.saleType
     })
   }
 
@@ -71,26 +78,75 @@ class SoldItemForm extends PureComponent {
             placeholder='Sold Price'
             min='0'
             required
+            disabled={this.state.saleType === 'vendor'}
             className='form-control'
             onChange={this.handleInputChange}
           />
           <nav className='nav'>
-            <a className='nav-link' href='' onClick={this.handleClickBid}>Bid</a>
-            <a className='nav-link' href='' onClick={this.handleClickBuyout}>Buyout</a>
+            {
+              this.props.defaultBid
+              ? <a
+                  href=''
+                  className='nav-link'
+                  onClick={this.handleClickBid}
+                >
+                  Bid
+                </a>
+              : null
+            }
+            {
+              this.props.defaultBuyout
+              ? <a
+                  href=''
+                  className='nav-link'
+                  onClick={this.handleClickBuyout}
+                >
+                  Buyout
+                </a>
+              : null
+            }
           </nav>
         </div>
         <div className='form-group'>
-          <input
-            id='isVendored'
-            name='isVendored'
-            type='checkbox'
-            checked={this.state.isVendored}
-            className='form-check-input'
-            onChange={this.handleInputChange}
-          />
-          <label htmlFor='isVendored' className='form-check-label'>
-            Sold to vendor?
-          </label>
+          <label htmlFor='saleTypeAhOption'>Sale Type</label>
+          <div>
+            <div className='form-check form-check-inline'>
+              <input
+                type='radio'
+                id='saleTypeAhOption'
+                name='saleType'
+                value='ah'
+                checked={this.state.saleType === 'ah'}
+                onChange={this.handleInputChange}
+                className='form-check-input'
+              />
+              <label className='form-check-label' htmlFor='saleTypeAhOption'>Auction House</label>
+            </div>
+            <div className='form-check form-check-inline'>
+              <input
+                type='radio'
+                id='saleTypePrivateOption'
+                name='saleType'
+                value='private'
+                checked={this.state.saleType === 'private'}
+                onChange={this.handleInputChange}
+                className='form-check-input'
+              />
+              <label className='form-check-label' htmlFor='saleTypePrivateOption'>Private</label>
+            </div>
+            <div className='form-check form-check-inline'>
+              <input
+                type='radio'
+                id='saleTypeVendorOption'
+                name='saleType'
+                value='vendor'
+                checked={this.state.saleType === 'vendor'}
+                onChange={this.handleInputChange}
+                className='form-check-input'
+              />
+              <label className='form-check-label' htmlFor='saleTypeVendorOption'>Vendor</label>
+            </div>
+          </div>
         </div>
 
         <button type='submit' className='btn btn-primary'>Save</button>
@@ -108,7 +164,8 @@ SoldItemForm.defaultProps = {
 SoldItemForm.propTypes = {
   defaultBid: PropTypes.number,
   defaultPrice: PropTypes.number,
-  defaultVendored: PropTypes.bool,
+  defaultVendorValue: PropTypes.number,
+  defaultSaleType: PropTypes.oneOf(['vendor', 'private', 'ah']),
   onComplete: PropTypes.func,
   onCancel: PropTypes.func
 }

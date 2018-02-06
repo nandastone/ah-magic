@@ -5,8 +5,8 @@ import _ from 'lodash'
 class CreateItemForm extends PureComponent {
   state = {
     name: '',
-    cost: 0,
-    vendorValue: 0
+    cost: '',
+    vendorValue: ''
   }
 
   // Event handling
@@ -61,7 +61,6 @@ class CreateItemForm extends PureComponent {
               value={this.state.cost}
               placeholder='Cost Price'
               min='0'
-              required
               className='form-control'
               onChange={this.handleInputChange}
             />

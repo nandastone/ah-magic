@@ -37,6 +37,7 @@ class ItemRow extends PureComponent {
             : <i className='fas fa-caret-down'></i>
           }
         </h4>
+        <ItemSalesInfo cost={cost} price={price} profit={profit} isSold />
         {
           this.state.isDetailsExpanded
           ? <div>
@@ -45,7 +46,6 @@ class ItemRow extends PureComponent {
             </div>
           : null
         }
-        <ItemSalesInfo cost={cost} price={price} profit={profit} isSold />
       </div>
     )
   }

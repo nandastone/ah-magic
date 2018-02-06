@@ -86,6 +86,7 @@ class ItemRow extends PureComponent {
             : <i className='fas fa-caret-down'></i>
           }
         </h4>
+        <ItemSalesInfo cost={cost} price={price} profit={profit} />
         {
           this.state.isDetailsExpanded
           ? <div>
@@ -94,7 +95,6 @@ class ItemRow extends PureComponent {
             </div>
           : null
         }
-        <ItemSalesInfo cost={cost} price={price} profit={profit} />
         <div className='btn-group btn-group-sm'>
           {
             !isListed
@@ -133,7 +133,8 @@ class ItemRow extends PureComponent {
           ? <SoldItemForm
               defaultBid={_.get(lastHistory, 'bid')}
               defaultPrice={_.get(lastHistory, 'price')}
-              defaultVendored={!isListed}
+              defaultVendorValue={this.props.item.vendorValue}
+              defaultSaleType={!isListed ? 'private' : 'ah'}
               onComplete={this.handleCompleteSold}
               onCancel={this.handleCancelSold}
             />
