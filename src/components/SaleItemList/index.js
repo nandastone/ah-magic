@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import uuid from 'uuid/v4'
+import moment from 'moment'
 
 import { calculateAHListingCost, calculateAHTransactionCost } from '../../utils'
 
@@ -66,6 +67,22 @@ class SaleItemList extends PureComponent {
     this.props.onChangeItem(updatedItem)
   }
 
+  handleEndItem = (item) => {
+    const lastHistory = _.last(item.history)
+    const updatedItem = {
+      ...item,
+      // Update last history item (listing) with an ended date
+      history: [
+        ..._.dropRight(item.history),
+        {
+          ...lastHistory,
+          endedAt: moment().format()
+        }
+      ]
+    }
+    this.props.onChangeItem(updatedItem)
+  }
+
   // Rendering
 
   render () {
@@ -80,6 +97,7 @@ class SaleItemList extends PureComponent {
               history={item.history}
               onList={(payload) => this.handleListItem(item, payload)}
               onSold={(payload) => this.handleSoldItem(item, payload)}
+              onEnd={() => this.handleEndItem(item)}
             />
           )
         })}

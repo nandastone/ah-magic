@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
 
-import { calculateSalesInfo, formatWowCurrency } from '../../../utils'
+import { calculateSalesInfo } from '../../../utils'
 
 // Components
 
 import ItemHistory from '../../ItemHistory'
+import ItemSalesInfo from '../../ItemSalesInfo'
 
 class ItemRow extends PureComponent {
   state = {
@@ -37,23 +37,7 @@ class ItemRow extends PureComponent {
           ? <ItemHistory history={this.props.history} />
           : null
         }
-        <p className='mb-0'>
-          <span className='badge badge-secondary mr-1'>
-            Cost: {formatWowCurrency(cost)}
-          </span>
-          <span className='badge badge-secondary mr-1'>
-            Sale: {formatWowCurrency(price)}
-          </span>
-          <span className={classNames(
-            'badge',
-            {
-              'badge-success': profit > 0,
-              'badge-danger': profit < 0
-            }
-          )}>
-            Profit: {formatWowCurrency(profit)}
-          </span>
-        </p>
+        <ItemSalesInfo cost={cost} price={price} profit={profit} isSold />
       </div>
     )
   }

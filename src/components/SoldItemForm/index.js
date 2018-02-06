@@ -7,7 +7,7 @@ class SoldItemForm extends PureComponent {
     super(props)
     this.state = {
       price: props.defaultPrice || 0,
-      isVendored: false
+      isVendored: props.defaultVendored || false
     }
   }
 
@@ -16,6 +16,10 @@ class SoldItemForm extends PureComponent {
   componentWillReceiveProps (nextProps) {
     if (this.props.defaultPrice !== nextProps.defaultPrice) {
       this.setState({ price: nextProps.defaultPrice })
+    }
+
+    if (this.props.defaultVendored !== nextProps.defaultVendored) {
+      this.setState({ isVendored: nextProps.defaultVendored })
     }
   }
 
@@ -76,6 +80,8 @@ SoldItemForm.defaultProps = {
 }
 
 SoldItemForm.propTypes = {
+  defaultPrice: PropTypes.number,
+  defaultVendored: PropTypes.bool,
   onComplete: PropTypes.func,
   onCancel: PropTypes.func
 }

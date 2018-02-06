@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
 
-import { calculateSalesInfo, formatWowCurrency } from '../../../utils'
+import { calculateSalesInfo } from '../../../utils'
 
 // Components
 
 import ItemHistory from '../../ItemHistory'
+import ItemSalesInfo from '../../ItemSalesInfo'
 import ListItemForm from '../../ListItemForm'
 import SoldItemForm from '../../SoldItemForm'
 
@@ -25,6 +26,10 @@ class ItemRow extends PureComponent {
       isListExpanded: true,
       isSoldExpanded: false
     })
+  }
+
+  handleClickEnd = () => {
+    this.props.onEnd()
   }
 
   handleClickSold = () => {
@@ -62,11 +67,16 @@ class ItemRow extends PureComponent {
 
   render () {
     const lastHistory = _.last(this.props.history)
-    // const lastHistoryType = _.get(_.last(this.props.history), 'type')
+    const isListed = lastHistory && lastHistory.type === 'listing' && !lastHistory.endedAt
     const { cost, price, profit } = calculateSalesInfo(this.props.history)
 
     return (
-      <div className='alert'>
+      <div className={classNames(
+        'alert',
+        {
+          'alert-info': isListed
+        }
+      )}>
         <h4 onClick={this.handleClickHistory}>
           {this.props.name}{' '}
           {this.state.isHistoryExpanded ? '^' : 'v'}
@@ -76,31 +86,7 @@ class ItemRow extends PureComponent {
           ? <ItemHistory history={this.props.history} />
           : null
         }
-        <p>
-          <span className='badge badge-secondary mr-1'>
-            Cost: {formatWowCurrency(cost)}
-          </span>
-          {
-            price
-            ? <span className='badge badge-secondary mr-1'>
-                Sale: {formatWowCurrency(price)}
-              </span>
-            : null
-          }
-          {
-            price
-            ? <span className={classNames(
-                'badge',
-                {
-                  'badge-success': profit > 0,
-                  'badge-danger': profit < 0
-                }
-              )}>
-                Profit: {formatWowCurrency(profit)}
-              </span>
-            : null
-          }
-        </p>
+        <ItemSalesInfo cost={cost} price={price} profit={profit} />
         {
           this.state.isListExpanded
           ? <ListItemForm
@@ -114,20 +100,30 @@ class ItemRow extends PureComponent {
           this.state.isSoldExpanded
           ? <SoldItemForm
               defaultPrice={_.get(lastHistory, 'price')}
+              defaultVendored={!isListed}
               onComplete={this.handleCompleteSold}
               onCancel={this.handleCancelSold}
             />
           : null
         }
         <div className='btn-group btn-group-sm'>
+          {
+            !isListed
+            ? <button
+                className='btn btn-primary'
+                onClick={this.handleClickList}
+              >
+                List
+              </button>
+            : <button
+                className='btn btn-secondary'
+                onClick={this.handleClickEnd}
+              >
+                End
+              </button>
+          }
           <button
-            className='btn btn-primary'
-            onClick={this.handleClickList}
-          >
-            List
-          </button>
-          <button
-            className='btn btn-primary'
+            className='btn btn-secondary'
             onClick={this.handleClickSold}
           >
             Sold
@@ -140,7 +136,8 @@ class ItemRow extends PureComponent {
 
 ItemRow.defaultProps = {
   onList: () => {},
-  onSold: () => {}
+  onSold: () => {},
+  onEnd: () => {},
 }
 
 ItemRow.propTypes = {
@@ -148,7 +145,8 @@ ItemRow.propTypes = {
   // Refer to `<ItemHistory />` props for shape.
   history: PropTypes.array.isRequired,
   onList: PropTypes.func,
-  onSold: PropTypes.func
+  onSold: PropTypes.func,
+  onEnd: PropTypes.func
 }
 
 export default ItemRow
