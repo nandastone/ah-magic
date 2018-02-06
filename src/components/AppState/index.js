@@ -52,6 +52,12 @@ class AppState extends PureComponent {
     this.setState({ inventory: newInventory })
   }
 
+  handleDeleteItem = (item) => {
+    const newInventory = this.state.inventory.filter(existingItem => !_.isEqual(item, existingItem))
+
+    this.setState({ inventory: newInventory })
+  }
+
   handleResetItems = () => {
     this.setState({ inventory: [] })
   }
@@ -75,6 +81,7 @@ class AppState extends PureComponent {
           soldInventory={soldInventory}
           onCreateItem={this.handleCreateItem}
           onChangeItem={this.handleChangeItem}
+          onDeleteItem={this.handleDeleteItem}
           onResetItems={this.handleResetItems}
         />
       </div>

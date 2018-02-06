@@ -40,6 +40,12 @@ class ItemRow extends PureComponent {
     })
   }
 
+  handleClickDelete = () => {
+    if (window.confirm('Are you sure want to delete this item?')) {
+      this.props.onDelete()
+    }
+  }
+
   handleClickHistory = () => {
     this.setState((prevState, props) => {
       return { isDetailsExpanded: !prevState.isDetailsExpanded }
@@ -99,7 +105,7 @@ class ItemRow extends PureComponent {
           {
             !isListed
             ? <button
-                className='btn btn-primary'
+                className='btn btn-secondary'
                 onClick={this.handleClickList}
               >
                 List
@@ -112,10 +118,16 @@ class ItemRow extends PureComponent {
               </button>
           }
           <button
-            className='btn btn-secondary'
+            className='btn btn-primary'
             onClick={this.handleClickSold}
           >
             Sold
+          </button>
+          <button
+            className='btn btn-danger'
+            onClick={this.handleClickDelete}
+          >
+            Delete
           </button>
         </div>
         {
@@ -149,13 +161,15 @@ ItemRow.defaultProps = {
   onList: () => {},
   onSold: () => {},
   onEnd: () => {},
+  onDelete: () => {}
 }
 
 ItemRow.propTypes = {
   item: PropTypes.object.isRequired,
   onList: PropTypes.func,
   onSold: PropTypes.func,
-  onEnd: PropTypes.func
+  onEnd: PropTypes.func,
+  onDelete: PropTypes.func
 }
 
 export default ItemRow

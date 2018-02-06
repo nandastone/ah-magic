@@ -89,6 +89,10 @@ class SaleItemList extends PureComponent {
     this.props.onChangeItem(updatedItem)
   }
 
+  handleDeleteItem = (item) => {
+    this.props.onDeleteItem(item)
+  }
+
   // Rendering
 
   render () {
@@ -103,6 +107,7 @@ class SaleItemList extends PureComponent {
               onList={(payload) => this.handleListItem(item, payload)}
               onSold={(payload) => this.handleSoldItem(item, payload)}
               onEnd={() => this.handleEndItem(item)}
+              onDelete={() => this.handleDeleteItem(item)}
             />
           )
         })}
@@ -112,12 +117,14 @@ class SaleItemList extends PureComponent {
 }
 
 SaleItemList.defaultProps = {
-  onChangeItem: () => {}
+  onChangeItem: () => {},
+  onDeleteItem: () => {}
 }
 
 SaleItemList.propTypes = {
   items: PropTypes.array,
-  onChangeItem: PropTypes.func
+  onChangeItem: PropTypes.func,
+  onDeleteItem: PropTypes.func,
 }
 
 export default SaleItemList

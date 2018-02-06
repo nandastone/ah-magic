@@ -7,7 +7,14 @@ import AppHeader from '../AppHeader'
 import SaleItemList from '../SaleItemList'
 import SoldItemList from '../SoldItemList'
 
-const AppScreen = ({ saleInventory, soldInventory, onCreateItem, onChangeItem, onResetItems }) => {
+const AppScreen = ({
+  saleInventory,
+  soldInventory,
+  onCreateItem,
+  onChangeItem,
+  onDeleteItem,
+  onResetItems
+}) => {
   return (
     <div className='c-AppScreen'>
       <AppHeader
@@ -21,6 +28,7 @@ const AppScreen = ({ saleInventory, soldInventory, onCreateItem, onChangeItem, o
         <SaleItemList
           items={saleInventory}
           onChangeItem={onChangeItem}
+          onDeleteItem={onDeleteItem}
         />
       </div>
 
@@ -38,6 +46,7 @@ const AppScreen = ({ saleInventory, soldInventory, onCreateItem, onChangeItem, o
 AppScreen.defaultProps = {
   onCreateItem: () => {},
   onChangeItem: () => {},
+  onDeleteItem: () => {},
   onResetItems: () => {}
 }
 
@@ -46,6 +55,7 @@ AppScreen.propTypes = {
   soldInventory: PropTypes.array.isRequired,
   onCreateItem: PropTypes.func,
   onChangeItem: PropTypes.func,
+  onDeleteItem: PropTypes.func,
   onResetItems: PropTypes.func
 }
 
