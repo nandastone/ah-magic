@@ -51,24 +51,36 @@ class SoldItemForm extends PureComponent {
   render () {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input
-          type='number'
-          name='price'
-          value={this.state.price}
-          placeholder='Price'
-          onChange={this.handleInputChange}
-        />
-        <label>
+        <div className='form-group'>
+          <label for='price'>Sold Price</label>
           <input
-            type='checkbox'
-            name='isVendored'
-            checked={this.state.isVendored}
+            type='number'
+            id='price'
+            name='price'
+            value={this.state.price}
+            placeholder='Sold Price'
+            min='0'
+            required
+            className='form-control'
             onChange={this.handleInputChange}
           />
-          Was Vendored?
-        </label>
-        <button type='submit'>Save</button>
-        <button onClick={this.handleClickCancel}>Cancel</button>
+        </div>
+        <div className='form-group'>
+          <input
+            id='isVendored'
+            name='isVendored'
+            type='checkbox'
+            checked={this.state.isVendored}
+            className='form-check-input'
+            onChange={this.handleInputChange}
+          />
+          <label for='isVendored' className='form-check-label'>
+            Sold to vendor?
+          </label>
+        </div>
+
+        <button type='submit' className='btn btn-primary'>Save</button>
+        <button className='btn btn-secondary' onClick={this.handleClickCancel}>Cancel</button>
       </form>
     )
   }

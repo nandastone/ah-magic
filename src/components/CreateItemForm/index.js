@@ -5,8 +5,8 @@ import _ from 'lodash'
 class CreateItemForm extends PureComponent {
   state = {
     name: '',
-    cost: '',
-    vendorValue: ''
+    cost: 0,
+    vendorValue: 0
   }
 
   // Event handling
@@ -38,29 +38,52 @@ class CreateItemForm extends PureComponent {
   render () {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input
-          type='text'
-          name='name'
-          value={this.state.name}
-          placeholder='Name'
-          onChange={this.handleInputChange}
-        />
-        <input
-          type='number'
-          name='cost'
-          value={this.state.cost}
-          placeholder='Cost'
-          onChange={this.handleInputChange}
-        />
-        <input
-          type='number'
-          name='vendorValue'
-          value={this.state.vendorValue}
-          placeholder='Vendor Value'
-          onChange={this.handleInputChange}
-        />
-        <button type='submit'>Save</button>
-        <button onClick={this.handleClickCancel}>Cancel</button>
+        <div className='form-group'>
+          <label for='name'>Name</label>
+          <input
+            type='text'
+            id='name'
+            name='name'
+            value={this.state.name}
+            placeholder='Item Name'
+            required
+            className='form-control'
+            onChange={this.handleInputChange}
+          />
+        </div>
+        <div className='form-row'>
+          <div className='form-group col'>
+            <label for='cost'>Cost</label>
+            <input
+              type='number'
+              id='cost'
+              name='cost'
+              value={this.state.cost}
+              placeholder='Cost Price'
+              min='0'
+              required
+              className='form-control'
+              onChange={this.handleInputChange}
+            />
+          </div>
+          <div className='form-group col'>
+            <label for='cost'>Vendor Price</label>
+            <input
+              type='number'
+              id='vendorValue'
+              name='vendorValue'
+              value={this.state.vendorValue}
+              placeholder='Vendor Price'
+              min='0'
+              required
+              className='form-control'
+              onChange={this.handleInputChange}
+            />
+          </div>
+        </div>
+
+        <button type='submit' className='btn btn-primary'>Save</button>
+        <button className='btn btn-secondary' onClick={this.handleClickCancel}>Cancel</button>
       </form>
     )
   }

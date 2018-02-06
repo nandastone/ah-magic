@@ -47,20 +47,38 @@ class ListItemForm extends PureComponent {
   render () {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input
-          type='number'
-          name='price'
-          value={this.state.price}
-          placeholder='Price'
-          onChange={this.handleInputChange}
-        />
-        <select name='duration' value={this.state.duration} onChange={this.handleInputChange}>
-          <option value='12'>12 Hours</option>
-          <option value='24'>24 Hours</option>
-          <option selected value='48'>48 Hours</option>
-        </select>
-        <button type='submit'>Save</button>
-        <button onClick={this.handleClickCancel}>Cancel</button>
+        <div className='form-group'>
+          <label for='price'>Listing Price</label>
+          <input
+            type='number'
+            id='price'
+            name='price'
+            value={this.state.price}
+            placeholder='Listing Price'
+            min='0'
+            required
+            className='form-control'
+            onChange={this.handleInputChange}
+          />
+        </div>
+        <div className='form-group'>
+          <label for='duration'>Listing Duration</label>
+          <select
+            id='duration'
+            name='duration'
+            value={this.state.duration}
+            required
+            className='custom-select'
+            onChange={this.handleInputChange}
+          >
+            <option value='12'>12 Hours</option>
+            <option value='24'>24 Hours</option>
+            <option selected value='48'>48 Hours</option>
+          </select>
+        </div>
+
+        <button type='submit' className='btn btn-primary'>Save</button>
+        <button className='btn btn-secondary' onClick={this.handleClickCancel}>Cancel</button>
       </form>
     )
   }

@@ -91,25 +91,6 @@ class ItemRow extends PureComponent {
           : null
         }
         <ItemSalesInfo cost={cost} price={price} profit={profit} />
-        {
-          this.state.isListExpanded
-          ? <ListItemForm
-              defaultPrice={_.get(lastHistory, 'price')}
-              onComplete={this.handleCompleteList}
-              onCancel={this.handleCancelList}
-            />
-          : null
-        }
-        {
-          this.state.isSoldExpanded
-          ? <SoldItemForm
-              defaultPrice={_.get(lastHistory, 'price')}
-              defaultVendored={!isListed}
-              onComplete={this.handleCompleteSold}
-              onCancel={this.handleCancelSold}
-            />
-          : null
-        }
         <div className='btn-group btn-group-sm'>
           {
             !isListed
@@ -133,6 +114,25 @@ class ItemRow extends PureComponent {
             Sold
           </button>
         </div>
+        {
+          this.state.isListExpanded
+          ? <ListItemForm
+              defaultPrice={_.get(lastHistory, 'price')}
+              onComplete={this.handleCompleteList}
+              onCancel={this.handleCancelList}
+            />
+          : null
+        }
+        {
+          this.state.isSoldExpanded
+          ? <SoldItemForm
+              defaultPrice={_.get(lastHistory, 'price')}
+              defaultVendored={!isListed}
+              onComplete={this.handleCompleteSold}
+              onCancel={this.handleCancelSold}
+            />
+          : null
+        }
       </div>
     )
   }
