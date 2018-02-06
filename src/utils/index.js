@@ -1,15 +1,15 @@
 import _ from 'lodash'
 
-export const calculateAHListingCost = (value, duration = 48) => {
+export const calculateAHListingCost = (value, duration = 24) => {
   let percent = 0
   switch (duration) {
-    case 12:
+    case 2:
       percent = 0.15
       break;
-    case 24:
+    case 8:
       percent = 0.3
       break;
-    case 48:
+    case 24:
       percent = 0.6
       break;
     default:

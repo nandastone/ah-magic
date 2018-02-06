@@ -7,7 +7,7 @@ class ListItemForm extends PureComponent {
     super(props)
     this.state = {
       price: props.defaultPrice || 0,
-      duration: 48
+      duration: 24
     }
   }
 
@@ -71,9 +71,9 @@ class ListItemForm extends PureComponent {
             className='custom-select'
             onChange={this.handleInputChange}
           >
-            <option value='12'>12 Hours</option>
+            <option value='2'>2 Hours</option>
+            <option value='8'>8 Hours</option>
             <option value='24'>24 Hours</option>
-            <option value='48'>48 Hours</option>
           </select>
         </div>
 
