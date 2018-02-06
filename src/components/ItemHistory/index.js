@@ -40,7 +40,14 @@ const ItemHistory = ({ history }) => {
                   </div>
                 : null
               }
-              Price: <WowCurrency value={item.price} />
+              {
+                item.price
+                ? <div>
+                    Price:{' '}
+                    <WowCurrency value={item.price} />
+                  </div>
+                : null
+              }
             </td>
             <td>
               {

@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react'
 import _ from 'lodash'
 
-import { inventory as INVENTORY_FIXTURES } from '../../fixtures'
+import { inventory as INVENTORY_FIXTURES } from '../../fixtures/'
 
 // Components
 
-import MainScreen from '../MainScreen'
+import AppScreen from '../AppScreen'
 
 class AppState extends PureComponent {
   constructor (props) {
@@ -28,6 +28,15 @@ class AppState extends PureComponent {
   }
 
   // Event handling
+
+  handleCreateItem = (item) => {
+    const newInventory = [
+      ...this.state.inventory,
+      item
+    ]
+
+    this.setState({ inventory: newInventory })
+  }
 
   handleChangeItem = (item) => {
     const existingItemIndex = _.findIndex(this.state.inventory, { key: item.key })
@@ -60,9 +69,10 @@ class AppState extends PureComponent {
 
     return (
       <div className='c-AppState'>
-        <MainScreen
+        <AppScreen
           saleInventory={saleInventory}
           soldInventory={soldInventory}
+          onCreateItem={this.handleCreateItem}
           onChangeItem={this.handleChangeItem}
           onResetItems={this.handleResetItems}
         />
