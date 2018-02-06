@@ -30,7 +30,11 @@ class ItemRow extends PureComponent {
       <div className='alert'>
         <h4 onClick={this.handleClickHistory}>
           {this.props.name}{' '}
-          {this.state.isHistoryExpanded ? '^' : 'v'}
+          {
+            this.state.isHistoryExpanded
+            ? <i class='fas fa-caret-up'></i>
+            : <i class='fas fa-caret-down'></i>
+          }
         </h4>
         {
           this.state.isHistoryExpanded
