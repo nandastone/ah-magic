@@ -81,8 +81,8 @@ class ItemRow extends PureComponent {
           {this.props.name}{' '}
           {
             this.state.isHistoryExpanded
-            ? <i class='fas fa-caret-up'></i>
-            : <i class='fas fa-caret-down'></i>
+            ? <i className='fas fa-caret-up'></i>
+            : <i className='fas fa-caret-down'></i>
           }
         </h4>
         {
