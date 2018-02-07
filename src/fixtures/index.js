@@ -46,7 +46,7 @@ export const inventory = [
       {
         key: '2',
         type: 'listing',
-        duration: 48,
+        duration: 24,
         bid: 100000,
         price: 129500,
         cost: 3000,
@@ -56,7 +56,7 @@ export const inventory = [
       {
         key: '3',
         type: 'listing',
-        duration: 48,
+        duration: 24,
         bid: 100000,
         price: 119500,
         cost: 3000,
@@ -145,7 +145,7 @@ export const inventory = [
     name: 'Cursed Axe',
     history: [
       { key: '1', type: 'purchase', cost: 145000 },
-      { key: '2', type: 'sale', price: 50000, cost: 0, isVendored: true }
+      { key: '2', type: 'sale', price: 50000, cost: 0, saleType: 'vendor' }
     ],
     vendorValue: 7500
   }

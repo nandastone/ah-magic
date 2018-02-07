@@ -1,56 +1,60 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import { calculateSalesInfo } from '../../../utils'
+import { calculateItemFinances } from '../../../utils'
 
 // Components
 
 import ItemHistory from '../../ItemHistory'
 import ItemSalesInfo from '../../ItemSalesInfo'
+import WowCurrency from '../../WowCurrency'
 
 class ItemRow extends PureComponent {
   state = {
-    isHistoryExpanded: false
+    isDetailsExpanded: false
   }
 
   // Event handling
 
   handleClickHistory = () => {
     this.setState((prevState, props) => {
-      return { isHistoryExpanded: !prevState.isHistoryExpanded }
+      return { isDetailsExpanded: !prevState.isDetailsExpanded }
     })
   }
 
   // Rendering
 
   render () {
-    const { cost, price, profit } = calculateSalesInfo(this.props.history)
+    const { cost, price, profit } = calculateItemFinances(this.props.item.history)
 
     return (
       <div className='alert'>
         <h4 onClick={this.handleClickHistory}>
-          {this.props.name}{' '}
+          {this.props.item.name}{' '}
           {
-            this.state.isHistoryExpanded
+            this.state.isDetailsExpanded
             ? <i className='fas fa-caret-up'></i>
             : <i className='fas fa-caret-down'></i>
           }
         </h4>
+        <ItemSalesInfo cost={cost} price={price} profit={profit} isSold />
         {
-          this.state.isHistoryExpanded
-          ? <ItemHistory history={this.props.history} />
+          this.state.isDetailsExpanded
+          ? <div>
+              <ItemHistory history={this.props.item.history} />
+              <p>
+                Vendor Price: <WowCurrency value={this.props.item.vendorValue} />
+              </p>
+            </div>
           : null
         }
-        <ItemSalesInfo cost={cost} price={price} profit={profit} isSold />
       </div>
     )
   }
 }
 
 ItemRow.propTypes = {
-  name: PropTypes.string.isRequired,
-  // Refer to `<ItemHistory />` props for shape.
-  history: PropTypes.array.isRequired
+  item: PropTypes.object.isRequired
 }
 
 export default ItemRow

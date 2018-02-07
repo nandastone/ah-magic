@@ -13,7 +13,7 @@ import ItemRow from './ItemRow'
 class SaleItemList extends PureComponent {
   // Event handling
 
-  handleListItem = (item, { price, duration }) => {
+  handleListItem = (item, { bid, price, duration }) => {
     const updatedItem = {
       ...item,
       history: [
@@ -22,8 +22,9 @@ class SaleItemList extends PureComponent {
           key: uuid(),
           type: 'listing',
           duration,
+          bid,
           price,
-          cost: calculateAHListingCost(item.vendorValue, duration),
+          cost: calculateAHTransactionCost(price),
           createdAt: moment().format()
         }
       ]
@@ -31,21 +32,21 @@ class SaleItemList extends PureComponent {
     this.props.onChangeItem(updatedItem)
   }
 
-  handleSoldItem = (item, { price, isVendored }) => {
+  handleSoldItem = (item, { price, saleType }) => {
     const lastHistory = _.last(item.history)
-    let updatedItem = {}
+    let updatedItem = { ...item }
 
-    // If the last history item was a listing, and we didn't sell to a vendor, update that last history item cost to
-    // zero (no listing fee).
-    if (lastHistory && lastHistory.type === 'listing' && !isVendored) {
+    if (lastHistory && lastHistory.type === 'listing') {
       updatedItem = {
-        ...item,
+        ...updatedItem,
         history: [
           ..._.dropRight(item.history),
           {
             ...lastHistory,
-            cost: 0,
-            endedAt: moment().format()
+            // If we sold via the AH, negate the previous listing fee.
+            cost: saleType === 'ah' ? 0 : lastHistory.cost,
+            // Save the listing end date.
+            endedAt: lastHistory.endedAt || moment().format()
           }
         ]
       }
@@ -59,9 +60,10 @@ class SaleItemList extends PureComponent {
         {
           key: uuid(),
           type: 'sale',
+          saleType,
           price,
-          // If item was vendored, it doesn't have any fees.
-          cost: !isVendored ? calculateAHTransactionCost(price) : 0,
+          // Only add transaction fees if the item was sold on the AH.
+          cost: saleType === 'ah' ? calculateAHTransactionCost(price) : 0,
           createdAt: moment().format()
         }
       ]
@@ -79,11 +81,16 @@ class SaleItemList extends PureComponent {
         ..._.dropRight(item.history),
         {
           ...lastHistory,
+          cost: calculateAHListingCost(item.vendorValue, lastHistory.duration),
           endedAt: moment().format()
         }
       ]
     }
     this.props.onChangeItem(updatedItem)
+  }
+
+  handleDeleteItem = (item) => {
+    this.props.onDeleteItem(item)
   }
 
   // Rendering
@@ -96,11 +103,11 @@ class SaleItemList extends PureComponent {
           return (
             <ItemRow
               key={item.key}
-              name={item.name}
-              history={item.history}
+              item={item}
               onList={(payload) => this.handleListItem(item, payload)}
               onSold={(payload) => this.handleSoldItem(item, payload)}
               onEnd={() => this.handleEndItem(item)}
+              onDelete={() => this.handleDeleteItem(item)}
             />
           )
         })}
@@ -110,12 +117,14 @@ class SaleItemList extends PureComponent {
 }
 
 SaleItemList.defaultProps = {
-  onChangeItem: () => {}
+  onChangeItem: () => {},
+  onDeleteItem: () => {}
 }
 
 SaleItemList.propTypes = {
   items: PropTypes.array,
-  onChangeItem: PropTypes.func
+  onChangeItem: PropTypes.func,
+  onDeleteItem: PropTypes.func,
 }
 
 export default SaleItemList

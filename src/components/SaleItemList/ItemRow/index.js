@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
 
-import { calculateSalesInfo } from '../../../utils'
+import { calculateItemFinances } from '../../../utils'
 
 // Components
 
@@ -11,10 +11,11 @@ import ItemHistory from '../../ItemHistory'
 import ItemSalesInfo from '../../ItemSalesInfo'
 import ListItemForm from '../../ListItemForm'
 import SoldItemForm from '../../SoldItemForm'
+import WowCurrency from '../../WowCurrency'
 
 class ItemRow extends PureComponent {
   state = {
-    isHistoryExpanded: false,
+    isDetailsExpanded: false,
     isListExpanded: false,
     isSoldExpanded: false
   }
@@ -39,9 +40,15 @@ class ItemRow extends PureComponent {
     })
   }
 
+  handleClickDelete = () => {
+    if (window.confirm('Are you sure want to delete this item?')) {
+      this.props.onDelete()
+    }
+  }
+
   handleClickHistory = () => {
     this.setState((prevState, props) => {
-      return { isHistoryExpanded: !prevState.isHistoryExpanded }
+      return { isDetailsExpanded: !prevState.isDetailsExpanded }
     })
   }
 
@@ -66,9 +73,9 @@ class ItemRow extends PureComponent {
   // Rendering
 
   render () {
-    const lastHistory = _.last(this.props.history)
+    const lastHistory = _.last(this.props.item.history)
     const isListed = lastHistory && lastHistory.type === 'listing' && !lastHistory.endedAt
-    const { cost, price, profit } = calculateSalesInfo(this.props.history)
+    const { cost, price, profit } = calculateItemFinances(this.props.item.history)
 
     return (
       <div className={classNames(
@@ -78,24 +85,27 @@ class ItemRow extends PureComponent {
         }
       )}>
         <h4 onClick={this.handleClickHistory}>
-          {this.props.name}{' '}
+          {this.props.item.name}{' '}
           {
-            this.state.isHistoryExpanded
+            this.state.isDetailsExpanded
             ? <i className='fas fa-caret-up'></i>
             : <i className='fas fa-caret-down'></i>
           }
         </h4>
+        <ItemSalesInfo cost={cost} price={price} profit={profit} />
         {
-          this.state.isHistoryExpanded
-          ? <ItemHistory history={this.props.history} />
+          this.state.isDetailsExpanded
+          ? <div>
+              <ItemHistory history={this.props.item.history} />
+              <p>Vendor Price: <WowCurrency value={this.props.item.vendorValue} /></p>
+            </div>
           : null
         }
-        <ItemSalesInfo cost={cost} price={price} profit={profit} />
         <div className='btn-group btn-group-sm'>
           {
             !isListed
             ? <button
-                className='btn btn-primary'
+                className='btn btn-secondary'
                 onClick={this.handleClickList}
               >
                 List
@@ -108,15 +118,22 @@ class ItemRow extends PureComponent {
               </button>
           }
           <button
-            className='btn btn-secondary'
+            className='btn btn-primary'
             onClick={this.handleClickSold}
           >
             Sold
+          </button>
+          <button
+            className='btn btn-danger'
+            onClick={this.handleClickDelete}
+          >
+            Delete
           </button>
         </div>
         {
           this.state.isListExpanded
           ? <ListItemForm
+              defaultBid={_.get(lastHistory, 'bid')}
               defaultPrice={_.get(lastHistory, 'price')}
               onComplete={this.handleCompleteList}
               onCancel={this.handleCancelList}
@@ -126,8 +143,10 @@ class ItemRow extends PureComponent {
         {
           this.state.isSoldExpanded
           ? <SoldItemForm
+              defaultBid={_.get(lastHistory, 'bid')}
               defaultPrice={_.get(lastHistory, 'price')}
-              defaultVendored={!isListed}
+              defaultVendorValue={this.props.item.vendorValue}
+              defaultSaleType={!isListed ? 'private' : 'ah'}
               onComplete={this.handleCompleteSold}
               onCancel={this.handleCancelSold}
             />
@@ -142,15 +161,15 @@ ItemRow.defaultProps = {
   onList: () => {},
   onSold: () => {},
   onEnd: () => {},
+  onDelete: () => {}
 }
 
 ItemRow.propTypes = {
-  name: PropTypes.string.isRequired,
-  // Refer to `<ItemHistory />` props for shape.
-  history: PropTypes.array.isRequired,
+  item: PropTypes.object.isRequired,
   onList: PropTypes.func,
   onSold: PropTypes.func,
-  onEnd: PropTypes.func
+  onEnd: PropTypes.func,
+  onDelete: PropTypes.func
 }
 
 export default ItemRow
