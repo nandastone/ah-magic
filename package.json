@@ -1,7 +1,6 @@
 {
   "name": "ah-magic",
   "version": "0.2.2",
-  "private": true,
   "dependencies": {
     "autocomplete.js": "^0.29.0",
     "axios": "^0.18.0",
