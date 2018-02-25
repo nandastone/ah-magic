@@ -2,6 +2,14 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 
+// Components
+
+import Autocomplete from '../Autocomplete'
+
+// Assets
+
+import './CreateItemForm.css'
+
 class CreateItemForm extends PureComponent {
   state = {
     name: '',
@@ -40,7 +48,14 @@ class CreateItemForm extends PureComponent {
       <form onSubmit={this.handleSubmit}>
         <div className='form-group'>
           <label htmlFor='name'>Name</label>
-          <input
+          <Autocomplete
+            name='name'
+            onChange={(item) => {
+              this.setState({ name: item.name, vendorValue: item.SellPrice })
+            }}
+          />
+
+          {/* <input
             type='text'
             id='name'
             name='name'
@@ -49,7 +64,7 @@ class CreateItemForm extends PureComponent {
             required
             className='form-control'
             onChange={this.handleInputChange}
-          />
+          /> */}
         </div>
         <div className='form-row'>
           <div className='form-group col'>
