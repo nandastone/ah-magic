@@ -24,6 +24,7 @@ class Autocomplete extends PureComponent {
     return (
       <div className='c-Autocomplete'>
         <AgAutocomplete
+          ref={(component) => this.autocompleteComponent = component}
           inputId={this.props.name}
           placeholder='Search...'
           apiKey='4b719864410b0dcb35f2e7992c263d69'
@@ -39,7 +40,6 @@ class Autocomplete extends PureComponent {
             autoselect: true,
             autoselectOnBlur: true
           }}
-          ref={(component) => this.autocompleteComponent = component}
         />
       </div>
     )

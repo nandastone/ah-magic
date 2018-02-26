@@ -14,6 +14,10 @@ class SoldItemForm extends PureComponent {
 
   // Lifecycle
 
+  componentDidMount () {
+    this.priceInput.focus()
+  }
+
   componentWillReceiveProps (nextProps) {
     if (this.props.defaultPrice !== nextProps.defaultPrice) {
       this.setState({ price: nextProps.defaultPrice })
@@ -72,6 +76,7 @@ class SoldItemForm extends PureComponent {
         <div className='form-group'>
           <label htmlFor='price'>Sold Price</label>
           <input
+            ref={(input) => this.priceInput = input}
             type='number'
             id='price'
             name='price'
