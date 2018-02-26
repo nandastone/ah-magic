@@ -17,6 +17,7 @@ class CreateItemForm extends PureComponent {
     suffix: '',
     cost: '',
     vendorValue: '',
+    stackable: 1,
 
     // Other
     dbItem: null
@@ -39,7 +40,8 @@ class CreateItemForm extends PureComponent {
     this.props.onComplete({
       name,
       cost: _.toNumber(this.state.cost),
-      vendorValue: _.toNumber(this.state.vendorValue)
+      vendorValue: _.toNumber(this.state.vendorValue),
+      stackable: _.toNumber(this.state.stackable)
     })
   }
 
@@ -61,14 +63,15 @@ class CreateItemForm extends PureComponent {
               this.setState({
                 dbItem: item,
                 name: item.name,
-                vendorValue: item.SellPrice
+                vendorValue: item.SellPrice,
+                stackable: item.stackable
               })
             }}
           />
         </div>
 
         {
-          // Check if the wow db item can have a random suffix.
+          // Check if the WowDB item can have a random suffix.
           this.state.dbItem && this.state.dbItem.RandomProperty !== 0
           ? <div className='form-group'>
               <label htmlFor='suffix'>Suffix</label>
@@ -121,6 +124,26 @@ class CreateItemForm extends PureComponent {
                   <option>of Eluding</option>
                 </optgroup>
               </select>
+            </div>
+          : null
+        }
+
+        {
+          // Check if the WowDB item is stackable.
+          this.state.dbItem && this.state.dbItem.stackable > 1
+          ? <div className='form-group'>
+              <label htmlFor='Stackable'>Stack Size</label>
+              <input
+                type='number'
+                id='stackable'
+                name='stackable'
+                value={this.state.stackable}
+                placeholder='Stack Size'
+                min={1}
+                max={this.state.dbItem.stackable}
+                className='form-control'
+                onChange={this.handleInputChange}
+              />
             </div>
           : null
         }
