@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
+import classNames from 'classnames'
 
 class SoldItemForm extends PureComponent {
   constructor (props) {
@@ -82,12 +83,15 @@ class SoldItemForm extends PureComponent {
             className='form-control'
             onChange={this.handleInputChange}
           />
-          <nav className='nav'>
+          <nav className='nav nav-pills'>
             {
               this.props.defaultBid
               ? <a
                   href=''
-                  className='nav-link'
+                  className={classNames(
+                    'nav-link',
+                    { active: this.props.defaultBid === this.state.price }
+                  )}
                   onClick={this.handleClickBid}
                 >
                   Bid
@@ -95,10 +99,13 @@ class SoldItemForm extends PureComponent {
               : null
             }
             {
-              this.props.defaultBuyout
+              this.props.defaultPrice
               ? <a
                   href=''
-                  className='nav-link'
+                  className={classNames(
+                    'nav-link',
+                    { active: this.props.defaultPrice === this.state.price }
+                  )}
                   onClick={this.handleClickBuyout}
                 >
                   Buyout
