@@ -70,7 +70,6 @@ class AppState extends PureComponent {
       return lastHistory.type !== 'sale'
     }), (item) => {
       const lastHistory = _.last(item.history)
-      console.log(lastHistory.createdAt)
       return moment(lastHistory.createdAt).format('X')
     }).reverse()
     const soldInventory = _.sortBy(this.state.inventory.filter(item => {
