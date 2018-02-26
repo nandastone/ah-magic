@@ -68,11 +68,18 @@ class AppState extends PureComponent {
     const saleInventory = _.sortBy(this.state.inventory.filter(item => {
       const lastHistory = _.last(item.history)
       return lastHistory.type !== 'sale'
-    }), (item) => moment(item.createdAt).format('X')).reverse()
+    }), (item) => {
+      const lastHistory = _.last(item.history)
+      console.log(lastHistory.createdAt)
+      return moment(lastHistory.createdAt).format('X')
+    }).reverse()
     const soldInventory = _.sortBy(this.state.inventory.filter(item => {
       const lastHistory = _.last(item.history)
       return lastHistory.type === 'sale'
-    }), (item) => moment(item.endedAt).format('X')).reverse()
+    }), (item) => {
+      const lastHistory = _.last(item.history)
+      return moment(lastHistory.endedAt).format('X')
+    }).reverse()
 
     return (
       <div className='c-AppState'>
