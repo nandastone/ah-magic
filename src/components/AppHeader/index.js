@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import uuid from 'uuid/v4'
 import moment from 'moment'
+import uuid from 'uuid/v4'
 
 // Components
 
@@ -26,11 +26,12 @@ class AppHeader extends PureComponent {
     }
   }
 
-  handleCompleteCreate = ({ name, cost, vendorValue }) => {
+  handleCompleteCreate = ({ name, cost, stackable, vendorValue }) => {
     const newItem = {
       key: uuid(),
       name,
       vendorValue,
+      stackable,
       history: [
         {
           key: uuid(),

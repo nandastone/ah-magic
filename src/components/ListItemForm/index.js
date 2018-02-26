@@ -14,6 +14,10 @@ class ListItemForm extends PureComponent {
 
   // Lifecycle
 
+  componentDidMount () {
+    this.bidInput.focus()
+  }
+
   componentWillReceiveProps (nextProps) {
     if (this.props.defaultBid !== nextProps.defaultBid) {
       this.setState({ price: nextProps.defaultBid })
@@ -57,6 +61,7 @@ class ListItemForm extends PureComponent {
           <div className='form-group col'>
             <label htmlFor='price'>Bid</label>
             <input
+              ref={(input) => this.bidInput = input}
               type='number'
               id='bid'
               name='bid'

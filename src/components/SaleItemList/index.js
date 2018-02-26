@@ -64,7 +64,8 @@ class SaleItemList extends PureComponent {
           price,
           // Only add transaction fees if the item was sold on the AH.
           cost: saleType === 'ah' ? calculateAHTransactionCost(price) : 0,
-          createdAt: moment().format()
+          createdAt: moment().format(),
+          endedAt: moment().format()
         }
       ]
     }
