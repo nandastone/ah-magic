@@ -87,7 +87,7 @@ class ItemRow extends PureComponent {
         <h4 onClick={this.handleClickHistory}>
           {this.props.item.name}{' '}
           {
-            this.props.item.stackable
+            this.props.item.stackable > 1
             ? <small className='text-muted'>x{this.props.item.stackable}</small>
             : null
           }
