@@ -72,6 +72,7 @@ class CreateItemForm extends PureComponent {
           <label htmlFor='name'>Name</label>
           <Autocomplete
             name='name'
+            autoFocus
             onChange={(item) => {
               this.setState({
                 dbItem: item,
