@@ -23,6 +23,19 @@ class CreateItemForm extends PureComponent {
     dbItem: null
   }
 
+  // Lifecycle
+
+  componentDidUpdate (prevProps, prevState) {
+    // If a stackable items stack size changes, calculate the new total vendor sell price based on new stack size.
+    if (
+      prevState.stackable !== this.state.stackable &&
+      this.state.dbItem
+    ) {
+      const vendorValuePerItem = this.state.dbItem.SellPrice / this.state.dbItem.stackable
+      this.setState({ vendorValue: Math.floor(this.state.stackable * vendorValuePerItem) })
+    }
+  }
+
   // Event handling
 
   handleInputChange = (event) => {
