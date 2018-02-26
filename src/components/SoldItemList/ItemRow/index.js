@@ -32,10 +32,17 @@ class ItemRow extends PureComponent {
         <h4 onClick={this.handleClickHistory}>
           {this.props.item.name}{' '}
           {
-            this.state.isDetailsExpanded
-            ? <i className='fas fa-caret-up'></i>
-            : <i className='fas fa-caret-down'></i>
+            this.props.item.stackable
+            ? <small className='text-muted'>x{this.props.item.stackable}</small>
+            : null
           }
+          <span className='ml-2'>
+            {
+              this.state.isDetailsExpanded
+              ? <i className='fas fa-caret-up'></i>
+              : <i className='fas fa-caret-down'></i>
+            }
+          </span>
         </h4>
         <ItemSalesInfo cost={cost} price={price} profit={profit} isSold />
         {
