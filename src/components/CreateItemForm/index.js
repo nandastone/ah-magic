@@ -12,9 +12,14 @@ import './CreateItemForm.css'
 
 class CreateItemForm extends PureComponent {
   state = {
+    // Form values
     name: '',
+    suffix: '',
     cost: '',
-    vendorValue: ''
+    vendorValue: '',
+
+    // Other
+    dbItem: null
   }
 
   // Event handling
@@ -29,8 +34,10 @@ class CreateItemForm extends PureComponent {
   handleSubmit = (event) => {
     event.preventDefault()
 
+    const name = `${this.state.name} ${this.state.suffix}`.trim()
+
     this.props.onComplete({
-      name: this.state.name,
+      name,
       cost: _.toNumber(this.state.cost),
       vendorValue: _.toNumber(this.state.vendorValue)
     })
@@ -51,21 +58,73 @@ class CreateItemForm extends PureComponent {
           <Autocomplete
             name='name'
             onChange={(item) => {
-              this.setState({ name: item.name, vendorValue: item.SellPrice })
+              this.setState({
+                dbItem: item,
+                name: item.name,
+                vendorValue: item.SellPrice
+              })
             }}
           />
-
-          {/* <input
-            type='text'
-            id='name'
-            name='name'
-            value={this.state.name}
-            placeholder='Item Name'
-            required
-            className='form-control'
-            onChange={this.handleInputChange}
-          /> */}
         </div>
+
+        {
+          // Check if the wow db item can have a random suffix.
+          this.state.dbItem && this.state.dbItem.RandomProperty !== 0
+          ? <div className='form-group'>
+              <label htmlFor='suffix'>Suffix</label>
+              <select
+                id='suffix'
+                name='suffix'
+                value={this.state.suffix}
+                required
+                className='custom-select'
+                onChange={this.handleInputChange}
+              >
+                <option value=''>Select a suffix</option>
+                <optgroup label='Single statistic'>
+                  <option>of Strength</option>
+                  <option>of Agility</option>
+                  <option>of Stamina</option>
+                  <option>of Intellect</option>
+                  <option>of Spirit</option>
+                </optgroup>
+                <optgroup label='Two statistics'>
+                  <option>of the Tiger</option>
+                  <option>of the Bear</option>
+                  <option>of the Gorilla</option>
+                  <option>of the Boar</option>
+                  <option>of the Monkey</option>
+                  <option>of the Falcon</option>
+                  <option>of the Wolf</option>
+                  <option>of the Eagle</option>
+                  <option>of the Whale</option>
+                  <option>of the Owl</option>
+                </optgroup>
+                <optgroup label='Resistances'>
+                  <option>of Fire Resistance</option>
+                  <option>of Nature Resistance</option>
+                  <option>of Arcane Resistance</option>
+                  <option>of Frost Resistance</option>
+                  <option>of Shadow Resistance</option>
+                </optgroup>
+                <optgroup label='Abyssal'>
+                  <option>of Striking</option>
+                  <option>of Sorcery</option>
+                  <option>of Regeneration</option>
+                </optgroup>
+                <optgroup label='Misc'>
+                  <option>of Defense</option>
+                  <option>of Healing</option>
+                  <option>of Power</option>
+                  <option>of Blocking</option>
+                  <option>of Marksmanship</option>
+                  <option>of Eluding</option>
+                </optgroup>
+              </select>
+            </div>
+          : null
+        }
+
         <div className='form-row'>
           <div className='form-group col'>
             <label htmlFor='cost'>Cost</label>
