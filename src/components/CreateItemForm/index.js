@@ -117,6 +117,14 @@ class CreateItemForm extends PureComponent {
                   <option>of the Whale</option>
                   <option>of the Owl</option>
                 </optgroup>
+                <optgroup label='Spell power'>
+                  <option>of Fiery Wrath</option>
+                  <option>of Frozen Wrath</option>
+                  <option>of Arcane Wrath</option>
+                  <option>of Nature's Wrath</option>
+                  <option>of Shadow Wrath</option>
+                  <option>of Healing</option>
+                </optgroup>
                 <optgroup label='Resistances'>
                   <option>of Fire Resistance</option>
                   <option>of Nature Resistance</option>
