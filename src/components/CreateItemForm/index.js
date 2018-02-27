@@ -139,7 +139,6 @@ class CreateItemForm extends PureComponent {
                 </optgroup>
                 <optgroup label='Misc'>
                   <option>of Defense</option>
-                  <option>of Healing</option>
                   <option>of Power</option>
                   <option>of Blocking</option>
                   <option>of Marksmanship</option>
