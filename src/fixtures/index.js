@@ -148,5 +148,14 @@ export const inventory = [
       { key: '2', type: 'sale', price: 50000, cost: 0, saleType: 'vendor' }
     ],
     vendorValue: 7500
+  },
+  {
+    key: '9',
+    name: 'Silk Cloth',
+    stackable: 20,
+    history: [
+      { key: '1', type: 'purchase', cost: 2000 }
+    ],
+    vendorValue: 2000
   }
 ]

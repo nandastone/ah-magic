@@ -13,6 +13,10 @@ import ListItemForm from '../../ListItemForm'
 import SoldItemForm from '../../SoldItemForm'
 import WowCurrency from '../../WowCurrency'
 
+// Assets
+
+import './ItemRow.css'
+
 class ItemRow extends PureComponent {
   state = {
     isDetailsExpanded: false,
@@ -78,88 +82,95 @@ class ItemRow extends PureComponent {
     const { cost, price, profit } = calculateItemFinances(this.props.item.history)
 
     return (
-      <div className={classNames(
-        'alert',
-        {
-          'alert-info': isListed
-        }
+      <tr className={classNames(
+        'c-ItemRow',
+        { 'table-info': isListed }
       )}>
-        <h4 onClick={this.handleClickHistory}>
-          {this.props.item.name}{' '}
+        <td>
+          <div onClick={this.handleClickHistory}>
+            {this.props.item.name}{' '}
+            {
+              this.props.item.stackable > 1
+              ? <small className='text-muted'>x{this.props.item.stackable}</small>
+              : null
+            }
+            <span className='ml-2'>
+              {
+                this.state.isDetailsExpanded
+                ? <i className='fas fa-caret-up'></i>
+                : <i className='fas fa-caret-down'></i>
+              }
+            </span>
+          </div>
           {
-            this.props.item.stackable > 1
-            ? <small className='text-muted'>x{this.props.item.stackable}</small>
+            this.state.isDetailsExpanded
+            ? <div>
+                <ItemHistory history={this.props.item.history} />
+                <p>Vendor Price: <WowCurrency value={this.props.item.vendorValue} /></p>
+              </div>
             : null
           }
-          <span className='ml-2'>
+        </td>
+        <td>
+          <ItemSalesInfo cost={cost} price={price} profit={profit} />
+        </td>
+        <td>Sale</td>
+        <td>Forecast</td>
+        <td>
+          <div className='btn-group btn-group-sm'>
             {
-              this.state.isDetailsExpanded
-              ? <i className='fas fa-caret-up'></i>
-              : <i className='fas fa-caret-down'></i>
+              !isListed
+              ? <button
+                  className='btn btn-secondary'
+                  onClick={this.handleClickList}
+                >
+                  List
+                </button>
+              : <button
+                  className='btn btn-secondary'
+                  onClick={this.handleClickEnd}
+                >
+                  End
+                </button>
             }
-          </span>
-        </h4>
-        <ItemSalesInfo cost={cost} price={price} profit={profit} />
-        {
-          this.state.isDetailsExpanded
-          ? <div>
-              <ItemHistory history={this.props.item.history} />
-              <p>Vendor Price: <WowCurrency value={this.props.item.vendorValue} /></p>
-            </div>
-          : null
-        }
-        <div className='btn-group btn-group-sm'>
+            <button
+              className='btn btn-primary'
+              onClick={this.handleClickSold}
+            >
+              Sold
+            </button>
+            <button
+              className='btn btn-danger'
+              onClick={this.handleClickDelete}
+            >
+              Delete
+            </button>
+          </div>
+
           {
-            !isListed
-            ? <button
-                className='btn btn-secondary'
-                onClick={this.handleClickList}
-              >
-                List
-              </button>
-            : <button
-                className='btn btn-secondary'
-                onClick={this.handleClickEnd}
-              >
-                End
-              </button>
+            this.state.isListExpanded
+            ? <ListItemForm
+                defaultBid={_.get(lastHistory, 'bid')}
+                defaultPrice={_.get(lastHistory, 'price')}
+                onComplete={this.handleCompleteList}
+                onCancel={this.handleCancelList}
+              />
+            : null
           }
-          <button
-            className='btn btn-primary'
-            onClick={this.handleClickSold}
-          >
-            Sold
-          </button>
-          <button
-            className='btn btn-danger'
-            onClick={this.handleClickDelete}
-          >
-            Delete
-          </button>
-        </div>
-        {
-          this.state.isListExpanded
-          ? <ListItemForm
-              defaultBid={_.get(lastHistory, 'bid')}
-              defaultPrice={_.get(lastHistory, 'price')}
-              onComplete={this.handleCompleteList}
-              onCancel={this.handleCancelList}
-            />
-          : null
-        }
-        {
-          this.state.isSoldExpanded
-          ? <SoldItemForm
-              defaultBid={_.get(lastHistory, 'bid')}
-              defaultPrice={_.get(lastHistory, 'price')}
-              defaultVendorValue={this.props.item.vendorValue}
-              defaultSaleType={!isListed ? 'private' : 'ah'}
-              onComplete={this.handleCompleteSold}
-              onCancel={this.handleCancelSold}
-            />
-          : null
-        }
-      </div>
+          {
+            this.state.isSoldExpanded
+            ? <SoldItemForm
+                defaultBid={_.get(lastHistory, 'bid')}
+                defaultPrice={_.get(lastHistory, 'price')}
+                defaultVendorValue={this.props.item.vendorValue}
+                defaultSaleType={!isListed ? 'private' : 'ah'}
+                onComplete={this.handleCompleteSold}
+                onCancel={this.handleCancelSold}
+              />
+            : null
+          }
+        </td>
+      </tr>
     )
   }
 }

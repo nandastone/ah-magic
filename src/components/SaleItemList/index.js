@@ -97,22 +97,31 @@ class SaleItemList extends PureComponent {
   // Rendering
 
   render () {
-
     return (
-      <div>
-        {this.props.items.map((item) => {
-          return (
-            <ItemRow
-              key={item.key}
-              item={item}
-              onList={(payload) => this.handleListItem(item, payload)}
-              onSold={(payload) => this.handleSoldItem(item, payload)}
-              onEnd={() => this.handleEndItem(item)}
-              onDelete={() => this.handleDeleteItem(item)}
-            />
-          )
-        })}
-      </div>
+      <table className='table table-hover'>
+        <thead>
+          <tr>
+            <th scope='col'>Name</th>
+            <th scope='col'>Cost</th>
+            <th scope='col'>Sale</th>
+            <th scope='col' colSpan={2}>Forecast</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.props.items.map((item) => {
+            return (
+              <ItemRow
+                key={item.key}
+                item={item}
+                onList={(payload) => this.handleListItem(item, payload)}
+                onSold={(payload) => this.handleSoldItem(item, payload)}
+                onEnd={() => this.handleEndItem(item)}
+                onDelete={() => this.handleDeleteItem(item)}
+              />
+            )
+          })}
+        </tbody>
+      </table>
     )
   }
 }

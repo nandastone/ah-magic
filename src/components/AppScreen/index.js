@@ -1,46 +1,64 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
 
 // Components
 
 import AppHeader from '../AppHeader'
 import SaleItemList from '../SaleItemList'
 import SoldItemList from '../SoldItemList'
+import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 
-const AppScreen = ({
-  saleInventory,
-  soldInventory,
-  onCreateItem,
-  onChangeItem,
-  onDeleteItem,
-  onResetItems
-}) => {
-  return (
-    <div className='c-AppScreen'>
-      <AppHeader
-        onCreateItem={onCreateItem}
-        onResetItems={onResetItems}
-      />
+class AppScreen extends PureComponent {
+  state = { activeTab: 1 }
 
-      <div className='container mb-5'>
-        <h2>For Sale</h2>
-        <hr />
-        <SaleItemList
-          items={saleInventory}
-          onChangeItem={onChangeItem}
-          onDeleteItem={onDeleteItem}
+  // Rendering
+
+  render () {
+    return (
+      <div className='c-AppScreen'>
+        <AppHeader
+          onCreateItem={this.props.onCreateItem}
+          onResetItems={this.props.onResetItems}
         />
-      </div>
 
-      <div className='container'>
-        <h2>Sold</h2>
-        <hr />
-        <SoldItemList
-          items={soldInventory}
-        />
+        <div className='container'>
+          <Nav tabs>
+            <NavItem>
+              <NavLink
+                className={classNames({ active: this.state.activeTab === 1 })}
+                onClick={() => this.setState({ activeTab: 1 })}
+              >
+                Inventory
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                className={classNames({ active: this.state.activeTab === 2 })}
+                onClick={() => this.setState({ activeTab: 2 })}
+              >
+                Sold
+              </NavLink>
+            </NavItem>
+          </Nav>
+          <TabContent activeTab={this.state.activeTab}>
+            <TabPane tabId={1} className='pt-3'>
+              <SaleItemList
+                items={this.props.saleInventory}
+                onChangeItem={this.props.onChangeItem}
+                onDeleteItem={this.props.onDeleteItem}
+              />
+            </TabPane>
+            <TabPane tabId={2} className='pt-3'>
+              <SoldItemList
+                items={this.props.soldInventory}
+              />
+            </TabPane>
+          </TabContent>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 AppScreen.defaultProps = {
