@@ -10,6 +10,10 @@ import { calculateAHListingCost, calculateAHTransactionCost } from '../../utils'
 
 import ItemRow from './ItemRow'
 
+// Assets
+
+import './SaleItemList.css'
+
 class SaleItemList extends PureComponent {
   // Event handling
 
@@ -98,13 +102,15 @@ class SaleItemList extends PureComponent {
 
   render () {
     return (
-      <table className='table table-hover'>
+      <table className='c-SaleItemList table table-hover'>
         <thead>
           <tr>
             <th scope='col'>Name</th>
             <th scope='col'>Cost</th>
             <th scope='col'>Sale</th>
-            <th scope='col' colSpan={2}>Forecast</th>
+            <th scope='col'>Forecast</th>
+            <th scope='col'>Created</th>
+            <th scope='col' colSpan={2}>Updated</th>
           </tr>
         </thead>
         <tbody>

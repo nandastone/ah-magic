@@ -2,13 +2,14 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
+import moment from 'moment'
 
 import { calculateItemFinances } from '../../../utils'
 
 // Components
 
-import ItemHistory from '../../ItemHistory'
-import ItemSalesInfo from '../../ItemSalesInfo'
+import ItemDetailModal from '../../ItemDetailModal'
+import ItemTitle from '../../ItemTitle'
 import ListItemForm from '../../ListItemForm'
 import SoldItemForm from '../../SoldItemForm'
 import WowCurrency from '../../WowCurrency'
@@ -25,6 +26,11 @@ class ItemRow extends PureComponent {
   }
 
   // Event handling
+
+  handleClickRow = (event) => {
+    event.preventDefault()
+    this.setState({ isDetailsExpanded: true })
+  }
 
   handleClickList = () => {
     this.setState({
@@ -50,12 +56,6 @@ class ItemRow extends PureComponent {
     }
   }
 
-  handleClickHistory = () => {
-    this.setState((prevState, props) => {
-      return { isDetailsExpanded: !prevState.isDetailsExpanded }
-    })
-  }
-
   handleCompleteList = (payload) => {
     this.props.onList(payload)
     this.setState({ isListExpanded: false })
@@ -74,48 +74,51 @@ class ItemRow extends PureComponent {
     this.setState({ isSoldExpanded: false })
   }
 
+  handleCloseDetailModal = () => {
+    this.setState({ isDetailsExpanded: false })
+  }
+
   // Rendering
 
   render () {
+    const firstHistory = _.first(this.props.item.history)
     const lastHistory = _.last(this.props.item.history)
     const isListed = lastHistory && lastHistory.type === 'listing' && !lastHistory.endedAt
     const { cost, price, profit } = calculateItemFinances(this.props.item.history)
 
     return (
-      <tr className={classNames(
-        'c-ItemRow',
-        { 'table-info': isListed }
-      )}>
+      <tr
+        className={classNames(
+          'c-ItemRow',
+          { 'table-info': isListed }
+        )}
+        onClick={this.handleClickRow}
+      >
         <td>
-          <div onClick={this.handleClickHistory}>
-            {this.props.item.name}{' '}
-            {
-              this.props.item.stackable > 1
-              ? <small className='text-muted'>x{this.props.item.stackable}</small>
-              : null
-            }
-            <span className='ml-2'>
-              {
-                this.state.isDetailsExpanded
-                ? <i className='fas fa-caret-up'></i>
-                : <i className='fas fa-caret-down'></i>
-              }
-            </span>
-          </div>
-          {
-            this.state.isDetailsExpanded
-            ? <div>
-                <ItemHistory history={this.props.item.history} />
-                <p>Vendor Price: <WowCurrency value={this.props.item.vendorValue} /></p>
-              </div>
-            : null
-          }
+          <React.Fragment>
+            <ItemTitle item={this.props.item} />
+            <ItemDetailModal
+              item={this.props.item}
+              open={this.state.isDetailsExpanded}
+              onClose={this.handleCloseDetailModal}
+            />
+          </React.Fragment>
         </td>
         <td>
-          <ItemSalesInfo cost={cost} price={price} profit={profit} />
+          <WowCurrency value={cost} />
         </td>
-        <td>Sale</td>
-        <td>Forecast</td>
+        <td>
+          <WowCurrency value={price} />
+        </td>
+        <td>
+          <WowCurrency value={profit} />
+        </td>
+        <td>
+          {moment(firstHistory.createdAt).format('D MMM YYYY, h:mm:ss a')}
+        </td>
+        <td>
+          {moment(lastHistory.updatedAt || lastHistory.createdAt).format('D MMM YYYY, h:mm:ss a')}
+        </td>
         <td>
           <div className='btn-group btn-group-sm'>
             {
