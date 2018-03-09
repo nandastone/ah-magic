@@ -6,11 +6,7 @@ import _ from 'lodash'
 
 import Autocomplete from '../Autocomplete'
 
-// Assets
-
-import './CreateItemForm.css'
-
-class CreateItemForm extends PureComponent {
+class AddItemForm extends PureComponent {
   state = {
     // Form values
     name: '',
@@ -47,20 +43,24 @@ class CreateItemForm extends PureComponent {
 
   handleSubmit = (event) => {
     event.preventDefault()
+    this.submit()
+  }
 
+  handleClickCancel = (event) => {
+    event.preventDefault()
+    this.props.onCancel()
+  }
+
+  // Public
+
+  submit () {
     const name = `${this.state.name} ${this.state.suffix}`.trim()
-
     this.props.onComplete({
       name,
       cost: _.toNumber(this.state.cost),
       vendorValue: _.toNumber(this.state.vendorValue),
       stackable: _.toNumber(this.state.stackable)
     })
-  }
-
-  handleClickCancel = (event) => {
-    event.preventDefault()
-    this.props.onCancel()
   }
 
   // Rendering
@@ -117,6 +117,14 @@ class CreateItemForm extends PureComponent {
                   <option>of the Whale</option>
                   <option>of the Owl</option>
                 </optgroup>
+                <optgroup label='Spell power'>
+                  <option>of Fiery Wrath</option>
+                  <option>of Frozen Wrath</option>
+                  <option>of Arcane Wrath</option>
+                  <option>of Nature's Wrath</option>
+                  <option>of Shadow Wrath</option>
+                  <option>of Healing</option>
+                </optgroup>
                 <optgroup label='Resistances'>
                   <option>of Fire Resistance</option>
                   <option>of Nature Resistance</option>
@@ -131,7 +139,6 @@ class CreateItemForm extends PureComponent {
                 </optgroup>
                 <optgroup label='Misc'>
                   <option>of Defense</option>
-                  <option>of Healing</option>
                   <option>of Power</option>
                   <option>of Blocking</option>
                   <option>of Marksmanship</option>
@@ -192,21 +199,21 @@ class CreateItemForm extends PureComponent {
           </div>
         </div>
 
-        <button type='submit' className='btn btn-primary'>Save</button>
-        <button className='btn btn-secondary' onClick={this.handleClickCancel}>Cancel</button>
+        {/* Invisible button to allow submitting form with enter key */}
+        <button type='submit' className='d-none' />
       </form>
     )
   }
 }
 
-CreateItemForm.defaultProps = {
+AddItemForm.defaultProps = {
   onComplete: () => {},
   onCancel: () => {}
 }
 
-CreateItemForm.propTypes = {
+AddItemForm.propTypes = {
   onComplete: PropTypes.func,
   onCancel: PropTypes.func
 }
 
-export default CreateItemForm
+export default AddItemForm

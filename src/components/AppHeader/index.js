@@ -5,7 +5,8 @@ import uuid from 'uuid/v4'
 
 // Components
 
-import CreateItemForm from '../CreateItemForm'
+import { Button, Container, Jumbotron } from 'reactstrap'
+import AddItemModal from '../AddItemModal'
 
 // Assets
 
@@ -16,7 +17,8 @@ class AppHeader extends PureComponent {
 
   // Event handling
 
-  handleClickAdd = () => {
+  handleClickAdd = (event) => {
+    event.preventDefault()
     this.setState({ isCreateExpanded: true })
   }
 
@@ -42,10 +44,9 @@ class AppHeader extends PureComponent {
       ]
     }
     this.props.onCreateItem(newItem)
-    this.setState({ isCreateExpanded: false })
   }
 
-  handleCancelCreate = () => {
+  handleCloseModal = () => {
     this.setState({ isCreateExpanded: false })
   }
 
@@ -54,33 +55,33 @@ class AppHeader extends PureComponent {
   render () {
     return (
       <div className='c-AppHeader'>
-        <div className='jumbotron'>
-          <div className='container'>
-            <h1>Auction House Magic</h1>
+        <Jumbotron fluid>
+          <Container>
+            <h1 className='display-4'>Auction House Magic</h1>
+            <p className='lead'>
+              Track your AH purchases, sales, history and profits.
+            </p>
             <p>
-              <button
-                className='btn btn-primary'
+              <Button
+                color='primary'
                 onClick={this.handleClickAdd}
               >
                 Add Item
-              </button>
-              <button
-                className='btn btn-secondary'
+              </Button>
+              <Button
+                color='secondary'
                 onClick={this.handleClickReset}
               >
                 Reset
-              </button>
+              </Button>
             </p>
-            {
-              this.state.isCreateExpanded
-              ? <CreateItemForm
-                  onComplete={this.handleCompleteCreate}
-                  onCancel={this.handleCancelCreate}
-                />
-              : null
-            }
-          </div>
-        </div>
+            <AddItemModal
+              open={this.state.isCreateExpanded}
+              onComplete={this.handleCompleteCreate}
+              onClose={this.handleCloseModal}
+            />
+          </Container>
+        </Jumbotron>
       </div>
     )
   }

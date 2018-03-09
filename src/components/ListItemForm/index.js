@@ -3,19 +3,16 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 
 class ListItemForm extends PureComponent {
-  constructor (props) {
-    super(props)
-    this.state = {
-      bid: props.defaultBid || '',
-      price: props.defaultPrice || '',
-      duration: 24
-    }
+  state = {
+    bid: this.props.defaultBid || '',
+    price: this.props.defaultPrice || '',
+    duration: 24
   }
 
   // Lifecycle
 
   componentDidMount () {
-    this.bidInput.focus()
+    window.setTimeout(() => this.bidInput.focus(), 0)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -39,17 +36,17 @@ class ListItemForm extends PureComponent {
 
   handleSubmit = (event) => {
     event.preventDefault()
+    this.submit()
+  }
 
+  // Public
+
+  submit () {
     this.props.onComplete({
       bid: _.toNumber(this.state.bid),
       price: _.toNumber(this.state.price),
       duration: _.toNumber(this.state.duration)
     })
-  }
-
-  handleClickCancel = (event) => {
-    event.preventDefault()
-    this.props.onCancel()
   }
 
   // Rendering
@@ -104,8 +101,8 @@ class ListItemForm extends PureComponent {
           </select>
         </div>
 
-        <button type='submit' className='btn btn-primary'>Save</button>
-        <button className='btn btn-secondary' onClick={this.handleClickCancel}>Cancel</button>
+        {/* Invisible button to allow submitting form with enter key */}
+        <button type='submit' className='d-none' />
       </form>
     )
   }

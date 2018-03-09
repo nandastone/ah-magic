@@ -1,0 +1,14 @@
+.c-ForSaleList {
+
+  font-size: 14px;
+  table-layout: fixed;
+}
+
+  .c-ForSaleList th { border-top: none; }
+    .c-ForSaleList th .sort-icon { margin-left: 0.5em; }
+
+/* Elements */
+
+.c-ForSaleList__row td { vertical-align: middle; }
+
+/* Modifiers */

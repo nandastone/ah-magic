@@ -1,5 +1,16 @@
 # Change Log
 
+## v0.4.0 (2018-03-09)
+
+**Implemented enhancements:**
+
+- Divide sale/sold item lists into tabs [\#24](https://trello.com/c/a7wg0Gye/24-move-selling-sold-into-tabs)
+- Convert item lists into tables with sorting, and modal forms [\#23](https://trello.com/c/Bng82SYP/23-change-record-listing-to-table)
+
+**Fixed bugs:**
+
+- Add missing spell power suffixes
+
 ## v0.3.0 (2018-02-26)
 
 **Implemented enhancements:**

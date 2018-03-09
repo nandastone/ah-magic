@@ -14,7 +14,7 @@ class Autocomplete extends PureComponent {
 
   componentDidMount () {
     if (this.props.autoFocus) {
-      this.autocompleteComponent.search.focus()
+      window.setTimeout(() => this.autocompleteComponent.search.focus(), 0)
     }
   }
 

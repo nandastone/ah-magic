@@ -1,0 +1,14 @@
+.c-SoldList {
+
+  font-size: 14px;
+  table-layout: fixed;
+}
+
+  .c-SoldList th { border-top: none; }
+    .c-SoldList th .sort-icon { margin-left: 0.5em; }
+
+/* Elements */
+
+.c-SoldList__row td { vertical-align: middle; }
+
+/* Modifiers */

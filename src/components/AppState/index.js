@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import _ from 'lodash'
-import moment from 'moment'
 
 import { inventory as INVENTORY_FIXTURES } from '../../fixtures/'
 
@@ -65,20 +64,14 @@ class AppState extends PureComponent {
   // Rendering
 
   render () {
-    const saleInventory = _.sortBy(this.state.inventory.filter(item => {
+    const saleInventory = this.state.inventory.filter(item => {
       const lastHistory = _.last(item.history)
       return lastHistory.type !== 'sale'
-    }), (item) => {
-      const lastHistory = _.last(item.history)
-      return moment(lastHistory.createdAt).format('X')
-    }).reverse()
-    const soldInventory = _.sortBy(this.state.inventory.filter(item => {
+    })
+    const soldInventory = this.state.inventory.filter(item => {
       const lastHistory = _.last(item.history)
       return lastHistory.type === 'sale'
-    }), (item) => {
-      const lastHistory = _.last(item.history)
-      return moment(lastHistory.endedAt).format('X')
-    }).reverse()
+    })
 
     return (
       <div className='c-AppState'>
