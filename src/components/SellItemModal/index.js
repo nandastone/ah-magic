@@ -6,9 +6,9 @@ import _ from 'lodash'
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import ItemTitle from '../ItemTitle'
-import ListItemForm from '../ListItemForm'
+import SellItemForm from '../SellItemForm'
 
-class ListItemModal extends PureComponent {
+class SellItemModal extends PureComponent {
   // Event handling
 
   handleClickComplete = (event) => {
@@ -16,7 +16,7 @@ class ListItemModal extends PureComponent {
     this.formComponent.submit()
   }
 
-  handleCompleteList = (payload) => {
+  handleCompleteSold = (payload) => {
     this.props.onComplete(payload)
     this.props.onClose()
   }
@@ -25,6 +25,7 @@ class ListItemModal extends PureComponent {
 
   render () {
     const lastHistory = _.last(this.props.item.history)
+    const isListed = lastHistory && lastHistory.type === 'listing' && !lastHistory.endedAt
 
     return (
       <Modal
@@ -33,19 +34,21 @@ class ListItemModal extends PureComponent {
         size='lg'
       >
         <ModalHeader toggle={this.props.onClose}>
-          Listing: <ItemTitle item={this.props.item} />
+          Sold: <ItemTitle item={this.props.item} />
         </ModalHeader>
         <ModalBody>
-          <ListItemForm
+          <SellItemForm
             defaultBid={lastHistory.bid}
             defaultPrice={lastHistory.price}
-            onComplete={this.handleCompleteList}
+            defaultVendorValue={this.props.item.vendorValue}
+            defaultSaleType={!isListed ? 'private' : 'ah'}
+            onComplete={this.handleCompleteSold}
             onCancel={this.props.onClose}
             ref={(component) => this.formComponent = component}
           />
         </ModalBody>
         <ModalFooter>
-          <Button color='primary' onClick={this.handleClickComplete}>List</Button>
+          <Button color='primary' onClick={this.handleClickComplete}>Sold</Button>
           <Button color='secondary' onClick={this.props.onClose}>Cancel</Button>
         </ModalFooter>
       </Modal>
@@ -53,16 +56,16 @@ class ListItemModal extends PureComponent {
   }
 }
 
-ListItemModal.defaultProps = {
+SellItemModal.defaultProps = {
   onComplete: () => {},
   onClose: () => {}
 }
 
-ListItemModal.propTypes = {
+SellItemModal.propTypes = {
   open: PropTypes.bool,
   item: PropTypes.object.isRequired,
   onComplete: PropTypes.func,
   onClose: PropTypes.func
 }
 
-export default ListItemModal
+export default SellItemModal

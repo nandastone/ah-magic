@@ -39,11 +39,6 @@ class ListItemForm extends PureComponent {
     this.submit()
   }
 
-  handleClickCancel = (event) => {
-    event.preventDefault()
-    this.props.onCancel()
-  }
-
   // Public
 
   submit () {

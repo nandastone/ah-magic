@@ -12,6 +12,7 @@ import { Button } from 'reactstrap'
 import ItemDetailModal from '../../ItemDetailModal'
 import ItemTitle from '../../ItemTitle'
 import ListItemModal from '../../ListItemModal'
+import SellItemModal from '../../SellItemModal'
 import WowCurrency from '../../WowCurrency'
 
 // Assets
@@ -147,18 +148,12 @@ class ItemRow extends PureComponent {
             onComplete={this.handleCompleteList}
             onClose={this.handleCloseModal}
           />
-          {/* {
-            this.state.isSoldExpanded
-            ? <SoldItemForm
-                defaultBid={_.get(lastHistory, 'bid')}
-                defaultPrice={_.get(lastHistory, 'price')}
-                defaultVendorValue={this.props.item.vendorValue}
-                defaultSaleType={!isListed ? 'private' : 'ah'}
-                onComplete={this.handleCompleteSold}
-                onCancel={this.handleCancelSold}
-              />
-            : null
-          } */}
+          <SellItemModal
+            item={this.props.item}
+            open={this.state.isSoldExpanded}
+            onComplete={this.handleCompleteSold}
+            onClose={this.handleCloseModal}
+          />
         </td>
       </tr>
     )

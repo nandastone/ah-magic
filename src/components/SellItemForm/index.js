@@ -1,21 +1,25 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
-import classNames from 'classnames'
 
-class SoldItemForm extends PureComponent {
-  constructor (props) {
-    super(props)
-    this.state = {
-      price: props.defaultPrice || '',
-      saleType: props.defaultSaleType || 'ah'
-    }
+// Components
+
+import { Nav, NavItem, NavLink } from 'reactstrap'
+
+// Assets
+
+import './SellItemForm.css'
+
+class SellItemForm extends PureComponent {
+  state = {
+    price: this.props.defaultPrice || '',
+    saleType: this.props.defaultSaleType || 'ah'
   }
 
   // Lifecycle
 
   componentDidMount () {
-    this.priceInput.focus()
+    window.setTimeout(() => this.priceInput.focus(), 0)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -46,33 +50,33 @@ class SoldItemForm extends PureComponent {
 
   handleSubmit = (event) => {
     event.preventDefault()
+    this.submit()
+  }
 
+  handleClickBidPreset = (event) => {
+    event.preventDefault()
+    this.setState({ price: this.props.defaultBid })
+  }
+
+  handleClickBuyoutPreset = (event) => {
+    event.preventDefault()
+    this.setState({ price: this.props.defaultPrice })
+  }
+
+  // Public
+
+  submit () {
     this.props.onComplete({
       price: _.toNumber(this.state.price),
       saleType: this.state.saleType
     })
   }
 
-  handleClickCancel = (event) => {
-    event.preventDefault()
-    this.props.onCancel()
-  }
-
-  handleClickBid = (event) => {
-    event.preventDefault()
-    this.setState({ price: this.props.defaultBid })
-  }
-
-  handleClickBuyout = (event) => {
-    event.preventDefault()
-    this.setState({ price: this.props.defaultPrice })
-  }
-
   // Rendering
 
   render () {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className='c-SellItemForm'>
         <div className='form-group'>
           <label htmlFor='price'>Sold Price</label>
           <input
@@ -88,36 +92,28 @@ class SoldItemForm extends PureComponent {
             className='form-control'
             onChange={this.handleInputChange}
           />
-          <nav className='nav nav-pills'>
-            {
-              this.props.defaultBid
-              ? <a
-                  href=''
-                  className={classNames(
-                    'nav-link',
-                    { active: this.props.defaultBid === this.state.price }
-                  )}
-                  onClick={this.handleClickBid}
-                >
-                  Bid
-                </a>
-              : null
-            }
-            {
-              this.props.defaultPrice
-              ? <a
-                  href=''
-                  className={classNames(
-                    'nav-link',
-                    { active: this.props.defaultPrice === this.state.price }
-                  )}
-                  onClick={this.handleClickBuyout}
-                >
-                  Buyout
-                </a>
-              : null
-            }
-          </nav>
+          {
+            this.props.defaultBid || this.props.defaultPrice
+            ? <Nav>
+                <NavItem active={this.props.defaultBid === this.state.price}>
+                  <NavLink
+                    href=''
+                    onClick={this.handleClickBidPreset}
+                  >
+                    Bid
+                  </NavLink>
+                </NavItem>
+                <NavItem active={this.props.defaultPrice === this.state.price}>
+                  <NavLink
+                    href=''
+                    onClick={this.handleClickBuyoutPreset}
+                  >
+                    Buyout
+                  </NavLink>
+                </NavItem>
+              </Nav>
+            : null
+          }
         </div>
         <div className='form-group'>
           <label htmlFor='saleTypeAhOption'>Sale Type</label>
@@ -161,19 +157,21 @@ class SoldItemForm extends PureComponent {
           </div>
         </div>
 
-        <button type='submit' className='btn btn-primary'>Save</button>
-        <button className='btn btn-secondary' onClick={this.handleClickCancel}>Cancel</button>
+        {/* Invisible button to allow submitting form with enter key */}
+        <button type='submit' className='d-none' />
       </form>
     )
   }
 }
 
-SoldItemForm.defaultProps = {
+SellItemForm.defaultProps = {
+  defaultBid: 0,
+  defaultPrice: 0,
   onComplete: () => {},
   onCancel: () => {}
 }
 
-SoldItemForm.propTypes = {
+SellItemForm.propTypes = {
   defaultBid: PropTypes.number,
   defaultPrice: PropTypes.number,
   defaultVendorValue: PropTypes.number,
@@ -182,4 +180,4 @@ SoldItemForm.propTypes = {
   onCancel: PropTypes.func
 }
 
-export default SoldItemForm
+export default SellItemForm
