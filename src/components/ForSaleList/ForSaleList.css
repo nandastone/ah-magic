@@ -1,5 +1,7 @@
 .c-SaleItemList { font-size: 14px; }
 
+  .c-SaleItemList th { border-top: none; }
+
 /* Elements */
 
 /* Modifiers */

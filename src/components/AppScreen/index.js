@@ -4,9 +4,10 @@ import classNames from 'classnames'
 
 // Components
 
+import { Container } from 'reactstrap'
 import AppHeader from '../AppHeader'
-import SaleItemList from '../SaleItemList'
-import SoldItemList from '../SoldItemList'
+import ForSaleList from '../ForSaleList'
+import SoldList from '../SoldList'
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 
 class AppScreen extends PureComponent {
@@ -22,7 +23,7 @@ class AppScreen extends PureComponent {
           onResetItems={this.props.onResetItems}
         />
 
-        <div className='container'>
+        <Container fluid>
           <Nav tabs>
             <NavItem>
               <NavLink
@@ -43,19 +44,19 @@ class AppScreen extends PureComponent {
           </Nav>
           <TabContent activeTab={this.state.activeTab}>
             <TabPane tabId={1} className='pt-3'>
-              <SaleItemList
+              <ForSaleList
                 items={this.props.saleInventory}
                 onChangeItem={this.props.onChangeItem}
                 onDeleteItem={this.props.onDeleteItem}
               />
             </TabPane>
             <TabPane tabId={2} className='pt-3'>
-              <SoldItemList
+              <SoldList
                 items={this.props.soldInventory}
               />
             </TabPane>
           </TabContent>
-        </div>
+        </Container>
       </div>
     )
   }

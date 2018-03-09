@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 import ItemRow from './ItemRow'
 
-class SoldItemList extends PureComponent {
+class SoldList extends PureComponent {
   render () {
     return (
       <div>
@@ -22,8 +22,8 @@ class SoldItemList extends PureComponent {
   }
 }
 
-SoldItemList.propTypes = {
+SoldList.propTypes = {
   items: PropTypes.array
 }
 
-export default SoldItemList
+export default SoldList

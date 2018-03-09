@@ -12,9 +12,9 @@ import ItemRow from './ItemRow'
 
 // Assets
 
-import './SaleItemList.css'
+import './ForSaleList.css'
 
-class SaleItemList extends PureComponent {
+class ForSaleList extends PureComponent {
   // Event handling
 
   handleListItem = (item, { bid, price, duration }) => {
@@ -102,7 +102,7 @@ class SaleItemList extends PureComponent {
 
   render () {
     return (
-      <table className='c-SaleItemList table table-hover'>
+      <table className='c-ForSaleList table table-hover'>
         <thead>
           <tr>
             <th scope='col'>Name</th>
@@ -132,15 +132,15 @@ class SaleItemList extends PureComponent {
   }
 }
 
-SaleItemList.defaultProps = {
+ForSaleList.defaultProps = {
   onChangeItem: () => {},
   onDeleteItem: () => {}
 }
 
-SaleItemList.propTypes = {
+ForSaleList.propTypes = {
   items: PropTypes.array,
   onChangeItem: PropTypes.func,
   onDeleteItem: PropTypes.func,
 }
 
-export default SaleItemList
+export default ForSaleList
