@@ -5,6 +5,7 @@
 }
 
   .c-SoldList th { border-top: none; }
+    .c-SoldList th .sort-icon { margin-left: 0.5em; }
 
 /* Elements */
 
