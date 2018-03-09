@@ -5,6 +5,7 @@
 }
 
   .c-ForSaleList th { border-top: none; }
+    .c-ForSaleList th .sort-icon { margin-left: 0.5em; }
 
 /* Elements */
 

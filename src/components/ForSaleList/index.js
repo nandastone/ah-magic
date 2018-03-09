@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import uuid from 'uuid/v4'
 import moment from 'moment'
+import classNames from 'classnames'
 
 import {
   calculateAHListingCost,
@@ -190,7 +191,13 @@ class ForSaleList extends PureComponent {
               Name
               {
                 this.state.sortField === 'name'
-                ? ` Sorted (${this.state.sortDirection})`
+                ? <i className={classNames(
+                    'fas sort-icon',
+                    {
+                      'fa-sort-up': this.state.sortDirection === 'ASC',
+                      'fa-sort-down': this.state.sortDirection === 'DESC'
+                    }
+                  )} />
                 : null
               }
             </th>
@@ -201,7 +208,13 @@ class ForSaleList extends PureComponent {
               Cost
               {
                 this.state.sortField === 'cost'
-                ? ` Sorted (${this.state.sortDirection})`
+                ? <i className={classNames(
+                    'fas sort-icon',
+                    {
+                      'fa-sort-up': this.state.sortDirection === 'ASC',
+                      'fa-sort-down': this.state.sortDirection === 'DESC'
+                    }
+                  )} />
                 : null
               }
             </th>
@@ -212,7 +225,13 @@ class ForSaleList extends PureComponent {
               Price
               {
                 this.state.sortField === 'price'
-                ? ` Sorted (${this.state.sortDirection})`
+                ? <i className={classNames(
+                    'fas sort-icon',
+                    {
+                      'fa-sort-up': this.state.sortDirection === 'ASC',
+                      'fa-sort-down': this.state.sortDirection === 'DESC'
+                    }
+                  )} />
                 : null
               }
             </th>
@@ -223,7 +242,13 @@ class ForSaleList extends PureComponent {
               Profit
               {
                 this.state.sortField === 'profit'
-                ? ` Sorted (${this.state.sortDirection})`
+                ? <i className={classNames(
+                    'fas sort-icon',
+                    {
+                      'fa-sort-up': this.state.sortDirection === 'ASC',
+                      'fa-sort-down': this.state.sortDirection === 'DESC'
+                    }
+                  )} />
                 : null
               }
             </th>
@@ -234,7 +259,13 @@ class ForSaleList extends PureComponent {
               Created
               {
                 this.state.sortField === 'createdAt'
-                ? ` Sorted (${this.state.sortDirection})`
+                ? <i className={classNames(
+                    'fas sort-icon',
+                    {
+                      'fa-sort-up': this.state.sortDirection === 'ASC',
+                      'fa-sort-down': this.state.sortDirection === 'DESC'
+                    }
+                  )} />
                 : null
               }
             </th>
@@ -245,7 +276,13 @@ class ForSaleList extends PureComponent {
               Updated
               {
                 this.state.sortField === 'updatedAt'
-                ? ` Sorted (${this.state.sortDirection})`
+                ? <i className={classNames(
+                    'fas sort-icon',
+                    {
+                      'fa-sort-up': this.state.sortDirection === 'ASC',
+                      'fa-sort-down': this.state.sortDirection === 'DESC'
+                    }
+                  )} />
                 : null
               }
             </th>
