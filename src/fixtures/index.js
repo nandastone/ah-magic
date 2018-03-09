@@ -9,7 +9,7 @@ export const inventory = [
         key: '1',
         type: 'purchase',
         cost: 19550,
-        createdAt: moment().format()
+        createdAt: moment().subtract(3, 'day').format(),
       },
       {
         key: '2',
@@ -47,7 +47,7 @@ export const inventory = [
         key: '1',
         type: 'purchase',
         cost: 19550,
-        createdAt: moment().format()
+        createdAt: moment().subtract(22, 'day').format()
       },
       {
         key: '2',
@@ -79,7 +79,7 @@ export const inventory = [
         key: '1',
         type: 'purchase',
         cost: 50000,
-        createdAt: moment().format()
+        createdAt: moment().subtract(1, 'day').format()
       },
       {
         key: '2',
@@ -109,7 +109,7 @@ export const inventory = [
         key: '1',
         type: 'purchase',
         cost: 99900,
-        createdAt: moment().format()
+        createdAt: moment().subtract(32, 'day').format()
       }
     ],
     vendorValue: 60
@@ -122,7 +122,7 @@ export const inventory = [
         key: '1',
         type: 'purchase',
         cost: 145000,
-        createdAt: moment().format()
+        createdAt: moment().subtract(14, 'day').format()
       },
       {
         key: '2',
@@ -143,7 +143,7 @@ export const inventory = [
         key: '1',
         type: 'purchase',
         cost: 900000,
-        createdAt: moment().format()
+        createdAt: moment().subtract(17, 'day').format()
       },
       {
         key: '2',
@@ -165,7 +165,7 @@ export const inventory = [
         key: '1',
         type: 'purchase',
         cost: 145000,
-        createdAt: moment().format()
+        createdAt: moment().subtract(3, 'day').format()
       },
       {
         key: '2',
@@ -203,7 +203,7 @@ export const inventory = [
         key: '1',
         type: 'purchase',
         cost: 145000,
-        createdAt: moment().format()
+        createdAt: moment().subtract(21, 'day').format()
       },
       {
         key: '2',

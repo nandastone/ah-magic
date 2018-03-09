@@ -62,6 +62,7 @@ class ItemRow extends PureComponent {
         </td>
         <td>
           <Badge color={profit > 0 ? 'success' : 'danger'}>
+            {profit <= 0 ? '-' : ''}
             <WowCurrency value={profit} />
           </Badge>
         </td>

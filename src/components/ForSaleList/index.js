@@ -4,7 +4,11 @@ import _ from 'lodash'
 import uuid from 'uuid/v4'
 import moment from 'moment'
 
-import { calculateAHListingCost, calculateAHTransactionCost } from '../../utils'
+import {
+  calculateAHListingCost,
+  calculateAHTransactionCost,
+  calculateItemFinances
+} from '../../utils'
 
 // Components
 
@@ -16,6 +20,11 @@ import ItemRow from './ItemRow'
 import './ForSaleList.css'
 
 class ForSaleList extends PureComponent {
+  state = {
+    sortField: '',
+    sortDirection: 'DESC'
+  }
+
   // Event handling
 
   handleListItem = (item, { bid, price, duration }) => {
@@ -41,6 +50,7 @@ class ForSaleList extends PureComponent {
     const lastHistory = _.last(item.history)
     let updatedItem = { ...item }
 
+    // If the item is listed, remove the "listing" history entry to later replace with a "sale" history entry.
     if (lastHistory && lastHistory.type === 'listing') {
       updatedItem = {
         ...updatedItem,
@@ -57,7 +67,7 @@ class ForSaleList extends PureComponent {
       }
     }
 
-    // Add a new "sale" item
+    // Create a "sale" history entry.
     updatedItem = {
       ...updatedItem,
       history: [
@@ -99,25 +109,152 @@ class ForSaleList extends PureComponent {
     this.props.onDeleteItem(item)
   }
 
+  // Private
+
+  _sort (field) {
+    if (this.state.sortField === field && this.state.sortDirection === 'ASC') {
+      // Reset sorting if we've reached the end of sort directions.
+      this.setState({ sortField: '', sortDirection: 'DESC' })
+    } else if (this.state.sortField === field) {
+      this.setState({ sortField: field, sortDirection: 'ASC' })
+    } else {
+      this.setState({ sortField: field, sortDirection: 'DESC' })
+    }
+  }
+
+  _getSortedItems (items) {
+    const { sortField: field, sortDirection: direction } = this.state
+    let sorted = [...items]
+
+    switch (field) {
+      case 'name':
+        sorted = _.sortBy(items, ['name'])
+        if (direction === 'DESC') sorted.reverse()
+        break
+      case 'cost':
+        sorted = _.sortBy(items, (item) => {
+          const { cost } = calculateItemFinances(item.history)
+          return cost || 0
+        })
+        if (direction === 'DESC') sorted.reverse()
+        break
+      case 'price':
+        sorted = _.sortBy(items, (item) => {
+          const { price } = calculateItemFinances(item.history)
+          return price || 0
+        })
+        if (direction === 'DESC') sorted.reverse()
+        break
+      case 'profit':
+        sorted = _.sortBy(items, (item) => {
+          const { profit } = calculateItemFinances(item.history)
+          return profit || 0
+        })
+        if (direction === 'DESC') sorted.reverse()
+        break
+      case 'createdAt':
+        sorted = _.sortBy(items, (item) => {
+          const firstHistory = _.first(item.history)
+          return firstHistory.createdAt ? moment(firstHistory.createdAt).format('X') : 0
+        })
+        if (direction === 'DESC') sorted.reverse()
+        break
+      case 'updatedAt':
+        sorted = _.sortBy(items, (item) => {
+          const lastHistory = _.last(item.history)
+          const updatedAt = (lastHistory.endedAt || lastHistory.createdAt)
+          return updatedAt ? moment(updatedAt).format('X') : 0
+        })
+        if (direction === 'DESC') sorted.reverse()
+        break
+      default:
+        throw new Error(`Invalid sorting column passed to ForSaleList: ${field}`)
+    }
+
+    return sorted
+  }
+
   // Rendering
 
   render () {
+    const sortedItems = this.state.sortField ? this._getSortedItems(this.props.items) : this.props.items
+
     return (
       <Table hover className='c-ForSaleList'>
         <thead>
           <tr>
-            <th className='w-25'>Name</th>
-            <th className='w-10'>Cost</th>
-            <th className='w-10'>Price</th>
-            <th className='w-10'>Profit</th>
-            <th className='w-15'>Created</th>
-            <th className='w-15'>Updated</th>
+            <th
+              onClick={() => this._sort('name')}
+              className='w-25'
+            >
+              Name
+              {
+                this.state.sortField === 'name'
+                ? ` Sorted (${this.state.sortDirection})`
+                : null
+              }
+            </th>
+            <th
+              onClick={() => this._sort('cost')}
+              className='w-10'
+            >
+              Cost
+              {
+                this.state.sortField === 'cost'
+                ? ` Sorted (${this.state.sortDirection})`
+                : null
+              }
+            </th>
+            <th
+              onClick={() => this._sort('price')}
+              className='w-10'
+            >
+              Price
+              {
+                this.state.sortField === 'price'
+                ? ` Sorted (${this.state.sortDirection})`
+                : null
+              }
+            </th>
+            <th
+              onClick={() => this._sort('profit')}
+              className='w-10'
+            >
+              Profit
+              {
+                this.state.sortField === 'profit'
+                ? ` Sorted (${this.state.sortDirection})`
+                : null
+              }
+            </th>
+            <th
+              onClick={() => this._sort('createdAt')}
+              className='w-15'
+            >
+              Created
+              {
+                this.state.sortField === 'createdAt'
+                ? ` Sorted (${this.state.sortDirection})`
+                : null
+              }
+            </th>
+            <th
+              onClick={() => this._sort('updatedAt')}
+              className='w-15'
+            >
+              Updated
+              {
+                this.state.sortField === 'updatedAt'
+                ? ` Sorted (${this.state.sortDirection})`
+                : null
+              }
+            </th>
             {/* Actions column */}
             <th className='w-15'></th>
           </tr>
         </thead>
         <tbody>
-          {this.props.items.map((item) => {
+          {sortedItems.map((item) => {
             return (
               <ItemRow
                 key={item.key}

@@ -74,6 +74,7 @@ class ItemRow extends PureComponent {
     const lastHistory = _.last(this.props.item.history)
     const isListed = lastHistory && lastHistory.type === 'listing' && !lastHistory.endedAt
     const { cost, price, profit } = calculateItemFinances(this.props.item.history)
+    const updatedAt = (lastHistory.endedAt || lastHistory.createdAt)
 
     return (
       <tr
@@ -101,6 +102,7 @@ class ItemRow extends PureComponent {
         </td>
         <td>
           <Badge color={profit > 0 ? 'success' : 'danger'}>
+            {profit <= 0 ? '-' : ''}
             <WowCurrency value={profit} />
           </Badge>
         </td>
@@ -110,13 +112,9 @@ class ItemRow extends PureComponent {
           </span>
         </td>
         <td>
-          {
-            lastHistory.endedAt
-            ? <span title={moment(lastHistory.endedAt).format('D MMM YYYY, h:mm:ss a')}>
-                {moment(lastHistory.endedAt).format('D MMM YYYY')}
-              </span>
-            : null
-          }
+          <span title={moment(updatedAt).format('D MMM YYYY, h:mm:ss a')}>
+            {moment(updatedAt).format('D MMM YYYY')}
+          </span>
         </td>
         <td>
           <ButtonGroup size='sm'>
