@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 // Components
 
+import { Table } from 'reactstrap'
 import ItemRow from './ItemRow'
 
 // Assets
@@ -20,15 +21,17 @@ class SoldList extends PureComponent {
 
   render () {
     return (
-      <table className='c-SoldList table table-hover'>
+      <Table hover className='c-SoldList'>
         <thead>
           <tr>
-            <th scope='col'>Name</th>
-            <th scope='col'>Cost</th>
-            <th scope='col'>Price</th>
-            <th scope='col'>Profit</th>
-            <th scope='col'>Created</th>
-            <th scope='col' colSpan={2}>Sold</th>
+            <th className='w-25'>Name</th>
+            <th className='w-10'>Cost</th>
+            <th className='w-10'>Price</th>
+            <th className='w-10'>Profit</th>
+            <th className='w-15'>Created</th>
+            <th className='w-15'>Sold</th>
+            {/* Actions column */}
+            <th className='w-15'></th>
           </tr>
         </thead>
         <tbody>
@@ -42,7 +45,7 @@ class SoldList extends PureComponent {
             )
           })}
         </tbody>
-      </table>
+      </Table>
     )
   }
 }

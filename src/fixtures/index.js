@@ -34,7 +34,7 @@ export const inventory = [
         type: 'sale',
         price: 119500,
         cost: 2500,
-        createdAt: moment().format()
+        createdAt: moment().add(1, 'day').format()
       }
     ],
     vendorValue: 5000
@@ -190,7 +190,7 @@ export const inventory = [
         type: 'sale',
         price: 180000,
         cost: 250,
-        createdAt: moment().format()
+        createdAt: moment().add(1, 'day').format()
       }
     ],
     vendorValue: 75
@@ -211,7 +211,7 @@ export const inventory = [
         price: 50000,
         cost: 0,
         saleType: 'vendor',
-        createdAt: moment().format()
+        createdAt: moment().add(1, 'day').format()
       }
     ],
     vendorValue: 7500

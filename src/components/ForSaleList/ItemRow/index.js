@@ -105,10 +105,18 @@ class ItemRow extends PureComponent {
           </Badge>
         </td>
         <td>
-          {moment(firstHistory.createdAt).format('D MMM YYYY, h:mm:ss a')}
+          <span title={moment(firstHistory.createdAt).format('D MMM YYYY, h:mm:ss a')}>
+            {moment(firstHistory.createdAt).format('D MMM YYYY')}
+          </span>
         </td>
         <td>
-          {moment(lastHistory.updatedAt || lastHistory.createdAt).format('D MMM YYYY, h:mm:ss a')}
+          {
+            lastHistory.endedAt
+            ? <span title={moment(lastHistory.endedAt).format('D MMM YYYY, h:mm:ss a')}>
+                {moment(lastHistory.endedAt).format('D MMM YYYY')}
+              </span>
+            : null
+          }
         </td>
         <td>
           <ButtonGroup size='sm'>

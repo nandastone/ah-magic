@@ -8,6 +8,7 @@ import { calculateAHListingCost, calculateAHTransactionCost } from '../../utils'
 
 // Components
 
+import { Table } from 'reactstrap'
 import ItemRow from './ItemRow'
 
 // Assets
@@ -102,15 +103,17 @@ class ForSaleList extends PureComponent {
 
   render () {
     return (
-      <table className='c-ForSaleList table table-hover'>
+      <Table hover className='c-ForSaleList'>
         <thead>
           <tr>
-            <th scope='col'>Name</th>
-            <th scope='col'>Cost</th>
-            <th scope='col'>Price</th>
-            <th scope='col'>Forecast</th>
-            <th scope='col'>Created</th>
-            <th scope='col' colSpan={2}>Updated</th>
+            <th className='w-25'>Name</th>
+            <th className='w-10'>Cost</th>
+            <th className='w-10'>Price</th>
+            <th className='w-10'>Profit</th>
+            <th className='w-15'>Created</th>
+            <th className='w-15'>Updated</th>
+            {/* Actions column */}
+            <th className='w-15'></th>
           </tr>
         </thead>
         <tbody>
@@ -127,7 +130,7 @@ class ForSaleList extends PureComponent {
             )
           })}
         </tbody>
-      </table>
+      </Table>
     )
   }
 }

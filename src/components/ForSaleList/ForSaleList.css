@@ -1,4 +1,8 @@
-.c-ForSaleList { font-size: 14px; }
+.c-ForSaleList {
+
+  font-size: 14px;
+  table-layout: fixed;
+}
 
   .c-ForSaleList th { border-top: none; }
 

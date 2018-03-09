@@ -1,4 +1,8 @@
-.c-SoldList { font-size: 14px; }
+.c-SoldList {
+
+  font-size: 14px;
+  table-layout: fixed;
+}
 
   .c-SoldList th { border-top: none; }
 
