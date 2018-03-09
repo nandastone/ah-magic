@@ -8,10 +8,10 @@ import { calculateItemFinances } from '../../../utils'
 
 // Components
 
+import { Button } from 'reactstrap'
 import ItemDetailModal from '../../ItemDetailModal'
 import ItemTitle from '../../ItemTitle'
-import ListItemForm from '../../ListItemForm'
-import SoldItemForm from '../../SoldItemForm'
+import ListItemModal from '../../ListItemModal'
 import WowCurrency from '../../WowCurrency'
 
 // Assets
@@ -32,25 +32,23 @@ class ItemRow extends PureComponent {
     this.setState({ isDetailsExpanded: true })
   }
 
-  handleClickList = () => {
-    this.setState({
-      isListExpanded: true,
-      isSoldExpanded: false
-    })
+  handleClickList = (event) => {
+    event.stopPropagation()
+    this.setState({ isListExpanded: true })
   }
 
-  handleClickEnd = () => {
+  handleClickEnd = (event) => {
+    event.stopPropagation()
     this.props.onEnd()
   }
 
-  handleClickSold = () => {
-    this.setState({
-      isSoldExpanded: true,
-      isListExpanded: false
-    })
+  handleClickSold = (event) => {
+    event.stopPropagation()
+    this.setState({ isSoldExpanded: true })
   }
 
-  handleClickDelete = () => {
+  handleClickDelete = (event) => {
+    event.stopPropagation()
     if (window.confirm('Are you sure want to delete this item?')) {
       this.props.onDelete()
     }
@@ -58,24 +56,18 @@ class ItemRow extends PureComponent {
 
   handleCompleteList = (payload) => {
     this.props.onList(payload)
-    this.setState({ isListExpanded: false })
-  }
-
-  handleCancelList = () => {
-    this.setState({ isListExpanded: false })
   }
 
   handleCompleteSold = (payload) => {
     this.props.onSold(payload)
-    this.setState({ isSoldExpanded: false })
   }
 
-  handleCancelSold = () => {
-    this.setState({ isSoldExpanded: false })
-  }
-
-  handleCloseDetailModal = () => {
-    this.setState({ isDetailsExpanded: false })
+  handleCloseModal = () => {
+    this.setState({
+      isDetailsExpanded: false,
+      isListExpanded: false,
+      isSoldExpanded: false
+    })
   }
 
   // Rendering
@@ -100,7 +92,7 @@ class ItemRow extends PureComponent {
             <ItemDetailModal
               item={this.props.item}
               open={this.state.isDetailsExpanded}
-              onClose={this.handleCloseDetailModal}
+              onClose={this.handleCloseModal}
             />
           </React.Fragment>
         </td>
@@ -123,44 +115,39 @@ class ItemRow extends PureComponent {
           <div className='btn-group btn-group-sm'>
             {
               !isListed
-              ? <button
-                  className='btn btn-secondary'
+              ? <Button
+                  color='secondary'
                   onClick={this.handleClickList}
                 >
                   List
-                </button>
-              : <button
-                  className='btn btn-secondary'
+                </Button>
+              : <Button
+                  color='secondary'
                   onClick={this.handleClickEnd}
                 >
                   End
-                </button>
+                </Button>
             }
-            <button
-              className='btn btn-primary'
+            <Button
+              color='primary'
               onClick={this.handleClickSold}
             >
               Sold
-            </button>
-            <button
-              className='btn btn-danger'
+            </Button>
+            <Button
+              color='danger'
               onClick={this.handleClickDelete}
             >
               Delete
-            </button>
+            </Button>
           </div>
-
-          {
-            this.state.isListExpanded
-            ? <ListItemForm
-                defaultBid={_.get(lastHistory, 'bid')}
-                defaultPrice={_.get(lastHistory, 'price')}
-                onComplete={this.handleCompleteList}
-                onCancel={this.handleCancelList}
-              />
-            : null
-          }
-          {
+          <ListItemModal
+            item={this.props.item}
+            open={this.state.isListExpanded}
+            onComplete={this.handleCompleteList}
+            onClose={this.handleCloseModal}
+          />
+          {/* {
             this.state.isSoldExpanded
             ? <SoldItemForm
                 defaultBid={_.get(lastHistory, 'bid')}
@@ -171,7 +158,7 @@ class ItemRow extends PureComponent {
                 onCancel={this.handleCancelSold}
               />
             : null
-          }
+          } */}
         </td>
       </tr>
     )
