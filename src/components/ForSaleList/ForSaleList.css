@@ -1,7 +1,9 @@
-.c-SaleItemList { font-size: 14px; }
+.c-ForSaleList { font-size: 14px; }
 
-  .c-SaleItemList th { border-top: none; }
+  .c-ForSaleList th { border-top: none; }
 
 /* Elements */
+
+.c-ForSaleList__row td { vertical-align: middle; }
 
 /* Modifiers */

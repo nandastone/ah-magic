@@ -8,16 +8,12 @@ import { calculateItemFinances } from '../../../utils'
 
 // Components
 
-import { Button } from 'reactstrap'
+import { Badge, Button, ButtonGroup } from 'reactstrap'
 import ItemDetailModal from '../../ItemDetailModal'
 import ItemTitle from '../../ItemTitle'
 import ListItemModal from '../../ListItemModal'
 import SellItemModal from '../../SellItemModal'
 import WowCurrency from '../../WowCurrency'
-
-// Assets
-
-import './ItemRow.css'
 
 class ItemRow extends PureComponent {
   state = {
@@ -82,7 +78,7 @@ class ItemRow extends PureComponent {
     return (
       <tr
         className={classNames(
-          'c-ItemRow',
+          'c-ForSaleList__row',
           { 'table-info': isListed }
         )}
         onClick={this.handleClickRow}
@@ -104,7 +100,9 @@ class ItemRow extends PureComponent {
           <WowCurrency value={price} />
         </td>
         <td>
-          <WowCurrency value={profit} />
+          <Badge color={profit > 0 ? 'success' : 'danger'}>
+            <WowCurrency value={profit} />
+          </Badge>
         </td>
         <td>
           {moment(firstHistory.createdAt).format('D MMM YYYY, h:mm:ss a')}
@@ -113,7 +111,7 @@ class ItemRow extends PureComponent {
           {moment(lastHistory.updatedAt || lastHistory.createdAt).format('D MMM YYYY, h:mm:ss a')}
         </td>
         <td>
-          <div className='btn-group btn-group-sm'>
+          <ButtonGroup size='sm'>
             {
               !isListed
               ? <Button
@@ -141,7 +139,7 @@ class ItemRow extends PureComponent {
             >
               Delete
             </Button>
-          </div>
+          </ButtonGroup>
           <ListItemModal
             item={this.props.item}
             open={this.state.isListExpanded}

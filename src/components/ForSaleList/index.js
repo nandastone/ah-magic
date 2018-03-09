@@ -107,7 +107,7 @@ class ForSaleList extends PureComponent {
           <tr>
             <th scope='col'>Name</th>
             <th scope='col'>Cost</th>
-            <th scope='col'>Sale</th>
+            <th scope='col'>Price</th>
             <th scope='col'>Forecast</th>
             <th scope='col'>Created</th>
             <th scope='col' colSpan={2}>Updated</th>

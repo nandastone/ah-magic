@@ -1,12 +1,15 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
+import moment from 'moment'
 
 import { calculateItemFinances } from '../../../utils'
 
 // Components
 
-import ItemHistory from '../../ItemHistory'
-import ItemSalesInfo from '../../ItemSalesInfo'
+import { Badge, Button, ButtonGroup } from 'reactstrap'
+import ItemDetailModal from '../../ItemDetailModal'
+import ItemTitle from '../../ItemTitle'
 import WowCurrency from '../../WowCurrency'
 
 class ItemRow extends PureComponent {
@@ -22,46 +25,74 @@ class ItemRow extends PureComponent {
     })
   }
 
+  handleClickDelete = (event) => {
+    event.stopPropagation()
+    if (window.confirm('Are you sure want to delete this item?')) {
+      this.props.onDelete()
+    }
+  }
+
   // Rendering
 
   render () {
+    const firstHistory = _.first(this.props.item.history)
+    const lastHistory = _.last(this.props.item.history)
     const { cost, price, profit } = calculateItemFinances(this.props.item.history)
 
     return (
-      <div className='alert'>
-        <h4 onClick={this.handleClickHistory}>
-          {this.props.item.name}{' '}
-          {
-            this.props.item.stackable > 1
-            ? <small className='text-muted'>x{this.props.item.stackable}</small>
-            : null
-          }
-          <span className='ml-2'>
-            {
-              this.state.isDetailsExpanded
-              ? <i className='fas fa-caret-up'></i>
-              : <i className='fas fa-caret-down'></i>
-            }
-          </span>
-        </h4>
-        <ItemSalesInfo cost={cost} price={price} profit={profit} isSold />
-        {
-          this.state.isDetailsExpanded
-          ? <div>
-              <ItemHistory history={this.props.item.history} />
-              <p>
-                Vendor Price: <WowCurrency value={this.props.item.vendorValue} />
-              </p>
-            </div>
-          : null
-        }
-      </div>
+      <tr
+        className={'c-SoldList__row'}
+        onClick={this.handleClickRow}
+      >
+        <td>
+          <React.Fragment>
+            <ItemTitle item={this.props.item} />
+            <ItemDetailModal
+              item={this.props.item}
+              open={this.state.isDetailsExpanded}
+              onClose={this.handleCloseModal}
+            />
+          </React.Fragment>
+        </td>
+        <td>
+          <WowCurrency value={cost} />
+        </td>
+        <td>
+          <WowCurrency value={price} />
+        </td>
+        <td>
+          <Badge color={profit > 0 ? 'success' : 'danger'}>
+            <WowCurrency value={profit} />
+          </Badge>
+        </td>
+        <td>
+          {moment(firstHistory.createdAt).format('D MMM YYYY, h:mm:ss a')}
+        </td>
+        <td>
+          {moment(lastHistory.updatedAt || lastHistory.createdAt).format('D MMM YYYY, h:mm:ss a')}
+        </td>
+        <td>
+          <ButtonGroup size='sm'>
+            <Button
+              color='danger'
+              onClick={this.handleClickDelete}
+            >
+              Delete
+            </Button>
+          </ButtonGroup>
+        </td>
+      </tr>
     )
   }
 }
 
+ItemRow.defaultProps = {
+  onDelete: () => {}
+}
+
 ItemRow.propTypes = {
-  item: PropTypes.object.isRequired
+  item: PropTypes.object.isRequired,
+  onDelete: PropTypes.func
 }
 
 export default ItemRow
