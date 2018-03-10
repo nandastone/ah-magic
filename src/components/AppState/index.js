@@ -61,6 +61,12 @@ class AppState extends PureComponent {
     this.setState({ inventory: [] })
   }
 
+  // Public
+
+  setAppState = (state) => {
+    this.setState(state)
+  }
+
   // Rendering
 
   render () {
@@ -76,6 +82,8 @@ class AppState extends PureComponent {
     return (
       <div className='c-AppState'>
         <AppScreen
+          appState={this.state}
+          setAppState={this.setAppState}
           saleInventory={saleInventory}
           soldInventory={soldInventory}
           onCreateItem={this.handleCreateItem}

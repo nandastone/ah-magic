@@ -6,6 +6,7 @@ import classNames from 'classnames'
 
 import { Container } from 'reactstrap'
 import AppHeader from '../AppHeader'
+import AppNav from '../AppNav'
 import ForSaleList from '../ForSaleList'
 import SoldList from '../SoldList'
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
@@ -18,7 +19,11 @@ class AppScreen extends PureComponent {
   render () {
     return (
       <div className='c-AppScreen'>
-        <AppHeader
+        <AppHeader />
+
+        <AppNav
+          appState={this.props.appState}
+          setAppState={this.props.setAppState}
           onCreateItem={this.props.onCreateItem}
           onResetItems={this.props.onResetItems}
         />
@@ -71,6 +76,8 @@ AppScreen.defaultProps = {
 }
 
 AppScreen.propTypes = {
+  appState: PropTypes.object,
+  setAppState: PropTypes.func,
   saleInventory: PropTypes.array.isRequired,
   soldInventory: PropTypes.array.isRequired,
   onCreateItem: PropTypes.func,
