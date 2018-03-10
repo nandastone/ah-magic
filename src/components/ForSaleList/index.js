@@ -4,6 +4,7 @@ import _ from 'lodash'
 import uuid from 'uuid/v4'
 import moment from 'moment'
 import classNames from 'classnames'
+import { animateScroll as scroll } from 'react-scroll'
 
 import {
   calculateAHListingCost,
@@ -23,7 +24,20 @@ import './ForSaleList.css'
 class ForSaleList extends PureComponent {
   state = {
     sortField: '',
-    sortDirection: 'DESC'
+    sortDirection: 'DESC',
+    restoreScroll: 0
+  }
+
+  // Lifecylce
+
+  componentWillReceiveProps (nextProps) {
+    this.setState({ restoreScroll: window.scrollY })
+  }
+
+  componentDidUpdate () {
+    if (this.state.restoreScroll) {
+      scroll.scrollTo(this.state.restoreScroll, { duration: 0 })
+    }
   }
 
   // Event handling
