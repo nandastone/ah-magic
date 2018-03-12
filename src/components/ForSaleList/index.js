@@ -9,7 +9,7 @@ import { animateScroll as scroll } from 'react-scroll'
 import {
   calculateAHListingCost,
   calculateAHTransactionCost,
-  calculateItemFinances
+  calculateListingFinances
 } from '../../utils'
 
 // Components
@@ -148,21 +148,21 @@ class ForSaleList extends PureComponent {
         break
       case 'cost':
         sorted = _.sortBy(items, (item) => {
-          const { cost } = calculateItemFinances(item.history)
+          const { cost } = calculateListingFinances(item.history)
           return cost || 0
         })
         if (direction === 'DESC') sorted.reverse()
         break
       case 'price':
         sorted = _.sortBy(items, (item) => {
-          const { price } = calculateItemFinances(item.history)
+          const { price } = calculateListingFinances(item.history)
           return price || 0
         })
         if (direction === 'DESC') sorted.reverse()
         break
       case 'profit':
         sorted = _.sortBy(items, (item) => {
-          const { profit } = calculateItemFinances(item.history)
+          const { profit } = calculateListingFinances(item.history)
           return profit || 0
         })
         if (direction === 'DESC') sorted.reverse()

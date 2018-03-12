@@ -4,7 +4,7 @@
 
 **Implemented enhancements:**
 
-- Add menu links for exporting and importing app state (for manual backups) [\#18 (https://trello.com/c/CvxbFhBQ/18-add-export-import-tool)
+- Add menu links for exporting and importing app state (for manual backups) [\#18] (https://trello.com/c/CvxbFhBQ/18-add-export-import-tool)
 - Move "Add Item" + data management links from header into navigation dropdown
 
 **Fixed bugs:**

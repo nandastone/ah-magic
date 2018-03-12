@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import moment from 'moment'
 
-import { calculateItemFinances } from '../../../utils'
+import { calculateListingFinances } from '../../../utils'
 
 // Components
 
@@ -37,7 +37,7 @@ class ItemRow extends PureComponent {
   render () {
     const firstHistory = _.first(this.props.item.history)
     const lastHistory = _.last(this.props.item.history)
-    const { cost, price, profit } = calculateItemFinances(this.props.item.history)
+    const { cost, price, profit } = calculateListingFinances(this.props.item.history)
 
     return (
       <tr
