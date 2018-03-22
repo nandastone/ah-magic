@@ -34,7 +34,7 @@ class SellItemModal extends PureComponent {
         size='lg'
       >
         <ModalHeader toggle={this.props.onClose}>
-          Sold: <ItemTitle item={this.props.item} />
+          Sold: <ItemTitle name={this.props.item.name} count={this.props.item.stackable} />
         </ModalHeader>
         <ModalBody>
           <SellItemForm

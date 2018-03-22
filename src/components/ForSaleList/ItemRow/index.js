@@ -86,7 +86,7 @@ class ItemRow extends PureComponent {
       >
         <td>
           <React.Fragment>
-            <ItemTitle item={this.props.item} />
+            <ItemTitle name={this.props.item.name} count={this.props.item.stackable} />
             <ItemDetailModal
               item={this.props.item}
               open={this.state.isDetailsExpanded}

@@ -1,6 +1,6 @@
 import calculateListingFinances from './calculateListingFinances'
 
-test('correctly calculates the finances for a listing\'s history', () => {
+it('correctly calculates the finances for a listing\'s history', () => {
   const history = [
     { type: 'purchase', cost: 10000 },
     { type: 'listing', cost: 5000, price: 30000 },

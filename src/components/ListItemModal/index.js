@@ -33,7 +33,7 @@ class ListItemModal extends PureComponent {
         size='lg'
       >
         <ModalHeader toggle={this.props.onClose}>
-          Listing: <ItemTitle item={this.props.item} />
+          Listing: <ItemTitle name={this.props.item.name} count={this.props.item.stackable} />
         </ModalHeader>
         <ModalBody>
           <ListItemForm

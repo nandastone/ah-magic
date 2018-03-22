@@ -1,6 +1,6 @@
 import calculateListingCost from './calculateListingCost'
 
-test('correctly calculates the cost for a listing\'s history', () => {
+it('correctly calculates the cost for a listing\'s history', () => {
   const history = [
     { type: 'purchase', cost: 10000 },
     { type: 'listing', cost: 5000 },
