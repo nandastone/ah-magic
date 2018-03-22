@@ -37,8 +37,8 @@ class ListItemModal extends PureComponent {
         </ModalHeader>
         <ModalBody>
           <ListItemForm
-            defaultBid={lastHistory.bid}
-            defaultPrice={lastHistory.price}
+            defaultBid={lastHistory && lastHistory.bid}
+            defaultPrice={lastHistory && lastHistory.price}
             onComplete={this.handleCompleteList}
             onCancel={this.props.onClose}
             ref={(component) => this.formComponent = component}

@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ItemRow component renders correctly 1`] = `
+<tr
+  className="c-ForSaleList__row"
+  onClick={[Function]}
+>
+  <td>
+    <span
+      data-test="name"
+    >
+      Pretty Flower
+    </span>
+     
+    <small
+      className="text-muted"
+      data-test="count"
+    >
+      x
+      20
+    </small>
+  </td>
+  <td>
+    <span
+      className="c-WowCurrency"
+    >
+      <span
+        className="c-WowCurrency__coin c-WowCurrenct__coin--gold"
+      >
+        2
+        <img
+          alt="Gold"
+          src="gold.png"
+        />
+      </span>
+      <span
+        className="c-WowCurrency__coin c-WowCurrenct__coin--silver"
+      >
+        45
+        <img
+          alt="Silver"
+          src="silver.png"
+        />
+      </span>
+      <span
+        className="c-WowCurrency__coin c-WowCurrenct__coin--copper"
+      >
+        50
+        <img
+          alt="Copper"
+          src="copper.png"
+        />
+      </span>
+    </span>
+  </td>
+  <td>
+    <span
+      className="c-WowCurrency"
+    >
+      <span
+        className="c-WowCurrency__coin c-WowCurrenct__coin--gold"
+      >
+        11
+        <img
+          alt="Gold"
+          src="gold.png"
+        />
+      </span>
+      <span
+        className="c-WowCurrency__coin c-WowCurrenct__coin--silver"
+      >
+        95
+        <img
+          alt="Silver"
+          src="silver.png"
+        />
+      </span>
+      <span
+        className="c-WowCurrency__coin c-WowCurrenct__coin--copper"
+      >
+        0
+        <img
+          alt="Copper"
+          src="copper.png"
+        />
+      </span>
+    </span>
+  </td>
+  <td>
+    <span
+      className="badge badge-success"
+    >
+      
+      <span
+        className="c-WowCurrency"
+      >
+        <span
+          className="c-WowCurrency__coin c-WowCurrenct__coin--gold"
+        >
+          9
+          <img
+            alt="Gold"
+            src="gold.png"
+          />
+        </span>
+        <span
+          className="c-WowCurrency__coin c-WowCurrenct__coin--silver"
+        >
+          49
+          <img
+            alt="Silver"
+            src="silver.png"
+          />
+        </span>
+        <span
+          className="c-WowCurrency__coin c-WowCurrenct__coin--copper"
+        >
+          50
+          <img
+            alt="Copper"
+            src="copper.png"
+          />
+        </span>
+      </span>
+    </span>
+  </td>
+  <td>
+    <span
+      data-test="created-at"
+      title="10 Mar 2018, 7:10:39 am"
+    >
+      10 Mar 2018
+    </span>
+  </td>
+  <td>
+    <span
+      data-test="updated-at"
+      title="14 Mar 2018, 7:12:39 am"
+    >
+      14 Mar 2018
+    </span>
+  </td>
+  <td>
+    <div
+      className="btn-group-sm btn-group"
+      role="group"
+    >
+      <button
+        className="btn btn-secondary"
+        data-test="list-button"
+        onClick={[Function]}
+        type="button"
+      >
+        List
+      </button>
+      <button
+        className="btn btn-primary"
+        data-test="sold-button"
+        onClick={[Function]}
+        type="button"
+      >
+        Sold
+      </button>
+      <button
+        className="btn btn-danger"
+        data-test="delete-button"
+        onClick={[Function]}
+        type="button"
+      >
+        Delete
+      </button>
+    </div>
+  </td>
+</tr>
+`;

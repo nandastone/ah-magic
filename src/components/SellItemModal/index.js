@@ -38,8 +38,8 @@ class SellItemModal extends PureComponent {
         </ModalHeader>
         <ModalBody>
           <SellItemForm
-            defaultBid={lastHistory.bid}
-            defaultPrice={lastHistory.price}
+            defaultBid={lastHistory && lastHistory.bid}
+            defaultPrice={lastHistory && lastHistory.price}
             defaultVendorValue={this.props.item.vendorValue}
             defaultSaleType={!isListed ? 'private' : 'ah'}
             onComplete={this.handleCompleteSold}
