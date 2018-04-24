@@ -34,12 +34,12 @@ class SellItemModal extends PureComponent {
         size='lg'
       >
         <ModalHeader toggle={this.props.onClose}>
-          Sold: <ItemTitle item={this.props.item} />
+          Sold: <ItemTitle name={this.props.item.name} count={this.props.item.stackable} />
         </ModalHeader>
         <ModalBody>
           <SellItemForm
-            defaultBid={lastHistory.bid}
-            defaultPrice={lastHistory.price}
+            defaultBid={lastHistory && lastHistory.bid}
+            defaultPrice={lastHistory && lastHistory.price}
             defaultVendorValue={this.props.item.vendorValue}
             defaultSaleType={!isListed ? 'private' : 'ah'}
             onComplete={this.handleCompleteSold}

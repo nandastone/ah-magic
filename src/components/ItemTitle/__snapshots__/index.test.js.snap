@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ItemTitle component renders correctly 1`] = `
+Array [
+  <span
+    data-test="name"
+>
+    My Bazooka
+</span>,
+  " ",
+  <small
+    className="text-muted"
+    data-test="count"
+>
+    x
+    50
+</small>,
+]
+`;

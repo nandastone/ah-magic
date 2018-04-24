@@ -4,12 +4,13 @@ import _ from 'lodash'
 import moment from 'moment'
 import classNames from 'classnames'
 
-import { calculateItemFinances } from '../../utils'
+import { calculateListingFinances } from '../../utils'
 
 // Components
 
 import { Table } from 'reactstrap'
 import ItemRow from './ItemRow'
+import TotalRow from '../TotalRow'
 
 // Assets
 
@@ -51,21 +52,21 @@ class SoldList extends PureComponent {
         break
       case 'cost':
         sorted = _.sortBy(items, (item) => {
-          const { cost } = calculateItemFinances(item.history)
+          const { cost } = calculateListingFinances(item.history)
           return cost || 0
         })
         if (direction === 'DESC') sorted.reverse()
         break
       case 'price':
         sorted = _.sortBy(items, (item) => {
-          const { price } = calculateItemFinances(item.history)
+          const { price } = calculateListingFinances(item.history)
           return price || 0
         })
         if (direction === 'DESC') sorted.reverse()
         break
       case 'profit':
         sorted = _.sortBy(items, (item) => {
-          const { profit } = calculateItemFinances(item.history)
+          const { profit } = calculateListingFinances(item.history)
           return profit || 0
         })
         if (direction === 'DESC') sorted.reverse()
@@ -96,7 +97,6 @@ class SoldList extends PureComponent {
 
   render () {
     const sortedItems = this.state.sortField ? this._getSortedItems(this.props.items) : this.props.items
-
     return (
       <Table hover className='c-SoldList'>
         <thead>
@@ -217,6 +217,7 @@ class SoldList extends PureComponent {
               />
             )
           })}
+          <TotalRow items={sortedItems} />
         </tbody>
       </Table>
     )

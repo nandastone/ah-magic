@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import moment from 'moment'
 
-import { calculateItemFinances } from '../../../utils'
+import { calculateListingFinances } from '../../../utils'
 
 // Components
 
-import { Badge, Button, ButtonGroup } from 'reactstrap'
+import { Button, ButtonGroup } from 'reactstrap'
+import ProfitBadge from '../../ProfitBadge'
 import ItemDetailModal from '../../ItemDetailModal'
 import ItemTitle from '../../ItemTitle'
 import WowCurrency from '../../WowCurrency'
@@ -19,10 +20,9 @@ class ItemRow extends PureComponent {
 
   // Event handling
 
-  handleClickHistory = () => {
-    this.setState((prevState, props) => {
-      return { isDetailsExpanded: !prevState.isDetailsExpanded }
-    })
+  handleClickRow = (event) => {
+    event.preventDefault()
+    this.setState({ isDetailsExpanded: true })
   }
 
   handleClickDelete = (event) => {
@@ -32,12 +32,16 @@ class ItemRow extends PureComponent {
     }
   }
 
+  handleCloseModal = () => {
+    this.setState({ isDetailsExpanded: false })
+  }
+
   // Rendering
 
   render () {
     const firstHistory = _.first(this.props.item.history)
     const lastHistory = _.last(this.props.item.history)
-    const { cost, price, profit } = calculateItemFinances(this.props.item.history)
+    const { cost, price, profit } = calculateListingFinances(this.props.item.history)
 
     return (
       <tr
@@ -46,7 +50,7 @@ class ItemRow extends PureComponent {
       >
         <td>
           <React.Fragment>
-            <ItemTitle item={this.props.item} />
+            <ItemTitle name={this.props.item.name} count={this.props.item.stackable} />
             <ItemDetailModal
               item={this.props.item}
               open={this.state.isDetailsExpanded}
@@ -61,10 +65,7 @@ class ItemRow extends PureComponent {
           <WowCurrency value={price} />
         </td>
         <td>
-          <Badge color={profit > 0 ? 'success' : 'danger'}>
-            {profit <= 0 ? '-' : ''}
-            <WowCurrency value={profit} />
-          </Badge>
+          <ProfitBadge profit={profit} />
         </td>
         <td>
           <span title={moment(firstHistory.createdAt).format('D MMM YYYY, h:mm:ss a')}>

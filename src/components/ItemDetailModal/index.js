@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import ItemHistory from '../ItemHistory'
 import ItemTitle from '../ItemTitle'
+import RestoreFocus from '../RestoreFocus'
 import WowCurrency from '../WowCurrency'
 
 const ItemDetailModal = ({ open, item, onClose }) => {
@@ -16,9 +17,10 @@ const ItemDetailModal = ({ open, item, onClose }) => {
       size='lg'
     >
       <ModalHeader toggle={onClose}>
-        <ItemTitle item={item} />
+        <ItemTitle name={item.name} count={item.stackable} />
       </ModalHeader>
       <ModalBody>
+        <RestoreFocus />
         <ItemHistory history={item.history} />
         <h4>Details</h4>
         <p>Vendor Price: <WowCurrency value={item.vendorValue} /></p>

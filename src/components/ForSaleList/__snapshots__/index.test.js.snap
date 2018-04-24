@@ -1,0 +1,503 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ForSaleList component renders correctly 1`] = `
+<table
+  className="c-ForSaleList table table-hover"
+>
+  <thead>
+    <tr>
+      <th
+        className="w-25"
+        onClick={[Function]}
+      >
+        Name
+      </th>
+      <th
+        className="w-10"
+        onClick={[Function]}
+      >
+        Cost
+      </th>
+      <th
+        className="w-10"
+        onClick={[Function]}
+      >
+        Price
+      </th>
+      <th
+        className="w-10"
+        onClick={[Function]}
+      >
+        Profit
+      </th>
+      <th
+        className="w-15"
+        onClick={[Function]}
+      >
+        Created
+      </th>
+      <th
+        className="w-15"
+        onClick={[Function]}
+      >
+        Updated
+      </th>
+      <th
+        className="w-15"
+      />
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      className="c-ForSaleList__row"
+      onClick={[Function]}
+    >
+      <td>
+        <span
+          data-test="name"
+        >
+          Item 1
+        </span>
+         
+      </td>
+      <td>
+        <span
+          className="c-WowCurrency"
+        >
+          <span
+            className="c-WowCurrency__coin c-WowCurrenct__coin--gold"
+          >
+            0
+            <img
+              alt="Gold"
+              src="gold.png"
+            />
+          </span>
+          <span
+            className="c-WowCurrency__coin c-WowCurrenct__coin--silver"
+          >
+            0
+            <img
+              alt="Silver"
+              src="silver.png"
+            />
+          </span>
+          <span
+            className="c-WowCurrency__coin c-WowCurrenct__coin--copper"
+          >
+            0
+            <img
+              alt="Copper"
+              src="copper.png"
+            />
+          </span>
+        </span>
+      </td>
+      <td>
+        <span
+          className="c-WowCurrency"
+        >
+          <span
+            className="c-WowCurrency__coin c-WowCurrenct__coin--gold"
+          >
+            0
+            <img
+              alt="Gold"
+              src="gold.png"
+            />
+          </span>
+          <span
+            className="c-WowCurrency__coin c-WowCurrenct__coin--silver"
+          >
+            0
+            <img
+              alt="Silver"
+              src="silver.png"
+            />
+          </span>
+          <span
+            className="c-WowCurrency__coin c-WowCurrenct__coin--copper"
+          >
+            0
+            <img
+              alt="Copper"
+              src="copper.png"
+            />
+          </span>
+        </span>
+      </td>
+      <td>
+        <span
+          className="badge badge-secondary"
+        >
+          
+          <span
+            className="c-WowCurrency"
+          >
+            <span
+              className="c-WowCurrency__coin c-WowCurrenct__coin--gold"
+            >
+              0
+              <img
+                alt="Gold"
+                src="gold.png"
+              />
+            </span>
+            <span
+              className="c-WowCurrency__coin c-WowCurrenct__coin--silver"
+            >
+              0
+              <img
+                alt="Silver"
+                src="silver.png"
+              />
+            </span>
+            <span
+              className="c-WowCurrency__coin c-WowCurrenct__coin--copper"
+            >
+              0
+              <img
+                alt="Copper"
+                src="copper.png"
+              />
+            </span>
+          </span>
+        </span>
+      </td>
+      <td />
+      <td />
+      <td>
+        <div
+          className="btn-group-sm btn-group"
+          role="group"
+        >
+          <button
+            className="btn btn-secondary"
+            data-test="list-button"
+            onClick={[Function]}
+            type="button"
+          >
+            List
+          </button>
+          <button
+            className="btn btn-primary"
+            data-test="sold-button"
+            onClick={[Function]}
+            type="button"
+          >
+            Sold
+          </button>
+          <button
+            className="btn btn-danger"
+            data-test="delete-button"
+            onClick={[Function]}
+            type="button"
+          >
+            Delete
+          </button>
+        </div>
+      </td>
+    </tr>
+    <tr
+      className="c-ForSaleList__row"
+      onClick={[Function]}
+    >
+      <td>
+        <span
+          data-test="name"
+        >
+          Item 2
+        </span>
+         
+      </td>
+      <td>
+        <span
+          className="c-WowCurrency"
+        >
+          <span
+            className="c-WowCurrency__coin c-WowCurrenct__coin--gold"
+          >
+            0
+            <img
+              alt="Gold"
+              src="gold.png"
+            />
+          </span>
+          <span
+            className="c-WowCurrency__coin c-WowCurrenct__coin--silver"
+          >
+            0
+            <img
+              alt="Silver"
+              src="silver.png"
+            />
+          </span>
+          <span
+            className="c-WowCurrency__coin c-WowCurrenct__coin--copper"
+          >
+            0
+            <img
+              alt="Copper"
+              src="copper.png"
+            />
+          </span>
+        </span>
+      </td>
+      <td>
+        <span
+          className="c-WowCurrency"
+        >
+          <span
+            className="c-WowCurrency__coin c-WowCurrenct__coin--gold"
+          >
+            0
+            <img
+              alt="Gold"
+              src="gold.png"
+            />
+          </span>
+          <span
+            className="c-WowCurrency__coin c-WowCurrenct__coin--silver"
+          >
+            0
+            <img
+              alt="Silver"
+              src="silver.png"
+            />
+          </span>
+          <span
+            className="c-WowCurrency__coin c-WowCurrenct__coin--copper"
+          >
+            0
+            <img
+              alt="Copper"
+              src="copper.png"
+            />
+          </span>
+        </span>
+      </td>
+      <td>
+        <span
+          className="badge badge-secondary"
+        >
+          
+          <span
+            className="c-WowCurrency"
+          >
+            <span
+              className="c-WowCurrency__coin c-WowCurrenct__coin--gold"
+            >
+              0
+              <img
+                alt="Gold"
+                src="gold.png"
+              />
+            </span>
+            <span
+              className="c-WowCurrency__coin c-WowCurrenct__coin--silver"
+            >
+              0
+              <img
+                alt="Silver"
+                src="silver.png"
+              />
+            </span>
+            <span
+              className="c-WowCurrency__coin c-WowCurrenct__coin--copper"
+            >
+              0
+              <img
+                alt="Copper"
+                src="copper.png"
+              />
+            </span>
+          </span>
+        </span>
+      </td>
+      <td />
+      <td />
+      <td>
+        <div
+          className="btn-group-sm btn-group"
+          role="group"
+        >
+          <button
+            className="btn btn-secondary"
+            data-test="list-button"
+            onClick={[Function]}
+            type="button"
+          >
+            List
+          </button>
+          <button
+            className="btn btn-primary"
+            data-test="sold-button"
+            onClick={[Function]}
+            type="button"
+          >
+            Sold
+          </button>
+          <button
+            className="btn btn-danger"
+            data-test="delete-button"
+            onClick={[Function]}
+            type="button"
+          >
+            Delete
+          </button>
+        </div>
+      </td>
+    </tr>
+    <tr
+      className="c-ForSaleList__row"
+      onClick={[Function]}
+    >
+      <td>
+        <span
+          data-test="name"
+        >
+          Item 3
+        </span>
+         
+      </td>
+      <td>
+        <span
+          className="c-WowCurrency"
+        >
+          <span
+            className="c-WowCurrency__coin c-WowCurrenct__coin--gold"
+          >
+            0
+            <img
+              alt="Gold"
+              src="gold.png"
+            />
+          </span>
+          <span
+            className="c-WowCurrency__coin c-WowCurrenct__coin--silver"
+          >
+            0
+            <img
+              alt="Silver"
+              src="silver.png"
+            />
+          </span>
+          <span
+            className="c-WowCurrency__coin c-WowCurrenct__coin--copper"
+          >
+            0
+            <img
+              alt="Copper"
+              src="copper.png"
+            />
+          </span>
+        </span>
+      </td>
+      <td>
+        <span
+          className="c-WowCurrency"
+        >
+          <span
+            className="c-WowCurrency__coin c-WowCurrenct__coin--gold"
+          >
+            0
+            <img
+              alt="Gold"
+              src="gold.png"
+            />
+          </span>
+          <span
+            className="c-WowCurrency__coin c-WowCurrenct__coin--silver"
+          >
+            0
+            <img
+              alt="Silver"
+              src="silver.png"
+            />
+          </span>
+          <span
+            className="c-WowCurrency__coin c-WowCurrenct__coin--copper"
+          >
+            0
+            <img
+              alt="Copper"
+              src="copper.png"
+            />
+          </span>
+        </span>
+      </td>
+      <td>
+        <span
+          className="badge badge-secondary"
+        >
+          
+          <span
+            className="c-WowCurrency"
+          >
+            <span
+              className="c-WowCurrency__coin c-WowCurrenct__coin--gold"
+            >
+              0
+              <img
+                alt="Gold"
+                src="gold.png"
+              />
+            </span>
+            <span
+              className="c-WowCurrency__coin c-WowCurrenct__coin--silver"
+            >
+              0
+              <img
+                alt="Silver"
+                src="silver.png"
+              />
+            </span>
+            <span
+              className="c-WowCurrency__coin c-WowCurrenct__coin--copper"
+            >
+              0
+              <img
+                alt="Copper"
+                src="copper.png"
+              />
+            </span>
+          </span>
+        </span>
+      </td>
+      <td />
+      <td />
+      <td>
+        <div
+          className="btn-group-sm btn-group"
+          role="group"
+        >
+          <button
+            className="btn btn-secondary"
+            data-test="list-button"
+            onClick={[Function]}
+            type="button"
+          >
+            List
+          </button>
+          <button
+            className="btn btn-primary"
+            data-test="sold-button"
+            onClick={[Function]}
+            type="button"
+          >
+            Sold
+          </button>
+          <button
+            className="btn btn-danger"
+            data-test="delete-button"
+            onClick={[Function]}
+            type="button"
+          >
+            Delete
+          </button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;

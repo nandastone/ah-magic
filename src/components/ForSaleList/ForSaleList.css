@@ -9,6 +9,7 @@
 
 /* Elements */
 
-.c-ForSaleList__row td { vertical-align: middle; }
+.c-ForSaleList__row {}
+  .c-ForSaleList__row td { vertical-align: middle; }
 
 /* Modifiers */

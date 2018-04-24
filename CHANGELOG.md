@@ -1,10 +1,22 @@
 # Change Log
 
+## v0.4.2 (2018-04-24)
+
+**Implemented enhancements:**
+
+- Add "Totals" row to bottom of "For Sale" and "Sold" tables
+- Add Item Details modal to "Sold" list
+- Allow Item Details modal to be closed with Escape key
+
+**Fixed bugs:**
+
+- Fix Item History with no price showing the profit as a loss
+
 ## v0.4.1 (2018-03-11)
 
 **Implemented enhancements:**
 
-- Add menu links for exporting and importing app state (for manual backups) [\#18 (https://trello.com/c/CvxbFhBQ/18-add-export-import-tool)
+- Add menu links for exporting and importing app state (for manual backups) [\#18] (https://trello.com/c/CvxbFhBQ/18-add-export-import-tool)
 - Move "Add Item" + data management links from header into navigation dropdown
 
 **Fixed bugs:**
