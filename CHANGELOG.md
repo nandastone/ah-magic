@@ -1,5 +1,17 @@
 # Change Log
 
+## v0.4.2 (2018-04-24)
+
+**Implemented enhancements:**
+
+- Add "Totals" row to bottom of "For Sale" and "Sold" tables
+- Add Item Details modal to "Sold" list
+- Allow Item Details modal to be closed with Escape key
+
+**Fixed bugs:**
+
+- Fix Item History with no price showing the profit as a loss
+
 ## v0.4.1 (2018-03-11)
 
 **Implemented enhancements:**
