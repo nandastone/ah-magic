@@ -16,6 +16,7 @@ import {
 
 import { Table } from 'reactstrap'
 import ItemRow from './ItemRow'
+import TotalRow from '../TotalRow'
 
 // Assets
 
@@ -193,7 +194,6 @@ class ForSaleList extends PureComponent {
 
   render () {
     const sortedItems = this.state.sortField ? this._getSortedItems(this.props.items) : this.props.items
-
     return (
       <Table hover className='c-ForSaleList'>
         <thead>
@@ -305,7 +305,7 @@ class ForSaleList extends PureComponent {
           </tr>
         </thead>
         <tbody>
-          {sortedItems.map((item) => {
+          {sortedItems.map(item => {
             return (
               <ItemRow
                 key={item.key}
@@ -317,6 +317,7 @@ class ForSaleList extends PureComponent {
               />
             )
           })}
+          <TotalRow items={sortedItems} />
         </tbody>
       </Table>
     )

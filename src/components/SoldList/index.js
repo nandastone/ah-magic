@@ -10,6 +10,7 @@ import { calculateListingFinances } from '../../utils'
 
 import { Table } from 'reactstrap'
 import ItemRow from './ItemRow'
+import TotalRow from '../TotalRow'
 
 // Assets
 
@@ -96,7 +97,6 @@ class SoldList extends PureComponent {
 
   render () {
     const sortedItems = this.state.sortField ? this._getSortedItems(this.props.items) : this.props.items
-
     return (
       <Table hover className='c-SoldList'>
         <thead>
@@ -217,6 +217,7 @@ class SoldList extends PureComponent {
               />
             )
           })}
+          <TotalRow items={sortedItems} />
         </tbody>
       </Table>
     )
