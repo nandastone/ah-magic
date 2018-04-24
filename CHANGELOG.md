@@ -1,5 +1,11 @@
 # Change Log
 
+## v0.4.3 (2018-04-24)
+
+**Implemented enhancements:**
+
+- Add row colouring to "For Sale" table when item is listed
+
 ## v0.4.2 (2018-04-24)
 
 **Implemented enhancements:**
