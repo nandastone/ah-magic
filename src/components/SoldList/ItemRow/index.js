@@ -19,10 +19,9 @@ class ItemRow extends PureComponent {
 
   // Event handling
 
-  handleClickHistory = () => {
-    this.setState((prevState, props) => {
-      return { isDetailsExpanded: !prevState.isDetailsExpanded }
-    })
+  handleClickRow = (event) => {
+    event.preventDefault()
+    this.setState({ isDetailsExpanded: true })
   }
 
   handleClickDelete = (event) => {
@@ -30,6 +29,10 @@ class ItemRow extends PureComponent {
     if (window.confirm('Are you sure want to delete this item?')) {
       this.props.onDelete()
     }
+  }
+
+  handleCloseModal = () => {
+    this.setState({ isDetailsExpanded: false })
   }
 
   // Rendering
