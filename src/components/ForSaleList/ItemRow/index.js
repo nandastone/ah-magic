@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
-import classNames from 'classnames'
 import moment from 'moment'
 
-import { calculateItemFinances } from '../../../utils'
+import { calculateListingFinances } from '../../../utils'
 
 // Components
 
@@ -73,20 +72,18 @@ class ItemRow extends PureComponent {
     const firstHistory = _.first(this.props.item.history)
     const lastHistory = _.last(this.props.item.history)
     const isListed = lastHistory && lastHistory.type === 'listing' && !lastHistory.endedAt
-    const { cost, price, profit } = calculateItemFinances(this.props.item.history)
-    const updatedAt = (lastHistory.endedAt || lastHistory.createdAt)
+    const { cost, price, profit } = calculateListingFinances(this.props.item.history)
+    const createdAt = firstHistory ? firstHistory.createdAt : null
+    const updatedAt = lastHistory ? (lastHistory.endedAt || lastHistory.createdAt) : null
 
     return (
       <tr
-        className={classNames(
-          'c-ForSaleList__row',
-          { 'table-info': isListed }
-        )}
+        className={'c-ForSaleList__row'}
         onClick={this.handleClickRow}
       >
         <td>
           <React.Fragment>
-            <ItemTitle item={this.props.item} />
+            <ItemTitle name={this.props.item.name} count={this.props.item.stackable} />
             <ItemDetailModal
               item={this.props.item}
               open={this.state.isDetailsExpanded}
@@ -103,18 +100,26 @@ class ItemRow extends PureComponent {
         <td>
           <Badge color={profit > 0 ? 'success' : 'danger'}>
             {profit <= 0 ? '-' : ''}
-            <WowCurrency value={profit} />
+            <WowCurrency value={Math.abs(profit)} />
           </Badge>
         </td>
         <td>
-          <span title={moment(firstHistory.createdAt).format('D MMM YYYY, h:mm:ss a')}>
-            {moment(firstHistory.createdAt).format('D MMM YYYY')}
-          </span>
+          {
+            createdAt
+            ? <span title={moment(createdAt).format('D MMM YYYY, h:mm:ss a')} data-test='created-at'>
+                {moment(createdAt).format('D MMM YYYY')}
+              </span>
+            : null
+          }
         </td>
         <td>
-          <span title={moment(updatedAt).format('D MMM YYYY, h:mm:ss a')}>
-            {moment(updatedAt).format('D MMM YYYY')}
-          </span>
+          {
+            updatedAt
+            ? <span title={moment(updatedAt).format('D MMM YYYY, h:mm:ss a')} data-test='updated-at'>
+                {moment(updatedAt).format('D MMM YYYY')}
+              </span>
+            : null
+          }
         </td>
         <td>
           <ButtonGroup size='sm'>
@@ -123,12 +128,14 @@ class ItemRow extends PureComponent {
               ? <Button
                   color='secondary'
                   onClick={this.handleClickList}
+                  data-test='list-button'
                 >
                   List
                 </Button>
               : <Button
                   color='secondary'
                   onClick={this.handleClickEnd}
+                  data-test='end-button'
                 >
                   End
                 </Button>
@@ -136,12 +143,14 @@ class ItemRow extends PureComponent {
             <Button
               color='primary'
               onClick={this.handleClickSold}
+              data-test='sold-button'
             >
               Sold
             </Button>
             <Button
               color='danger'
               onClick={this.handleClickDelete}
+              data-test='delete-button'
             >
               Delete
             </Button>

@@ -33,12 +33,12 @@ class ListItemModal extends PureComponent {
         size='lg'
       >
         <ModalHeader toggle={this.props.onClose}>
-          Listing: <ItemTitle item={this.props.item} />
+          Listing: <ItemTitle name={this.props.item.name} count={this.props.item.stackable} />
         </ModalHeader>
         <ModalBody>
           <ListItemForm
-            defaultBid={lastHistory.bid}
-            defaultPrice={lastHistory.price}
+            defaultBid={lastHistory && lastHistory.bid}
+            defaultPrice={lastHistory && lastHistory.price}
             onComplete={this.handleCompleteList}
             onCancel={this.props.onClose}
             ref={(component) => this.formComponent = component}

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import moment from 'moment'
 
-import { calculateItemFinances } from '../../../utils'
+import { calculateListingFinances } from '../../../utils'
 
 // Components
 
@@ -37,7 +37,7 @@ class ItemRow extends PureComponent {
   render () {
     const firstHistory = _.first(this.props.item.history)
     const lastHistory = _.last(this.props.item.history)
-    const { cost, price, profit } = calculateItemFinances(this.props.item.history)
+    const { cost, price, profit } = calculateListingFinances(this.props.item.history)
 
     return (
       <tr
@@ -46,7 +46,7 @@ class ItemRow extends PureComponent {
       >
         <td>
           <React.Fragment>
-            <ItemTitle item={this.props.item} />
+            <ItemTitle name={this.props.item.name} count={this.props.item.stackable} />
             <ItemDetailModal
               item={this.props.item}
               open={this.state.isDetailsExpanded}
@@ -63,7 +63,7 @@ class ItemRow extends PureComponent {
         <td>
           <Badge color={profit > 0 ? 'success' : 'danger'}>
             {profit <= 0 ? '-' : ''}
-            <WowCurrency value={profit} />
+            <WowCurrency value={Math.abs(profit)} />
           </Badge>
         </td>
         <td>

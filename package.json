@@ -17,7 +17,7 @@
     "react-scripts": "1.1.0",
     "react-scroll": "^1.7.7",
     "react-transition-group": "^2.2.1",
-    "reactstrap": "^5.0.0-beta.2",
+    "reactstrap": "5.0.0-beta",
     "uuid": "^3.2.1"
   },
   "scripts": {
@@ -26,9 +26,19 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "devDependencies": {
-    "gh-pages": "^1.1.0"
+    "@storybook/addon-actions": "^3.3.15",
+    "@storybook/addon-links": "^3.3.15",
+    "@storybook/addons": "^3.3.15",
+    "@storybook/react": "^3.3.15",
+    "babel-core": "^6.26.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "gh-pages": "^1.1.0",
+    "react-test-renderer": "^16.2.0"
   }
 }

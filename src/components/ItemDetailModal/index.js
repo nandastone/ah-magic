@@ -16,7 +16,7 @@ const ItemDetailModal = ({ open, item, onClose }) => {
       size='lg'
     >
       <ModalHeader toggle={onClose}>
-        <ItemTitle item={item} />
+        <ItemTitle name={item.name} count={item.stackable} />
       </ModalHeader>
       <ModalBody>
         <ItemHistory history={item.history} />

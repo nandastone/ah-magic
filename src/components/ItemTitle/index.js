@@ -1,13 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const ItemTitle = ({ item }) => {
+const ItemTitle = ({
+  name,
+  count
+}) => {
   return (
     <React.Fragment>
-      {item.name}{' '}
+      <span data-test='name'>{name}</span>
+      {' '}
       {
-        item.stackable > 1
-        ? <small className='text-muted'>x{item.stackable}</small>
+        count > 1
+        ? <small className='text-muted' data-test='count'>x{count}</small>
         : null
       }
     </React.Fragment>
@@ -15,7 +19,8 @@ const ItemTitle = ({ item }) => {
 }
 
 ItemTitle.propTypes = {
-  item: PropTypes.object.isRequired
+  name: PropTypes.string.isRequired,
+  count: PropTypes.number
 }
 
 export default ItemTitle
