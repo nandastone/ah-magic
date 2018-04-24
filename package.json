@@ -1,6 +1,6 @@
 {
   "name": "ah-magic",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "homepage": "https://nandastone.github.io/ah-magic/",
   "dependencies": {
     "autocomplete.js": "^0.29.0",
