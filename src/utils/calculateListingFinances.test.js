@@ -18,3 +18,20 @@ it('should return default values for missing data', () => {
   const result = calculateListingFinances(history)
   expect(result).toEqual({ cost: 0, price: 0, profit: 0 })
 })
+
+it('should calculate default profit for missing cost', () => {
+  const history = [
+    { type: 'purchase', cost: 0 },
+    { type: 'listing', cost: 0, price: 10000 }
+  ]
+  const result = calculateListingFinances(history)
+  expect(result).toEqual({ cost: 0, price: 10000, profit: 10000 })
+})
+
+it('should calculate default profit for missing price', () => {
+  const history = [
+    { type: 'purchase', cost: 10000 }
+  ]
+  const result = calculateListingFinances(history)
+  expect(result).toEqual({ cost: 10000, price: 0, profit: 0 })
+})

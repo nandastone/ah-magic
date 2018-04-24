@@ -128,9 +128,9 @@ exports[`ForSaleList component renders correctly 1`] = `
       </td>
       <td>
         <span
-          className="badge badge-danger"
+          className="badge badge-secondary"
         >
-          -
+          
           <span
             className="c-WowCurrency"
           >
@@ -278,9 +278,9 @@ exports[`ForSaleList component renders correctly 1`] = `
       </td>
       <td>
         <span
-          className="badge badge-danger"
+          className="badge badge-secondary"
         >
-          -
+          
           <span
             className="c-WowCurrency"
           >
@@ -428,9 +428,9 @@ exports[`ForSaleList component renders correctly 1`] = `
       </td>
       <td>
         <span
-          className="badge badge-danger"
+          className="badge badge-secondary"
         >
-          -
+          
           <span
             className="c-WowCurrency"
           >

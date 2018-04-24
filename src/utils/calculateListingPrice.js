@@ -6,7 +6,7 @@ import _ from 'lodash'
  */
 const calculateListingPrice = (history = []) => {
   const lastHistory = _.last(history)
-  return lastHistory ? lastHistory.price : 0
+  return _.get(lastHistory, 'price', 0)
 }
 
 export default calculateListingPrice

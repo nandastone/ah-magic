@@ -8,7 +8,15 @@ import calculateListingPrice from './calculateListingPrice'
 const calculateListingFinances = (history = []) => {
   const cost = calculateListingCost(history)
   const price = calculateListingPrice(history)
-  return { cost, price, profit: price - cost }
+  let profit = 0
+  if (!cost) {
+    profit = price
+  } else if (!price) {
+    profit = 0
+  } else {
+    profit = price - cost
+  }
+  return { cost, price, profit }
 }
 
 

@@ -7,7 +7,8 @@ import { calculateListingFinances } from '../../../utils'
 
 // Components
 
-import { Badge, Button, ButtonGroup } from 'reactstrap'
+import { Button, ButtonGroup } from 'reactstrap'
+import ProfitBadge from '../../ProfitBadge'
 import ItemDetailModal from '../../ItemDetailModal'
 import ItemTitle from '../../ItemTitle'
 import WowCurrency from '../../WowCurrency'
@@ -64,10 +65,7 @@ class ItemRow extends PureComponent {
           <WowCurrency value={price} />
         </td>
         <td>
-          <Badge color={profit > 0 ? 'success' : 'danger'}>
-            {profit <= 0 ? '-' : ''}
-            <WowCurrency value={Math.abs(profit)} />
-          </Badge>
+          <ProfitBadge profit={profit} />
         </td>
         <td>
           <span title={moment(firstHistory.createdAt).format('D MMM YYYY, h:mm:ss a')}>

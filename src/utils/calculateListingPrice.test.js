@@ -14,3 +14,11 @@ it('should return a default value when no history is provided', () => {
   const result = calculateListingPrice([])
   expect(result).toBe(0)
 })
+
+it('should return a default value when a history does not have a price', () => {
+  const history = [
+    { type: 'purchase', cost: 20000 },
+  ]
+  const result = calculateListingPrice(history)
+  expect(result).toBe(0)
+})
