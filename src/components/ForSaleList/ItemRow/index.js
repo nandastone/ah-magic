@@ -82,7 +82,7 @@ class ItemRow extends PureComponent {
       <tr
         className={classNames(
           'c-ForSaleList__row',
-          { 'table-primary': lastHistory.type === 'listing' }
+          { 'table-primary': isListed }
         )}
         onClick={this.handleClickRow}
       >
