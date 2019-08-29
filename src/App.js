@@ -8,7 +8,7 @@ import AppState from './components/AppState'
 
 import './App.css'
 
-const App = (props) => {
+function App() {
   return (
     <div className='App'>
       <AppState />
