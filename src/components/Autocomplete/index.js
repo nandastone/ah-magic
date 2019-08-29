@@ -27,8 +27,8 @@ class Autocomplete extends PureComponent {
           ref={(component) => this.autocompleteComponent = component}
           inputId={this.props.name}
           placeholder='Search...'
-          apiKey='4b719864410b0dcb35f2e7992c263d69'
-          appId='UN9ROLCS9L'
+          apiKey='d1c835c7343ce931a5960eb32e9a4017'
+          appId='3NTVMPD3CR'
           displayKey={this.props.name}
           indices={[{ index: 'dev_WOWDB' }]}
           hitsPerPage={this.props.hitsPerPage}
