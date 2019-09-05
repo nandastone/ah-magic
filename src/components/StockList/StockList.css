@@ -1,0 +1,21 @@
+.c-StockList {
+  font-size: 14px;
+  table-layout: fixed;
+}
+
+.c-StockList th {
+  border-top: none;
+}
+.c-StockList th .sort-icon {
+  margin-left: 0.5em;
+}
+
+/* Elements */
+
+.c-StockList__row {
+}
+.c-StockList__row td {
+  vertical-align: middle;
+}
+
+/* Modifiers */
