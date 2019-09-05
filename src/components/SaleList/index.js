@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import _ from 'lodash'
 import uuid from 'uuid/v4'
 import moment from 'moment'
@@ -24,9 +23,9 @@ import TotalRow from '../TotalRow'
 
 // Assets
 
-import './StockList.css'
+import './SaleList.css'
 
-class StockList extends PureComponent {
+class SaleList extends PureComponent {
   static contextType = InventoryContext
 
   state = {
@@ -164,7 +163,7 @@ class StockList extends PureComponent {
     const items = this._sortItems(this.context.sale)
 
     return (
-      <Table hover className="c-StockList">
+      <Table hover className="c-SaleList">
         <thead>
           <tr>
             <th onClick={() => this._sort('name')} className="w-25">
@@ -257,15 +256,4 @@ class StockList extends PureComponent {
   }
 }
 
-StockList.defaultProps = {
-  onChangeItem: () => {},
-  onDeleteItem: () => {},
-}
-
-StockList.propTypes = {
-  items: PropTypes.array,
-  onChangeItem: PropTypes.func,
-  onDeleteItem: PropTypes.func,
-}
-
-export default StockList
+export default SaleList

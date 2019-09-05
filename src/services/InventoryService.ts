@@ -1,8 +1,8 @@
 import dayjs from 'dayjs'
 import * as uuid from 'uuid'
 
-import { ItemHistoryType } from '../types/ItemHistory'
-import { SaleItemHistory } from '../types/SaleItemHistory'
+import { ItemHistoryEntryType } from '../types/ItemHistory'
+import { SaleItemHistoryEntry } from '../types/SaleItemHistory'
 import { Item } from '../types/Item'
 import { SaleMethod } from '../types/SaleMethod'
 
@@ -33,10 +33,10 @@ export const sellItem = (item: Item, amount: number, method: SaleMethod) => {
   // }
 
   // Create a "sale" history entry.
-  const saleHistory: SaleItemHistory = {
+  const saleHistory: SaleItemHistoryEntry = {
     id: uuid.v4(),
-    type: ItemHistoryType.Sale,
-    method,
+    type: ItemHistoryEntryType.Sale,
+    saleMethod: method,
     amount,
     // Only add transaction fees if the item was sold on the AH.
     // @todo Do we calculate here or do it on the fly?
@@ -51,4 +51,18 @@ export const sellItem = (item: Item, amount: number, method: SaleMethod) => {
   }
 
   return updatedItem
+}
+
+/**
+ * @todo Where to put this stuff? Model?
+ * @param saleMethod
+ */
+export const prettySaleMethod = (saleMethod: SaleMethod) => {
+  const saleMethodMapping = {
+    [SaleMethod.AuctionHouse]: 'Auction House',
+    [SaleMethod.Private]: 'Private',
+    [SaleMethod.Vendor]: 'Vendor',
+  }
+
+  return saleMethodMapping[saleMethod]
 }

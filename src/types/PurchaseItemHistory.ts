@@ -1,7 +1,7 @@
-import { ItemHistoryType, ItemHistory } from './ItemHistory'
+import { ItemHistoryEntryType, ItemHistoryEntry } from './ItemHistory'
 
-export interface PurchaseItemHistory extends ItemHistory {
-  type: ItemHistoryType.Purchase
+export interface PurchaseItemHistoryEntry extends ItemHistoryEntry {
+  type: ItemHistoryEntryType.Purchase
 
   /**
    * How much it cost to obtain this item.

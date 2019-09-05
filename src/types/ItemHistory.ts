@@ -1,23 +1,23 @@
-export interface ItemHistory {
+export interface ItemHistoryEntry {
   id: string
-  type: ItemHistoryType
+  type: ItemHistoryEntryType
   createdOn: string
   updatedOn: string
 }
 
-export enum ItemHistoryType {
+export enum ItemHistoryEntryType {
   /**
    * When the item is purchased to enter the player's inventory.
    */
-  Purchase,
+  Purchase = 'purchase',
 
   /**
    * When the item is listed for sale on the AH.
    */
-  Listing,
+  Listing = 'listing',
 
   /**
    * When the item is sold, either on the AH, directly, or vendored.
    */
-  Sale,
+  Sale = ' sale',
 }

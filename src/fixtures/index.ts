@@ -2,7 +2,7 @@ import moment from 'moment'
 import * as uuid from 'uuid'
 
 import { Item } from '../types/Item'
-import { ItemHistoryType } from '../types/ItemHistory'
+import { ItemHistoryEntryType } from '../types/ItemHistory'
 import { ListingDuration } from '../types/ListingDuration'
 import { SaleMethod } from '../types/SaleMethod'
 
@@ -16,7 +16,7 @@ export const SALE: Item[] = [
     history: [
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Purchase,
+        type: ItemHistoryEntryType.Purchase,
         cost: 19550,
         createdOn: moment()
           .subtract(22, 'day')
@@ -27,7 +27,7 @@ export const SALE: Item[] = [
       },
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Listing,
+        type: ItemHistoryEntryType.Listing,
         duration: ListingDuration.Long,
         bid: 100000,
         buyout: 129500,
@@ -39,7 +39,7 @@ export const SALE: Item[] = [
       },
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Listing,
+        type: ItemHistoryEntryType.Listing,
         duration: ListingDuration.Long,
         bid: 100000,
         buyout: 119500,
@@ -56,7 +56,7 @@ export const SALE: Item[] = [
     history: [
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Purchase,
+        type: ItemHistoryEntryType.Purchase,
         cost: 50000,
         createdOn: moment()
           .subtract(1, 'day')
@@ -67,7 +67,7 @@ export const SALE: Item[] = [
       },
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Listing,
+        type: ItemHistoryEntryType.Listing,
         duration: ListingDuration.Medium,
         bid: 200000,
         buyout: 200000,
@@ -79,7 +79,7 @@ export const SALE: Item[] = [
       },
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Listing,
+        type: ItemHistoryEntryType.Listing,
         duration: ListingDuration.Long,
         bid: 110000,
         buyout: 150000,
@@ -96,7 +96,7 @@ export const SALE: Item[] = [
     history: [
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Purchase,
+        type: ItemHistoryEntryType.Purchase,
         cost: 99900,
         createdOn: moment()
           .subtract(32, 'day')
@@ -115,7 +115,7 @@ export const SALE: Item[] = [
     history: [
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Purchase,
+        type: ItemHistoryEntryType.Purchase,
         cost: 145000,
         createdOn: moment()
           .subtract(14, 'day')
@@ -126,7 +126,7 @@ export const SALE: Item[] = [
       },
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Listing,
+        type: ItemHistoryEntryType.Listing,
         duration: ListingDuration.Long,
         bid: 1600000,
         buyout: 200000,
@@ -143,7 +143,7 @@ export const SALE: Item[] = [
     history: [
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Purchase,
+        type: ItemHistoryEntryType.Purchase,
         cost: 900000,
         createdOn: moment()
           .subtract(17, 'day')
@@ -154,7 +154,7 @@ export const SALE: Item[] = [
       },
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Listing,
+        type: ItemHistoryEntryType.Listing,
         duration: ListingDuration.Long,
         bid: 1250000,
         buyout: 1500000,
@@ -175,7 +175,7 @@ export const SALE: Item[] = [
     history: [
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Purchase,
+        type: ItemHistoryEntryType.Purchase,
         cost: 2000,
         createdOn: moment().format(),
         updatedOn: moment().format(),
@@ -193,7 +193,7 @@ export const SOLD: Item[] = [
     history: [
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Purchase,
+        type: ItemHistoryEntryType.Purchase,
         cost: 19550,
         createdOn: moment()
           .subtract(3, 'day')
@@ -204,7 +204,7 @@ export const SOLD: Item[] = [
       },
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Listing,
+        type: ItemHistoryEntryType.Listing,
         duration: ListingDuration.Short,
         bid: 100000,
         buyout: 129500,
@@ -216,7 +216,7 @@ export const SOLD: Item[] = [
       },
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Listing,
+        type: ItemHistoryEntryType.Listing,
         duration: ListingDuration.Long,
         bid: 100000,
         buyout: 119500,
@@ -228,8 +228,8 @@ export const SOLD: Item[] = [
       },
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Sale,
-        method: SaleMethod.AuctionHouse,
+        type: ItemHistoryEntryType.Sale,
+        saleMethod: SaleMethod.AuctionHouse,
         amount: 119500,
         createdOn: moment()
           .add(1, 'day')
@@ -248,7 +248,7 @@ export const SOLD: Item[] = [
     history: [
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Purchase,
+        type: ItemHistoryEntryType.Purchase,
         cost: 145000,
         createdOn: moment()
           .subtract(3, 'day')
@@ -259,7 +259,7 @@ export const SOLD: Item[] = [
       },
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Listing,
+        type: ItemHistoryEntryType.Listing,
         duration: ListingDuration.Long,
         bid: 200000,
         buyout: 200000,
@@ -271,7 +271,7 @@ export const SOLD: Item[] = [
       },
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Listing,
+        type: ItemHistoryEntryType.Listing,
         duration: ListingDuration.Long,
         bid: 190000,
         buyout: 190000,
@@ -283,8 +283,8 @@ export const SOLD: Item[] = [
       },
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Sale,
-        method: SaleMethod.Private,
+        type: ItemHistoryEntryType.Sale,
+        saleMethod: SaleMethod.Private,
         amount: 180000,
         createdOn: moment()
           .add(1, 'day')
@@ -303,7 +303,7 @@ export const SOLD: Item[] = [
     history: [
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Purchase,
+        type: ItemHistoryEntryType.Purchase,
         cost: 145000,
         createdOn: moment()
           .subtract(21, 'day')
@@ -314,9 +314,9 @@ export const SOLD: Item[] = [
       },
       {
         id: uuid.v4(),
-        type: ItemHistoryType.Sale,
+        type: ItemHistoryEntryType.Sale,
         amount: 50000,
-        method: SaleMethod.Vendor,
+        saleMethod: SaleMethod.Vendor,
         createdOn: moment()
           .add(1, 'day')
           .format(),

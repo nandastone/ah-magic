@@ -1,6 +1,6 @@
-import { ListingItemHistory } from './ListingItemHistory'
-import { SaleItemHistory } from './SaleItemHistory'
-import { PurchaseItemHistory } from './PurchaseItemHistory'
+import { ListingItemHistoryEntry } from './ListingItemHistory'
+import { SaleItemHistoryEntry } from './SaleItemHistory'
+import { PurchaseItemHistoryEntry } from './PurchaseItemHistory'
 
 export interface Item {
   id: string
@@ -16,7 +16,10 @@ export interface Item {
    * A record of the item's purchase, attempts to sell, and eventual sale. The
    * history can be used as a log, or to replay for profit/loss amounts.
    */
-  history: (PurchaseItemHistory | ListingItemHistory | SaleItemHistory)[]
+  history: (
+    | PurchaseItemHistoryEntry
+    | ListingItemHistoryEntry
+    | SaleItemHistoryEntry)[]
 
   /**
    * Currency amount this item can be vendored for. This value is sourced from WOWDB

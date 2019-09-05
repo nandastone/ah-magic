@@ -1,13 +1,13 @@
-import { ItemHistory, ItemHistoryType } from './ItemHistory'
+import { ItemHistoryEntry, ItemHistoryEntryType } from './ItemHistory'
 import { SaleMethod } from './SaleMethod'
 
-export interface SaleItemHistory extends ItemHistory {
-  type: ItemHistoryType.Sale
+export interface SaleItemHistoryEntry extends ItemHistoryEntry {
+  type: ItemHistoryEntryType.Sale
 
   /**
    * How the item was sold.
    */
-  method: SaleMethod
+  saleMethod: SaleMethod
 
   /**
    * The amount the item was sold for.

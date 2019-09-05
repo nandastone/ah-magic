@@ -1,5 +1,5 @@
 export enum SaleMethod {
-  AuctionHouse,
-  Private,
-  Vendor,
+  AuctionHouse = 'ah',
+  Private = 'private',
+  Vendor = 'vendor',
 }

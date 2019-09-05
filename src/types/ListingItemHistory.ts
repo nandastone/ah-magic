@@ -1,8 +1,8 @@
-import { ItemHistoryType, ItemHistory } from './ItemHistory'
+import { ItemHistoryEntryType, ItemHistoryEntry } from './ItemHistory'
 import { ListingDuration } from './ListingDuration'
 
-export interface ListingItemHistory extends ItemHistory {
-  type: ItemHistoryType.Listing
+export interface ListingItemHistoryEntry extends ItemHistoryEntry {
+  type: ItemHistoryEntryType.Listing
 
   /**
    * AH listing duration.

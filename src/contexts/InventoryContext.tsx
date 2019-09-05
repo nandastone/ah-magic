@@ -1,5 +1,4 @@
 import React from 'react'
-import _ from 'lodash'
 
 import { SALE, SOLD } from '../fixtures'
 import { Item } from '../types/Item'

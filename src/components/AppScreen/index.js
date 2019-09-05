@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import { Container } from 'reactstrap'
 import AppHeader from '../AppHeader'
 import AppNav from '../AppNav'
-import StockList from '../StockList'
+import SaleList from '../SaleList'
 import SoldList from '../SoldList'
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap'
 
@@ -49,7 +49,7 @@ class AppScreen extends PureComponent {
           </Nav>
           <TabContent activeTab={this.state.activeTab}>
             <TabPane tabId={1} className="pt-3">
-              <StockList />
+              <SaleList />
             </TabPane>
             <TabPane tabId={2} className="pt-3">
               {/* <SoldList

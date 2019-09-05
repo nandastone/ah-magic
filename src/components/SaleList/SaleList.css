@@ -1,20 +1,20 @@
-.c-StockList {
+.c-SaleList {
   font-size: 14px;
   table-layout: fixed;
 }
 
-.c-StockList th {
+.c-SaleList th {
   border-top: none;
 }
-.c-StockList th .sort-icon {
+.c-SaleList th .sort-icon {
   margin-left: 0.5em;
 }
 
 /* Elements */
 
-.c-StockList__row {
+.c-SaleList__row {
 }
-.c-StockList__row td {
+.c-SaleList__row td {
   vertical-align: middle;
 }
 
