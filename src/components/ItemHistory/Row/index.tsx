@@ -6,7 +6,10 @@ import { SaleItemHistoryEntry } from '../../../types/SaleItemHistory'
 import { PurchaseItemHistoryEntry } from '../../../types/PurchaseItemHistory'
 import { ListingItemHistoryEntry } from '../../../types/ListingItemHistory'
 import { ItemHistoryEntryType } from '../../../types/ItemHistory'
-import { prettySaleMethod } from '../../../services/InventoryService'
+import {
+  prettySaleMethod,
+  prettyItemHistoryEntryType,
+} from '../../../services/InventoryService'
 
 // Components
 
@@ -23,9 +26,9 @@ const Row = ({ itemHistoryEntry }: RowProps) => {
   return (
     <tr>
       <td className="type">
-        {_.capitalize(itemHistoryEntry.type)}
+        {prettyItemHistoryEntryType(itemHistoryEntry.type)}
         {itemHistoryEntry.type === ItemHistoryEntryType.Sale && (
-          <span>{prettySaleMethod(itemHistoryEntry.saleMethod)}</span>
+          <span> ({prettySaleMethod(itemHistoryEntry.saleMethod)})</span>
         )}
       </td>
       <td className="cost">

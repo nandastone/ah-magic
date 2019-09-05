@@ -55,6 +55,22 @@ export const sellItem = (item: Item, amount: number, method: SaleMethod) => {
 
 /**
  * @todo Where to put this stuff? Model?
+ * @param itemHistoryEntryType
+ */
+export const prettyItemHistoryEntryType = (
+  itemHistoryEntryType: ItemHistoryEntryType
+) => {
+  const itemHistoryEntryTypeMapping = {
+    [ItemHistoryEntryType.Purchase]: 'Purchase',
+    [ItemHistoryEntryType.Listing]: 'Listing',
+    [ItemHistoryEntryType.Sale]: 'Sale',
+  }
+
+  return itemHistoryEntryTypeMapping[itemHistoryEntryType]
+}
+
+/**
+ * @todo Where to put this stuff? Model?
  * @param saleMethod
  */
 export const prettySaleMethod = (saleMethod: SaleMethod) => {

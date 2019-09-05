@@ -9,6 +9,7 @@ import { SaleItemHistoryEntry } from '../../types/SaleItemHistory'
 import Row from './Row'
 
 interface ItemHistoryProps {
+  // @todo Should this be a generic?
   history: (
     | PurchaseItemHistoryEntry
     | ListingItemHistoryEntry

@@ -83,7 +83,7 @@ class ItemRow extends PureComponent {
       : null
 
     return (
-      <tr className={'c-ForSaleList__row'} onClick={this.handleClickRow}>
+      <tr className={'c-SaleList__row'} onClick={this.handleClickRow}>
         <td>
           <React.Fragment>
             <ItemTitle

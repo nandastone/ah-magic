@@ -15,17 +15,17 @@ import WowCurrency from '../../WowCurrency'
 
 class ItemRow extends PureComponent {
   state = {
-    isDetailsExpanded: false
+    isDetailsExpanded: false,
   }
 
   // Event handling
 
-  handleClickRow = (event) => {
+  handleClickRow = event => {
     event.preventDefault()
     this.setState({ isDetailsExpanded: true })
   }
 
-  handleClickDelete = (event) => {
+  handleClickDelete = event => {
     event.stopPropagation()
     if (window.confirm('Are you sure want to delete this item?')) {
       this.props.onDelete()
@@ -38,19 +38,21 @@ class ItemRow extends PureComponent {
 
   // Rendering
 
-  render () {
+  render() {
     const firstHistory = _.first(this.props.item.history)
     const lastHistory = _.last(this.props.item.history)
-    const { cost, price, profit } = calculateListingFinances(this.props.item.history)
+    const { cost, price, profit } = calculateListingFinances(
+      this.props.item.history
+    )
 
     return (
-      <tr
-        className={'c-SoldList__row'}
-        onClick={this.handleClickRow}
-      >
-        <td>
+      <tr className={'c-SoldList__row'} onClick={this.handleClickRow}>
+        <td className="name">
           <React.Fragment>
-            <ItemTitle name={this.props.item.name} count={this.props.item.stackable} />
+            <ItemTitle
+              name={this.props.item.name}
+              count={this.props.item.stackable}
+            />
             <ItemDetailModal
               item={this.props.item}
               open={this.state.isDetailsExpanded}
@@ -58,31 +60,36 @@ class ItemRow extends PureComponent {
             />
           </React.Fragment>
         </td>
-        <td>
+        <td className="cost">
           <WowCurrency value={cost} />
         </td>
-        <td>
+        <td className="price">
           <WowCurrency value={price} />
         </td>
-        <td>
+        <td className="profit">
           <ProfitBadge profit={profit} />
         </td>
-        <td>
-          <span title={moment(firstHistory.createdOn).format('D MMM YYYY, h:mm:ss a')}>
+        <td className="created">
+          <span
+            title={moment(firstHistory.createdOn).format(
+              'D MMM YYYY, h:mm:ss a'
+            )}
+          >
             {moment(firstHistory.createdOn).format('D MMM YYYY')}
           </span>
         </td>
-        <td>
-          <span title={moment(lastHistory.createdOn).format('D MMM YYYY, h:mm:ss a')}>
+        <td class="sold">
+          <span
+            title={moment(lastHistory.createdOn).format(
+              'D MMM YYYY, h:mm:ss a'
+            )}
+          >
             {moment(lastHistory.createdOn).format('D MMM YYYY')}
           </span>
         </td>
-        <td>
-          <ButtonGroup size='sm'>
-            <Button
-              color='danger'
-              onClick={this.handleClickDelete}
-            >
+        <td className="name">
+          <ButtonGroup size="sm">
+            <Button color="danger" onClick={this.handleClickDelete}>
               Delete
             </Button>
           </ButtonGroup>
@@ -93,12 +100,12 @@ class ItemRow extends PureComponent {
 }
 
 ItemRow.defaultProps = {
-  onDelete: () => {}
+  onDelete: () => {},
 }
 
 ItemRow.propTypes = {
   item: PropTypes.object.isRequired,
-  onDelete: PropTypes.func
+  onDelete: PropTypes.func,
 }
 
 export default ItemRow

@@ -52,10 +52,7 @@ class AppScreen extends PureComponent {
               <SaleList />
             </TabPane>
             <TabPane tabId={2} className="pt-3">
-              {/* <SoldList
-                items={this.props.soldInventory}
-                onDeleteItem={this.props.onDeleteItem}
-              /> */}
+              <SoldList />
             </TabPane>
           </TabContent>
         </Container>

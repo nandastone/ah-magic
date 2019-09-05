@@ -37,6 +37,7 @@ class SaleList extends PureComponent {
   // Lifecycle
 
   componentWillReceiveProps(nextProps) {
+    // @todo Reimplement.
     // this.setState({ restoreScroll: window.scrollY })
   }
 

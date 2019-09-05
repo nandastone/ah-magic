@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import _ from 'lodash'
 import moment from 'moment'
 import classNames from 'classnames'
 
 import { calculateListingFinances } from '../../utils'
+
+// Context
+import { InventoryContext } from '../../contexts/InventoryContext'
 
 // Components
 
@@ -16,7 +18,12 @@ import TotalRow from '../TotalRow'
 
 import './SoldList.css'
 
+/**
+ * @todo Can this be refactored into SaleList with generic table component?
+ */
 class SoldList extends PureComponent {
+  static contextType = InventoryContext
+
   state = {
     sortField: '',
     sortDirection: 'DESC',
@@ -25,7 +32,7 @@ class SoldList extends PureComponent {
   // Event handling
 
   handleDeleteItem = item => {
-    this.props.onDeleteItem(item)
+    // this.props.onDeleteItem(item)
   }
 
   // Private
@@ -41,35 +48,31 @@ class SoldList extends PureComponent {
     }
   }
 
-  _getSortedItems(items) {
+  _sortItems(items) {
     const { sortField: field, sortDirection: direction } = this.state
     let sorted = [...items]
 
     switch (field) {
       case 'name':
         sorted = _.sortBy(items, ['name'])
-        if (direction === 'DESC') sorted.reverse()
         break
       case 'cost':
         sorted = _.sortBy(items, item => {
           const { cost } = calculateListingFinances(item.history)
           return cost || 0
         })
-        if (direction === 'DESC') sorted.reverse()
         break
       case 'price':
         sorted = _.sortBy(items, item => {
           const { price } = calculateListingFinances(item.history)
           return price || 0
         })
-        if (direction === 'DESC') sorted.reverse()
         break
       case 'profit':
         sorted = _.sortBy(items, item => {
           const { profit } = calculateListingFinances(item.history)
           return profit || 0
         })
-        if (direction === 'DESC') sorted.reverse()
         break
       case 'createdOn':
         sorted = _.sortBy(items, item => {
@@ -78,20 +81,20 @@ class SoldList extends PureComponent {
             ? moment(firstHistory.createdOn).format('X')
             : 0
         })
-        if (direction === 'DESC') sorted.reverse()
         break
+      // This is the default sort.
       case 'updatedOn':
+      default:
         sorted = _.sortBy(items, item => {
           const lastHistory = _.last(item.history)
           const updatedOn = lastHistory.endedOn || lastHistory.createdOn
           return updatedOn ? moment(updatedOn).format('X') : 0
         })
-        if (direction === 'DESC') sorted.reverse()
         break
-      default:
-        throw new Error(
-          `Invalid sorting column passed to ForSaleList: ${field}`
-        )
+    }
+
+    if (direction === 'DESC') {
+      sorted.reverse()
     }
 
     return sorted
@@ -100,9 +103,8 @@ class SoldList extends PureComponent {
   // Rendering
 
   render() {
-    const sortedItems = this.state.sortField
-      ? this._getSortedItems(this.props.items)
-      : this.props.items
+    const items = this._sortItems(this.context.sold)
+
     return (
       <Table hover className="c-SoldList">
         <thead>
@@ -178,24 +180,20 @@ class SoldList extends PureComponent {
           </tr>
         </thead>
         <tbody>
-          {sortedItems.map(item => {
+          {items.map(item => {
             return (
               <ItemRow
-                key={item.key}
+                key={item.id}
                 item={item}
                 onDelete={() => this.handleDeleteItem(item)}
               />
             )
           })}
-          <TotalRow items={sortedItems} />
+          <TotalRow items={items} />
         </tbody>
       </Table>
     )
   }
-}
-
-SoldList.propTypes = {
-  items: PropTypes.array,
 }
 
 export default SoldList
