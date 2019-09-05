@@ -64,7 +64,7 @@ class AppHeader extends PureComponent {
           key: uuid(),
           type: 'purchase',
           cost,
-          createdAt: moment().format()
+          createdOn: moment().format()
         }
       ]
     }

@@ -19,18 +19,18 @@ import './SoldList.css'
 class SoldList extends PureComponent {
   state = {
     sortField: '',
-    sortDirection: 'DESC'
+    sortDirection: 'DESC',
   }
 
   // Event handling
 
-  handleDeleteItem = (item) => {
+  handleDeleteItem = item => {
     this.props.onDeleteItem(item)
   }
 
   // Private
 
-  _sort (field) {
+  _sort(field) {
     if (this.state.sortField === field && this.state.sortDirection === 'ASC') {
       // Reset sorting if we've reached the end of sort directions.
       this.setState({ sortField: '', sortDirection: 'DESC' })
@@ -41,7 +41,7 @@ class SoldList extends PureComponent {
     }
   }
 
-  _getSortedItems (items) {
+  _getSortedItems(items) {
     const { sortField: field, sortDirection: direction } = this.state
     let sorted = [...items]
 
@@ -51,43 +51,47 @@ class SoldList extends PureComponent {
         if (direction === 'DESC') sorted.reverse()
         break
       case 'cost':
-        sorted = _.sortBy(items, (item) => {
+        sorted = _.sortBy(items, item => {
           const { cost } = calculateListingFinances(item.history)
           return cost || 0
         })
         if (direction === 'DESC') sorted.reverse()
         break
       case 'price':
-        sorted = _.sortBy(items, (item) => {
+        sorted = _.sortBy(items, item => {
           const { price } = calculateListingFinances(item.history)
           return price || 0
         })
         if (direction === 'DESC') sorted.reverse()
         break
       case 'profit':
-        sorted = _.sortBy(items, (item) => {
+        sorted = _.sortBy(items, item => {
           const { profit } = calculateListingFinances(item.history)
           return profit || 0
         })
         if (direction === 'DESC') sorted.reverse()
         break
-      case 'createdAt':
-        sorted = _.sortBy(items, (item) => {
+      case 'createdOn':
+        sorted = _.sortBy(items, item => {
           const firstHistory = _.first(item.history)
-          return firstHistory.createdAt ? moment(firstHistory.createdAt).format('X') : 0
+          return firstHistory.createdOn
+            ? moment(firstHistory.createdOn).format('X')
+            : 0
         })
         if (direction === 'DESC') sorted.reverse()
         break
-      case 'updatedAt':
-        sorted = _.sortBy(items, (item) => {
+      case 'updatedOn':
+        sorted = _.sortBy(items, item => {
           const lastHistory = _.last(item.history)
-          const updatedAt = (lastHistory.endedAt || lastHistory.createdAt)
-          return updatedAt ? moment(updatedAt).format('X') : 0
+          const updatedOn = lastHistory.endedOn || lastHistory.createdOn
+          return updatedOn ? moment(updatedOn).format('X') : 0
         })
         if (direction === 'DESC') sorted.reverse()
         break
       default:
-        throw new Error(`Invalid sorting column passed to ForSaleList: ${field}`)
+        throw new Error(
+          `Invalid sorting column passed to ForSaleList: ${field}`
+        )
     }
 
     return sorted
@@ -95,120 +99,86 @@ class SoldList extends PureComponent {
 
   // Rendering
 
-  render () {
-    const sortedItems = this.state.sortField ? this._getSortedItems(this.props.items) : this.props.items
+  render() {
+    const sortedItems = this.state.sortField
+      ? this._getSortedItems(this.props.items)
+      : this.props.items
     return (
-      <Table hover className='c-SoldList'>
+      <Table hover className="c-SoldList">
         <thead>
           <tr>
-            <th
-              onClick={() => this._sort('name')}
-              className='w-25'
-            >
+            <th onClick={() => this._sort('name')} className="w-25">
               Name
-              {
-                this.state.sortField === 'name'
-                ? <i className={classNames(
-                    'fas sort-icon',
-                    {
-                      'fa-sort-up': this.state.sortDirection === 'ASC',
-                      'fa-sort-down': this.state.sortDirection === 'DESC'
-                    }
-                  )} />
-                : null
-              }
+              {this.state.sortField === 'name' ? (
+                <i
+                  className={classNames('fas sort-icon', {
+                    'fa-sort-up': this.state.sortDirection === 'ASC',
+                    'fa-sort-down': this.state.sortDirection === 'DESC',
+                  })}
+                />
+              ) : null}
             </th>
-            <th
-              onClick={() => this._sort('cost')}
-              className='w-10'
-            >
+            <th onClick={() => this._sort('cost')} className="w-10">
               Cost
-              {
-                this.state.sortField === 'cost'
-                ? <i className={classNames(
-                    'fas sort-icon',
-                    {
-                      'fa-sort-up': this.state.sortDirection === 'ASC',
-                      'fa-sort-down': this.state.sortDirection === 'DESC'
-                    }
-                  )} />
-                : null
-              }
+              {this.state.sortField === 'cost' ? (
+                <i
+                  className={classNames('fas sort-icon', {
+                    'fa-sort-up': this.state.sortDirection === 'ASC',
+                    'fa-sort-down': this.state.sortDirection === 'DESC',
+                  })}
+                />
+              ) : null}
             </th>
-            <th
-              onClick={() => this._sort('price')}
-              className='w-10'
-            >
+            <th onClick={() => this._sort('price')} className="w-10">
               Price
-              {
-                this.state.sortField === 'price'
-                ? <i className={classNames(
-                    'fas sort-icon',
-                    {
-                      'fa-sort-up': this.state.sortDirection === 'ASC',
-                      'fa-sort-down': this.state.sortDirection === 'DESC'
-                    }
-                  )} />
-                : null
-              }
+              {this.state.sortField === 'price' ? (
+                <i
+                  className={classNames('fas sort-icon', {
+                    'fa-sort-up': this.state.sortDirection === 'ASC',
+                    'fa-sort-down': this.state.sortDirection === 'DESC',
+                  })}
+                />
+              ) : null}
             </th>
-            <th
-              onClick={() => this._sort('profit')}
-              className='w-10'
-            >
+            <th onClick={() => this._sort('profit')} className="w-10">
               Profit
-              {
-                this.state.sortField === 'profit'
-                ? <i className={classNames(
-                    'fas sort-icon',
-                    {
-                      'fa-sort-up': this.state.sortDirection === 'ASC',
-                      'fa-sort-down': this.state.sortDirection === 'DESC'
-                    }
-                  )} />
-                : null
-              }
+              {this.state.sortField === 'profit' ? (
+                <i
+                  className={classNames('fas sort-icon', {
+                    'fa-sort-up': this.state.sortDirection === 'ASC',
+                    'fa-sort-down': this.state.sortDirection === 'DESC',
+                  })}
+                />
+              ) : null}
             </th>
-            <th
-              onClick={() => this._sort('createdAt')}
-              className='w-15'
-            >
+            <th onClick={() => this._sort('createdOn')} className="w-15">
               Created
-              {
-                this.state.sortField === 'createdAt'
-                ? <i className={classNames(
-                    'fas sort-icon',
-                    {
-                      'fa-sort-up': this.state.sortDirection === 'ASC',
-                      'fa-sort-down': this.state.sortDirection === 'DESC'
-                    }
-                  )} />
-                : null
-              }
+              {this.state.sortField === 'createdOn' ? (
+                <i
+                  className={classNames('fas sort-icon', {
+                    'fa-sort-up': this.state.sortDirection === 'ASC',
+                    'fa-sort-down': this.state.sortDirection === 'DESC',
+                  })}
+                />
+              ) : null}
             </th>
-            <th
-              onClick={() => this._sort('updatedAt')}
-              className='w-15'
-            >
+            <th onClick={() => this._sort('updatedOn')} className="w-15">
               Sold
-              {
-                this.state.sortField === 'updatedAt'
-                ? <i className={classNames(
-                    'fas sort-icon',
-                    {
-                      'fa-sort-up': this.state.sortDirection === 'ASC',
-                      'fa-sort-down': this.state.sortDirection === 'DESC'
-                    }
-                  )} />
-                : null
-              }
+              {this.state.sortField === 'updatedOn' ? (
+                <i
+                  className={classNames('fas sort-icon', {
+                    'fa-sort-up': this.state.sortDirection === 'ASC',
+                    'fa-sort-down': this.state.sortDirection === 'DESC',
+                  })}
+                />
+              ) : null}
             </th>
             {/* Actions column */}
-            <th className='w-15'></th>
+            <th className="w-15"></th>
           </tr>
         </thead>
         <tbody>
-          {sortedItems.map((item) => {
+          {sortedItems.map(item => {
             return (
               <ItemRow
                 key={item.key}
@@ -225,7 +195,7 @@ class SoldList extends PureComponent {
 }
 
 SoldList.propTypes = {
-  items: PropTypes.array
+  items: PropTypes.array,
 }
 
 export default SoldList

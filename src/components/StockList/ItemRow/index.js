@@ -19,43 +19,43 @@ class ItemRow extends PureComponent {
   state = {
     isDetailsExpanded: false,
     isListExpanded: false,
-    isSoldExpanded: false
+    isSoldExpanded: false,
   }
 
   // Event handling
 
-  handleClickRow = (event) => {
+  handleClickRow = event => {
     event.preventDefault()
     this.setState({ isDetailsExpanded: true })
   }
 
-  handleClickList = (event) => {
+  handleClickList = event => {
     event.stopPropagation()
     this.setState({ isListExpanded: true })
   }
 
-  handleClickEnd = (event) => {
+  handleClickEnd = event => {
     event.stopPropagation()
     this.props.onEnd()
   }
 
-  handleClickSold = (event) => {
+  handleClickSold = event => {
     event.stopPropagation()
     this.setState({ isSoldExpanded: true })
   }
 
-  handleClickDelete = (event) => {
+  handleClickDelete = event => {
     event.stopPropagation()
     if (window.confirm('Are you sure want to delete this item?')) {
       this.props.onDelete()
     }
   }
 
-  handleCompleteList = (payload) => {
+  handleCompleteList = payload => {
     this.props.onList(payload)
   }
 
-  handleCompleteSold = (payload) => {
+  handleCompleteSold = payload => {
     this.props.onSold(payload)
   }
 
@@ -63,28 +63,33 @@ class ItemRow extends PureComponent {
     this.setState({
       isDetailsExpanded: false,
       isListExpanded: false,
-      isSoldExpanded: false
+      isSoldExpanded: false,
     })
   }
 
   // Rendering
 
-  render () {
+  render() {
     const firstHistory = _.first(this.props.item.history)
     const lastHistory = _.last(this.props.item.history)
-    const isListed = lastHistory && lastHistory.type === 'listing' && !lastHistory.endedAt
-    const { cost, price, profit } = calculateListingFinances(this.props.item.history)
-    const createdAt = firstHistory ? firstHistory.createdAt : null
-    const updatedAt = lastHistory ? (lastHistory.endedAt || lastHistory.createdAt) : null
+    const isListed =
+      lastHistory && lastHistory.type === 'listing' && !lastHistory.endedOn
+    const { cost, price, profit } = calculateListingFinances(
+      this.props.item.history
+    )
+    const createdOn = firstHistory ? firstHistory.createdOn : null
+    const updatedOn = lastHistory
+      ? lastHistory.endedOn || lastHistory.createdOn
+      : null
 
     return (
-      <tr
-        className={'c-ForSaleList__row'}
-        onClick={this.handleClickRow}
-      >
+      <tr className={'c-ForSaleList__row'} onClick={this.handleClickRow}>
         <td>
           <React.Fragment>
-            <ItemTitle name={this.props.item.name} count={this.props.item.stackable} />
+            <ItemTitle
+              name={this.props.item.name}
+              count={this.props.item.stackable}
+            />
             <ItemDetailModal
               item={this.props.item}
               open={this.state.isDetailsExpanded}
@@ -102,53 +107,55 @@ class ItemRow extends PureComponent {
           <ProfitBadge profit={profit} />
         </td>
         <td>
-          {
-            createdAt
-            ? <span title={moment(createdAt).format('D MMM YYYY, h:mm:ss a')} data-test='created-at'>
-                {moment(createdAt).format('D MMM YYYY')}
-              </span>
-            : null
-          }
+          {createdOn ? (
+            <span
+              title={moment(createdOn).format('D MMM YYYY, h:mm:ss a')}
+              data-test="created-at"
+            >
+              {moment(createdOn).format('D MMM YYYY')}
+            </span>
+          ) : null}
         </td>
         <td>
-          {
-            updatedAt
-            ? <span title={moment(updatedAt).format('D MMM YYYY, h:mm:ss a')} data-test='updated-at'>
-                {moment(updatedAt).format('D MMM YYYY')}
-              </span>
-            : null
-          }
+          {updatedOn ? (
+            <span
+              title={moment(updatedOn).format('D MMM YYYY, h:mm:ss a')}
+              data-test="updated-at"
+            >
+              {moment(updatedOn).format('D MMM YYYY')}
+            </span>
+          ) : null}
         </td>
         <td>
-          <ButtonGroup size='sm'>
-            {
-              !isListed
-              ? <Button
-                  color='secondary'
-                  onClick={this.handleClickList}
-                  data-test='list-button'
-                >
-                  List
-                </Button>
-              : <Button
-                  color='secondary'
-                  onClick={this.handleClickEnd}
-                  data-test='end-button'
-                >
-                  End
-                </Button>
-            }
+          <ButtonGroup size="sm">
+            {!isListed ? (
+              <Button
+                color="secondary"
+                onClick={this.handleClickList}
+                data-test="list-button"
+              >
+                List
+              </Button>
+            ) : (
+              <Button
+                color="secondary"
+                onClick={this.handleClickEnd}
+                data-test="end-button"
+              >
+                End
+              </Button>
+            )}
             <Button
-              color='primary'
+              color="primary"
               onClick={this.handleClickSold}
-              data-test='sold-button'
+              data-test="sold-button"
             >
               Sold
             </Button>
             <Button
-              color='danger'
+              color="danger"
               onClick={this.handleClickDelete}
-              data-test='delete-button'
+              data-test="delete-button"
             >
               Delete
             </Button>
@@ -175,7 +182,7 @@ ItemRow.defaultProps = {
   onList: () => {},
   onSold: () => {},
   onEnd: () => {},
-  onDelete: () => {}
+  onDelete: () => {},
 }
 
 ItemRow.propTypes = {
@@ -183,7 +190,7 @@ ItemRow.propTypes = {
   onList: PropTypes.func,
   onSold: PropTypes.func,
   onEnd: PropTypes.func,
-  onDelete: PropTypes.func
+  onDelete: PropTypes.func,
 }
 
 export default ItemRow

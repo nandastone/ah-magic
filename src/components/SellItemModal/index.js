@@ -11,30 +11,31 @@ import SellItemForm from '../SellItemForm'
 class SellItemModal extends PureComponent {
   // Event handling
 
-  handleClickComplete = (event) => {
+  handleClickComplete = event => {
     event.preventDefault()
     this.formComponent.submit()
   }
 
-  handleCompleteSold = (payload) => {
+  handleCompleteSold = payload => {
     this.props.onComplete(payload)
     this.props.onClose()
   }
 
   // Rendering
 
-  render () {
+  render() {
     const lastHistory = _.last(this.props.item.history)
-    const isListed = lastHistory && lastHistory.type === 'listing' && !lastHistory.endedAt
+    const isListed =
+      lastHistory && lastHistory.type === 'listing' && !lastHistory.endedOn
 
     return (
-      <Modal
-        isOpen={this.props.open}
-        toggle={this.props.onClose}
-        size='lg'
-      >
+      <Modal isOpen={this.props.open} toggle={this.props.onClose} size="lg">
         <ModalHeader toggle={this.props.onClose}>
-          Sold: <ItemTitle name={this.props.item.name} count={this.props.item.stackable} />
+          Sold:{' '}
+          <ItemTitle
+            name={this.props.item.name}
+            count={this.props.item.stackable}
+          />
         </ModalHeader>
         <ModalBody>
           <SellItemForm
@@ -44,12 +45,16 @@ class SellItemModal extends PureComponent {
             defaultSaleType={!isListed ? 'private' : 'ah'}
             onComplete={this.handleCompleteSold}
             onCancel={this.props.onClose}
-            ref={(component) => this.formComponent = component}
+            ref={component => (this.formComponent = component)}
           />
         </ModalBody>
         <ModalFooter>
-          <Button color='primary' onClick={this.handleClickComplete}>Sold</Button>
-          <Button color='secondary' onClick={this.props.onClose}>Cancel</Button>
+          <Button color="primary" onClick={this.handleClickComplete}>
+            Sold
+          </Button>
+          <Button color="secondary" onClick={this.props.onClose}>
+            Cancel
+          </Button>
         </ModalFooter>
       </Modal>
     )
@@ -58,14 +63,14 @@ class SellItemModal extends PureComponent {
 
 SellItemModal.defaultProps = {
   onComplete: () => {},
-  onClose: () => {}
+  onClose: () => {},
 }
 
 SellItemModal.propTypes = {
   open: PropTypes.bool,
   item: PropTypes.object.isRequired,
   onComplete: PropTypes.func,
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
 }
 
 export default SellItemModal

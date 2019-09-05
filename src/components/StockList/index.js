@@ -50,85 +50,47 @@ class StockList extends PureComponent {
   // Event handling
 
   handleListItem = (item, { bid, price, duration }) => {
-    const updatedItem = {
-      ...item,
-      history: [
-        ...item.history,
-        {
-          key: uuid(),
-          type: 'listing',
-          duration,
-          bid,
-          price,
-          cost: calculateAHTransactionCost(price),
-          createdAt: moment().format(),
-        },
-      ],
-    }
-    this.props.onChangeItem(updatedItem)
+    // const updatedItem = {
+    //   ...item,
+    //   history: [
+    //     ...item.history,
+    //     {
+    //       key: uuid(),
+    //       type: 'listing',
+    //       duration,
+    //       bid,
+    //       price,
+    //       cost: calculateAHTransactionCost(price),
+    //       createdOn: moment().format(),
+    //     },
+    //   ],
+    // }
+    // this.props.onChangeItem(updatedItem)
   }
 
-  handleSoldItem = (item, { price, saleType }) => {
-    const lastHistory = _.last(item.history)
-    let updatedItem = { ...item }
-
-    // If the item is listed, remove the "listing" history entry to later replace with a "sale" history entry.
-    if (lastHistory && lastHistory.type === 'listing') {
-      updatedItem = {
-        ...updatedItem,
-        history: [
-          ..._.dropRight(item.history),
-          {
-            ...lastHistory,
-            // If we sold via the AH, negate the previous listing fee.
-            cost: saleType === 'ah' ? 0 : lastHistory.cost,
-            // Save the listing end date.
-            endedAt: lastHistory.endedAt || moment().format(),
-          },
-        ],
-      }
-    }
-
-    // Create a "sale" history entry.
-    updatedItem = {
-      ...updatedItem,
-      history: [
-        ...updatedItem.history,
-        {
-          key: uuid(),
-          type: 'sale',
-          saleType,
-          price,
-          // Only add transaction fees if the item was sold on the AH.
-          cost: saleType === 'ah' ? calculateAHTransactionCost(price) : 0,
-          createdAt: moment().format(),
-          endedAt: moment().format(),
-        },
-      ],
-    }
-
-    this.props.onChangeItem(updatedItem)
+  handleSellItem = (item, { price, saleType }) => {
+    this.context.sellItem(item, price, saleType)
   }
 
   handleEndItem = item => {
-    const lastHistory = _.last(item.history)
-    const updatedItem = {
-      ...item,
-      // Update last history item (listing) with an ended date
-      history: [
-        ..._.dropRight(item.history),
-        {
-          ...lastHistory,
-          cost: calculateAHListingCost(item.vendorValue, lastHistory.duration),
-          endedAt: moment().format(),
-        },
-      ],
-    }
-    this.props.onChangeItem(updatedItem)
+    // const lastHistory = _.last(item.history)
+    // const updatedItem = {
+    //   ...item,
+    //   // Update last history item (listing) with an ended date
+    //   history: [
+    //     ..._.dropRight(item.history),
+    //     {
+    //       ...lastHistory,
+    //       cost: calculateAHListingCost(item.vendorValue, lastHistory.duration),
+    //       endedOn: moment().format(),
+    //     },
+    //   ],
+    // }
+    // this.props.onChangeItem(updatedItem)
   }
 
   handleDeleteItem = item => {
-    this.props.onDeleteItem(item)
+    // this.props.onDeleteItem(item)
   }
 
   // Private
@@ -170,21 +132,21 @@ class StockList extends PureComponent {
           return profit || 0
         })
         break
-      case 'createdAt':
+      case 'createdOn':
         sorted = _.sortBy(items, item => {
           const firstHistory = _.first(item.history)
-          return firstHistory.createdAt
-            ? moment(firstHistory.createdAt).format('X')
+          return firstHistory.createdOn
+            ? moment(firstHistory.createdOn).format('X')
             : 0
         })
         break
       // This is the default sort.
-      case 'updatedAt':
+      case 'updatedOn':
       default:
         sorted = _.sortBy(items, item => {
           const lastHistory = _.last(item.history)
-          const updatedAt = lastHistory.endedAt || lastHistory.createdAt
-          return updatedAt ? moment(updatedAt).format('X') : 0
+          const updatedOn = lastHistory.endedOn || lastHistory.createdOn
+          return updatedOn ? moment(updatedOn).format('X') : 0
         })
         break
     }
@@ -249,9 +211,9 @@ class StockList extends PureComponent {
                 />
               ) : null}
             </th>
-            <th onClick={() => this._sort('createdAt')} className="w-15">
+            <th onClick={() => this._sort('createdOn')} className="w-15">
               Created
-              {this.state.sortField === 'createdAt' ? (
+              {this.state.sortField === 'createdOn' ? (
                 <i
                   className={classNames('fas sort-icon', {
                     'fa-sort-up': this.state.sortDirection === 'ASC',
@@ -260,9 +222,9 @@ class StockList extends PureComponent {
                 />
               ) : null}
             </th>
-            <th onClick={() => this._sort('updatedAt')} className="w-15">
+            <th onClick={() => this._sort('updatedOn')} className="w-15">
               Updated
-              {this.state.sortField === 'updatedAt' ? (
+              {this.state.sortField === 'updatedOn' ? (
                 <i
                   className={classNames('fas sort-icon', {
                     'fa-sort-up': this.state.sortDirection === 'ASC',
@@ -279,10 +241,10 @@ class StockList extends PureComponent {
           {items.map(item => {
             return (
               <ItemRow
-                key={item.key}
+                key={item.id}
                 item={item}
                 onList={payload => this.handleListItem(item, payload)}
-                onSold={payload => this.handleSoldItem(item, payload)}
+                onSold={payload => this.handleSellItem(item, payload)}
                 onEnd={() => this.handleEndItem(item)}
                 onDelete={() => this.handleDeleteItem(item)}
               />

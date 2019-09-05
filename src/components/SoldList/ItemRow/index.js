@@ -68,13 +68,13 @@ class ItemRow extends PureComponent {
           <ProfitBadge profit={profit} />
         </td>
         <td>
-          <span title={moment(firstHistory.createdAt).format('D MMM YYYY, h:mm:ss a')}>
-            {moment(firstHistory.createdAt).format('D MMM YYYY')}
+          <span title={moment(firstHistory.createdOn).format('D MMM YYYY, h:mm:ss a')}>
+            {moment(firstHistory.createdOn).format('D MMM YYYY')}
           </span>
         </td>
         <td>
-          <span title={moment(lastHistory.createdAt).format('D MMM YYYY, h:mm:ss a')}>
-            {moment(lastHistory.createdAt).format('D MMM YYYY')}
+          <span title={moment(lastHistory.createdOn).format('D MMM YYYY, h:mm:ss a')}>
+            {moment(lastHistory.createdOn).format('D MMM YYYY')}
           </span>
         </td>
         <td>
