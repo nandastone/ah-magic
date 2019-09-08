@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import moment from 'moment'
+import classNames from 'classnames'
 
 import { calculateListingFinances } from '../../../utils'
 
@@ -83,7 +84,12 @@ class ItemRow extends PureComponent {
       : null
 
     return (
-      <tr className={'c-SaleList__row'} onClick={this.handleClickRow}>
+      <tr
+        className={classNames('c-ForSaleList__row', {
+          'table-primary': isListed,
+        })}
+        onClick={this.handleClickRow}
+      >
         <td>
           <React.Fragment>
             <ItemTitle
