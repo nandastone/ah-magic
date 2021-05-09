@@ -6,7 +6,7 @@
     "autocomplete.js": "^0.29.0",
     "axios": "^0.18.0",
     "classnames": "^2.2.5",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.21",
     "moment": "^2.20.1",
     "pad-left": "^2.1.0",
     "react": "^16.2.0",
